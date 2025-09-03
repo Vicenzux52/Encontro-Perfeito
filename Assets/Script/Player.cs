@@ -19,9 +19,14 @@ public class Player : MonoBehaviour
     public float peakTime = 2f;
     public float jumpCooldown = 0;
     bool isJumping = false;
+    
 
     //Outros
     Rigidbody rb;
+    char returnOperantion;
+    public bool isDelayed = false;
+    public float delayTime = 0;
+    public float delaySpeed = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,10 +41,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && route > 0)
         {
             route--;
+            returnOperantion = '+';
         }
         if (Input.GetKeyDown(KeyCode.D) && route < routeQuantity)
         {
             route++;
+            returnOperantion = '-';
         }
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
@@ -49,10 +56,9 @@ public class Player : MonoBehaviour
 
         SideDash();
 
-        // Reset for testing
-        if (Input.GetKeyDown(KeyCode.R))
+        if (isDelayed)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Delay();
         }
     }
 
@@ -75,12 +81,32 @@ public class Player : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
         transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
     }
+    public void ReturnDash()
+    {
+        if (returnOperantion == '+')
+        {
+            route++;
+        }
+        else if (returnOperantion == '-')
+        {
+            route--;
+        }
+    }
 
     void Jump()
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, peakTime * CalculateGravity(), rb.linearVelocity.z);
     }
-    
+
+    public void Delay()
+    {
+        delayTime -= Time.deltaTime;
+        if (delayTime <= 0)
+        {
+            isDelayed = false;
+        }
+    }
+
     float CalculateGravity()
     {
         return 2 * peakHeight / (peakTime * peakTime);
