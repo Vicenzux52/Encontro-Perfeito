@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Quantidade de Rotas")]
     public float routeDistance = 1f;
-    public int routeQuantity = 2;
+    int routeQuantity = 1;
     int route = 0;
 
     [Header("Movimento lateral")]
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && route > 0)
+        if (Input.GetKeyDown(KeyCode.A) && route > -routeQuantity)
         {
             route--;
             returnOperantion = '+';
