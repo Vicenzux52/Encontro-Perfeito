@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [Header("Quantidade de Rotas")]
     public float routeDistance = 1f;
     int routeQuantity = 1;
-    int route = 0;
+    [HideInInspector] public int route = 0;
 
     [Header("Movimento lateral")]
     public float frontSpeed = 0.1f;
@@ -18,15 +18,25 @@ public class Player : MonoBehaviour
     public float peakHeight = 5f;
     public float peakTime = 2f;
     public float jumpCooldown = 0;
-    bool isJumping = false;
+    public bool isJumping = false;
     
+    [Header("FrontSlip")]
+    bool onFrontSlip = false;
+    public float frontSlipDistance = 1.5f;
+    public float frontSlipInitial = 0;
+    public float others = 1f;
 
-    //Outros
-    Rigidbody rb;
-    char returnOperantion;
+    [Header("Delay")]
     public bool isDelayed = false;
     public float delayTime = 0;
     public float delaySpeed = 0.5f;
+
+    //Outros
+    Rigidbody rb;
+    char returnOperation;
+    float dSTemp;
+    float dTTemp;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,12 +51,12 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && route > -routeQuantity)
         {
             route--;
-            returnOperantion = '+';
+            returnOperation = '+';
         }
         if (Input.GetKeyDown(KeyCode.D) && route < routeQuantity)
         {
             route++;
-            returnOperantion = '-';
+            returnOperation = '-';
         }
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
@@ -56,15 +66,20 @@ public class Player : MonoBehaviour
 
         SideDash();
 
+        if (onFrontSlip)
+        {
+            FrontSlip();
+        }
         if (isDelayed)
         {
             Delay();
         }
+
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(Vector3.down * CalculateGravity(), ForceMode.Acceleration);
+        rb.AddForce(Vector3.down * CalculateGravity() * others, ForceMode.Acceleration);
         if (isJumping)
         {
             jumpCooldown += Time.deltaTime;
@@ -83,14 +98,36 @@ public class Player : MonoBehaviour
     }
     public void ReturnDash()
     {
-        if (returnOperantion == '+')
+        if (returnOperation == '+')
         {
             route++;
         }
-        else if (returnOperantion == '-')
+        else if (returnOperation == '-')
         {
             route--;
         }
+    }
+
+    public void FrontSlip(float dT, float dS)
+    {
+        dTTemp = dT;
+        dSTemp = dS;
+        onFrontSlip = true;
+        frontSlipInitial = transform.position.z;
+        others = 1.5f;      
+    }
+
+    public void FrontSlip()
+    {
+        if (transform.position.z - frontSlipInitial > frontSlipDistance)
+        {
+            Debug.Log("Front slip ended and slowed down");
+            onFrontSlip = false;
+            others = 1f;
+            delayTime = dTTemp;
+            delaySpeed = dSTemp;
+            isDelayed = true;
+        }       
     }
 
     void Jump()

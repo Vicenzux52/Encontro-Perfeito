@@ -21,11 +21,11 @@ public class GameController : MonoBehaviour
     {
         if (!player.GetComponent<Player>().isDelayed)
         {
-            transform.position += new Vector3(0, 0, player.GetComponent<Player>().frontSpeed * Time.deltaTime);
+            transform.position += new Vector3(0, 0, player.GetComponent<Player>().frontSpeed * Time.deltaTime * player.GetComponent<Player>().others);
         }
         else
         {
-            transform.position += new Vector3(0, 0, player.GetComponent<Player>().frontSpeed * Time.deltaTime * player.GetComponent<Player>().delaySpeed);
+            transform.position += new Vector3(0, 0, player.GetComponent<Player>().frontSpeed * Time.deltaTime * player.GetComponent<Player>().delaySpeed * player.GetComponent<Player>().others);
         }
     }
 }
