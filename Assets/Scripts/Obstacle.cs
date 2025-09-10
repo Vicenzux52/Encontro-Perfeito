@@ -63,11 +63,24 @@ public class Obstacle : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             float playerHeightRadius = collision.gameObject.GetComponent<Collider>().bounds.size.y / 2;
-            if (collision.transform.position.y + playerHeightRadius > transform.position.y + heightRadius)
+            if (collision.transform.position.y - playerHeightRadius > transform.position.y + heightRadius*0.15f)
             {
                 // Allow the player to stay on top of the obstacle
                 collision.gameObject.GetComponent<Player>().isJumping = false;
                 collision.gameObject.GetComponent<Player>().jumpCooldown = 0;
+            }
+            else if (Mathf.Abs(collision.transform.position.x - transform.position.x) >= widthRadius / 2)
+            {
+                // Return the player dash
+                collision.gameObject.GetComponent<Player>().delayTime = delayTime;
+                collision.gameObject.GetComponent<Player>().delaySpeed = delaySpeed;
+                collision.gameObject.GetComponent<Player>().isDelayed = true;
+                // if de quando não se deve retornar o dash
+                collision.gameObject.GetComponent<Player>().ReturnDash();
+            }
+            else
+            {
+                UIController.GameOver();
             }
         }
     }
