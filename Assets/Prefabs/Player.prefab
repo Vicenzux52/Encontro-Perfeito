@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 1.3, y: 1.5, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -151,10 +151,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c25754b17321a4882ff880eb62488a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  routeDistance: 1
-  routeQuantity: 2
-  frontSpeed: 5
+  routeDistance: 2
+  route: 0
+  frontSpeed: 10
   lateralSpeed: 10
   peakHeight: 2
-  peakTime: 0.4
+  peakTime: 0.45
   jumpCooldown: 0
+  isJumping: 0
+  frontSlipDistance: 0.7
+  frontSlipInitial: 0
+  others: 1
+  isDelayed: 0
+  delayTime: 0
+  delaySpeed: 0.5
+  slideAngle: 75
+  slideSpeed: 5
+  slideTime: 1
+  slideShakeForce: 3
+  slideShakeSpeed: 100

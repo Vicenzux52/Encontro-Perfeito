@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    [Header("Quantidade de Rotas")]
+    [Header("Rotas")]
     public float routeDistance = 1f;
     int routeQuantity = 1;
     [HideInInspector] public int route = 0;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float jumpCooldown = 0;
     public bool isJumping = false;
     
-    [Header("FrontSlip")]
+    [Header("Tropeço")]
     bool onFrontSlip = false;
     public float frontSlipDistance = 1.5f;
     public float frontSlipInitial = 0;
@@ -30,6 +30,18 @@ public class Player : MonoBehaviour
     public bool isDelayed = false;
     public float delayTime = 0;
     public float delaySpeed = 0.5f;
+
+    [Header("Slide")]
+    bool isSliding = false;
+    bool returnSlide = false;
+    public float slideAngle = 75f;
+    public float slideSpeed = 5f;
+    public float slideTime = 1f;
+    float slideTimer = 0f;
+    public float slideShakeForce = 3f;
+    public float slideShakeSpeed = 100f;
+    public float screenShakeForce = 1f;
+    [HideInInspector] public bool screenShake = false;
 
     //Outros
     Rigidbody rb;
@@ -62,6 +74,15 @@ public class Player : MonoBehaviour
         {
             Jump();
             isJumping = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) && !isSliding)
+        {
+            isSliding = true;
+        }
+        if (isSliding)
+        {
+            Slide();
         }
 
         SideDash();
@@ -141,6 +162,36 @@ public class Player : MonoBehaviour
         if (delayTime <= 0)
         {
             isDelayed = false;
+        }
+    }
+
+    void Slide()
+    {
+        if (!returnSlide)
+        {
+            if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
+            if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 359 - slideAngle) || slideTimer != 0f)
+            {
+                screenShake = true;
+                slideTimer += Time.deltaTime;
+                if (slideTimer > slideTime)
+                {
+                    slideTimer = 0f;
+                    returnSlide = true;
+                    screenShake = false;
+                }
+                transform.localRotation = Quaternion.Euler(new Vector3(-75 + Mathf.Sin(Time.time * slideShakeSpeed) * slideShakeForce, 0, 0));
+            }
+        }
+        if (returnSlide)
+        {
+            transform.RotateAround(transform.position, Vector3.right, slideAngle * 0.75f * slideSpeed * Time.deltaTime);
+            if (transform.eulerAngles.x > 0 && transform.eulerAngles.x < 5)
+            {
+                returnSlide = false;
+                isSliding = false;
+                transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+            }
         }
     }
 

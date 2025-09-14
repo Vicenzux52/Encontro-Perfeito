@@ -4,7 +4,6 @@ public class GameController : MonoBehaviour
 {
     public GameController THIS;
     GameObject player;
-    static public float Timer = 180;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,6 +14,8 @@ public class GameController : MonoBehaviour
     void Update()
     {
         FrontalMovement();
+        if (player.GetComponent<Player>().screenShake) Camera.main.GetComponent<CameraEffects>().ScreenShake(player.GetComponent<Player>().screenShakeForce);
+        else Camera.main.GetComponent<CameraEffects>().ResetPosition();
     }
 
     void FrontalMovement()
