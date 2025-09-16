@@ -43,6 +43,12 @@ public class Player : MonoBehaviour
     public float screenShakeForce = 1f;
     [HideInInspector] public bool screenShake = false;
 
+    [Header("KeyCodes")]
+    KeyCode[] leftKeys = { KeyCode.LeftArrow, KeyCode.A };
+    KeyCode[] rightKeys = { KeyCode.RightArrow, KeyCode.D };
+    KeyCode[] jumpKeys = { KeyCode.UpArrow, KeyCode.W, KeyCode.Space };
+    KeyCode[] downKeys = { KeyCode.DownArrow, KeyCode.S };
+
     //Outros
     Rigidbody rb;
     char returnOperation;
@@ -60,23 +66,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && route > -routeQuantity)
+        if (leftKeys.Any(Input.GetKeyDown) && route > -routeQuantity)
         {
             route--;
             returnOperation = '+';
         }
-        if (Input.GetKeyDown(KeyCode.D) && route < routeQuantity)
+        if (rightKeys.Any(Input.GetKeyDown) && route < routeQuantity)
         {
             route++;
             returnOperation = '-';
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+        if (jumpKeys.Any(Input.GetKeyDown) && !isJumping)
         {
             Jump();
             isJumping = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && !isSliding)
+        if (downKeys.Any(Input.GetKeyDown) && !isSliding)
         {
             isSliding = true;
         }
