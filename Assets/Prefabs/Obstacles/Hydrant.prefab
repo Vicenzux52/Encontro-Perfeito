@@ -172,6 +172,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8756980261867555199}
     m_Modifications:
+    - target: {fileID: 370716764312839202, guid: dab5cbda000ff8541bf12394d4501bbc, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8104935447460660131, guid: dab5cbda000ff8541bf12394d4501bbc, type: 3}
       propertyPath: m_Name
       value: TopCollider

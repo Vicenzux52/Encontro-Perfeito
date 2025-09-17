@@ -48,13 +48,20 @@ public class Player : MonoBehaviour
     char returnOperation;
     float dSTemp;
     float dTTemp;
-    
+
+    AudioSource audioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -64,11 +71,19 @@ public class Player : MonoBehaviour
         {
             route--;
             returnOperation = '+';
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
         if (Input.GetKeyDown(KeyCode.D) && route < routeQuantity)
         {
             route++;
             returnOperation = '-';
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {

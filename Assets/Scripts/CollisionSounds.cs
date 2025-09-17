@@ -3,6 +3,7 @@ using UnityEngine;
 public class CollisionSounds : MonoBehaviour
 {
     private AudioSource audioSource;
+    
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -17,9 +18,12 @@ public class CollisionSounds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Colisão detectada");
+
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
+                Debug.Log("Som tocando");
             }
         }
     }
