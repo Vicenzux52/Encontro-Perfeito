@@ -70,7 +70,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8104935447460660131, guid: dab5cbda000ff8541bf12394d4501bbc, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 5207763609224051355}
+      addedObject: {fileID: -5117102228818231830}
     - targetCorrespondingSourceObject: {fileID: 8104935447460660131, guid: dab5cbda000ff8541bf12394d4501bbc, type: 3}
       insertIndex: -1
       addedObject: {fileID: -4742514109605335752}
@@ -80,7 +80,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8104935447460660131, guid: dab5cbda000ff8541bf12394d4501bbc, type: 3}
   m_PrefabInstance: {fileID: 5710004878104504868}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5207763609224051355
+--- !u!114 &-5117102228818231830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,9 +89,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4558910516998171015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2bdfa189022ea847aa22b6dc9ffc910, type: 3}
+  m_Script: {fileID: 11500000, guid: 9556819bc80b7194082838fdedb7e3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayTime: 1
+  delaySpeed: 0.5
+  canStayOnTop: 0
 --- !u!82 &-4742514109605335752
 AudioSource:
   m_ObjectHideFlags: 0
