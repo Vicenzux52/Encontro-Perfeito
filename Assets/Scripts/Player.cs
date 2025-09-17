@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class Player : MonoBehaviour
     int routeQuantity = 1;
     [HideInInspector] public int route = 0;
 
-    [Header("Movimento lateral")]
+    [Header("Movimentação")]
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
 
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
     public float peakTime = 2f;
     public float jumpCooldown = 0;
     public bool isJumping = false;
-    
+
     [Header("Tropeço")]
     bool onFrontSlip = false;
     public float frontSlipDistance = 1.5f;
@@ -106,6 +107,8 @@ public class Player : MonoBehaviour
             Slide();
         }
 
+        FrontalMovement();
+
         SideDash();
 
         if (onFrontSlip)
@@ -133,6 +136,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    void FrontalMovement()
+    {
+        if (isDelayed)
+        {
+            transform.position += new Vector3(0, 0, frontSpeed * Time.deltaTime * others);
+        }
+        else
+        {
+            transform.position += new Vector3(0, 0, frontSpeed * Time.deltaTime * delaySpeed * others);
+        }
+    }
+
     void SideDash()
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
@@ -156,7 +171,7 @@ public class Player : MonoBehaviour
         dSTemp = dS;
         onFrontSlip = true;
         frontSlipInitial = transform.position.z;
-        others = 1.5f;      
+        others = 1.5f;
     }
 
     public void FrontSlip()
@@ -169,7 +184,7 @@ public class Player : MonoBehaviour
             delayTime = dTTemp;
             delaySpeed = dSTemp;
             isDelayed = true;
-        }       
+        }
     }
 
     void Jump()
@@ -219,5 +234,28 @@ public class Player : MonoBehaviour
     float CalculateGravity()
     {
         return 2 * peakHeight / (peakTime * peakTime);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle"))
+        {
+            if (other.name == "FrontCollider")
+            {
+                rb.AddForce(Vector3.back * other.GetComponent<Obstacle>().delaySpeed, ForceMode.Impulse);
+            }
+            else if (other.name == "SideCollider")
+            {
+                ReturnDash();
+            }
+            else if (other.name == "TopCollider")
+            {
+                FrontSlip(other.GetComponent<Obstacle>().delayTime, other.GetComponent<Obstacle>().delaySpeed);
+            }
+            else
+            {
+                Debug.Log("Steppable obstacle");
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ TagManager:
   - PauseUI
   - GameOverUI
   - WinUI
-  - Collectible
+  - Obstacle
   layers:
   - Default
   - TransparentFX
