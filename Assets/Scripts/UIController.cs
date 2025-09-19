@@ -77,8 +77,8 @@ public class UIController : MonoBehaviour
 
     public static void Restart()
     {
-        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
 

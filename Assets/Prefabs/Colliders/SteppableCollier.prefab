@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SteppableCollier
       objectReference: {fileID: 0}
+    - target: {fileID: 8104935447460660131, guid: dab5cbda000ff8541bf12394d4501bbc, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 8307458872310278951, guid: dab5cbda000ff8541bf12394d4501bbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.157
