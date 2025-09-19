@@ -8,6 +8,7 @@ TagManager:
   - PauseUI
   - GameOverUI
   - WinUI
+  - Collider
   layers:
   - Default
   - TransparentFX
