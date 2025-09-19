@@ -18,12 +18,12 @@ public class CollisionSounds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Colisão detectada");
+            //Debug.Log("Colisão detectada");
 
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
-                Debug.Log("Som tocando");
+                //Debug.Log("Som tocando");
             }
         }
     }
