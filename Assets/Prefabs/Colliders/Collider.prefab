@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -4457570316317989346}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Collider
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 1
   delaySpeed: 0.5
-  canStayOnTop: 0
+  delayForce: 10
 --- !u!114 &-3842940621691968485
 MonoBehaviour:
   m_ObjectHideFlags: 0

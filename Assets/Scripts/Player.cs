@@ -166,7 +166,11 @@ public class Player : MonoBehaviour
         {
             ContactPoint contact = collision.contacts[0];
             Vector3 normal = contact.normal;
-            if (Vector3.Dot(transform.forward, -normal) > 0.7f)
+            if (isSliding)
+            {
+                rb.linearVelocity = -orientation.forward * delayForce;
+            }
+            else if (Vector3.Dot(transform.forward, -normal) > 0.7f)
             {
                 rb.linearVelocity = -orientation.forward * delayForce;
             }
@@ -175,6 +179,10 @@ public class Player : MonoBehaviour
                 if (transform.position.x < collision.transform.position.x) route--;
                 else route++;
             }
+        }
+        if (CompareTag ("Key")) 
+        {
+            Destroy(collision.gameObject);
         }
     }
 }
