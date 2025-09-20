@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     [Header("Movimento")]
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
+    public float limitSpeed = 100;
 
     [Header("Pulos")]
     public float peakHeight = 5f;
@@ -22,9 +24,7 @@ public class Player : MonoBehaviour
     public bool isJumping = false;
 
     [Header("Delay")]
-    public bool isDelayed = false;
-    public float delayTime = 0;
-    public float delaySpeed = 0.5f;
+    public float delayForce = 30f;
 
     [Header("Slide")]
     bool isSliding = false;
@@ -38,23 +38,26 @@ public class Player : MonoBehaviour
 
     //Outros
     Rigidbody rb;
+    Transform orientation;
 
     AudioSource audioSource;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+        for (int i = 0; i < transform.childCount; i++)
+            if (transform.GetChild(i).name == "Orientation") orientation = transform.GetChild(i);
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A) && route > -routeQuantity)
@@ -90,17 +93,11 @@ public class Player : MonoBehaviour
 
         FrontalMovement();
         SideDash();
-
-        if (isDelayed)
-        {
-            Delay();
-        }
-
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(Vector3.down * CalculateGravity(), ForceMode.Acceleration);
+        rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
         if (isJumping)
         {
             jumpCooldown += Time.deltaTime;
@@ -114,14 +111,8 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
-        if (!isDelayed)
-        {
-            transform.position += new Vector3(0, 0, frontSpeed * Time.deltaTime);
-        }
-        else
-        {
-            transform.position += new Vector3(0, 0, delaySpeed * Time.deltaTime);
-        }
+        rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
+        if (rb.linearVelocity.z > limitSpeed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
     }
 
     void SideDash()
@@ -164,15 +155,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Delay()
-    {
-        delayTime -= Time.deltaTime;
-        if (delayTime <= 0)
-        {
-            isDelayed = false;
-        }
-    }
-
     float CalculateGravity()
     {
         return 2 * peakHeight / (peakTime * peakTime);
@@ -186,8 +168,7 @@ public class Player : MonoBehaviour
             Vector3 normal = contact.normal;
             if (Vector3.Dot(transform.forward, -normal) > 0.7f)
             {
-
-                Debug.Log("joga pra trás");
+                rb.linearVelocity = -orientation.forward * delayForce;
             }
             else if (Vector3.Dot(transform.forward, -normal) < 0.3f)
             {
