@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Obstacles/DoubleTrash.prefab.meta
 guid: f0a54a1fd9207ef4abe6e2dd5d96ef38
+========
+guid: 1595aea40d3b6fc48acc417e2016473b
+>>>>>>>> mergeTest:Assets/Prefabs/Collectibles/Collectible.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
