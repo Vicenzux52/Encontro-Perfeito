@@ -78,6 +78,11 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            
             Jump();
             isJumping = true;
         }
