@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
     public float limitSpeed = 100;
+    bool onMaxSpeed = false;
 
     [Header("Pulos")]
     public float peakHeight = 5f;
@@ -35,6 +36,13 @@ public class Player : MonoBehaviour
     float slideTimer = 0f;
     public float slideShakeForce = 3f;
     public float slideShakeSpeed = 100f;
+
+    [Header("Hit")]
+    public Material hitMaterial;
+    private Material originalMaterial;
+    private Renderer rend;
+    public float hitDuration = 3f;
+    private bool isHit = false;
 
     //Outros
     Rigidbody rb;
@@ -56,6 +64,9 @@ public class Player : MonoBehaviour
         }
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+
+        rend = GetComponent<Renderer>();
+        originalMaterial = rend.material;
     }
 
     void Update()
@@ -78,6 +89,11 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+
             Jump();
             isJumping = true;
         }
@@ -111,8 +127,13 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
-        rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
-        if (rb.linearVelocity.z > limitSpeed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
+        else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+        if (rb.linearVelocity.z > limitSpeed) 
+        {
+            rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+            onMaxSpeed = true;
+        }
     }
 
     void SideDash()
@@ -179,10 +200,25 @@ public class Player : MonoBehaviour
                 if (transform.position.x < collision.transform.position.x) route--;
                 else route++;
             }
+
+            if (!isHit)
+            {
+                StartCoroutine(FlashMaterial());
+            }
+
         }
-        if (CompareTag ("Key")) 
+        if (CompareTag("Key"))
         {
             Destroy(collision.gameObject);
         }
+    }
+
+    private System.Collections.IEnumerator FlashMaterial()
+    {
+        isHit = true;
+        rend.material = hitMaterial;
+        yield return new WaitForSeconds(hitDuration);
+        rend.material = originalMaterial;
+        isHit = false;
     }
 }
