@@ -103,7 +103,7 @@ public class UIController : MonoBehaviour
         collectibleImages[index] = collectibleImage;
     }
 
-    public static void collect(int index)
+    public static void Collect(int index)
     {
         collectibleCollected[index] = true;
     }

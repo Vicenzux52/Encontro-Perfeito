@@ -13,8 +13,8 @@ public class CollectibleInfo : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void OnDestroy()
     {
-        
+        UIController.Collect(index);
     }
 }
