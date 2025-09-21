@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6380890694893429385}
   - component: {fileID: 8406964413162304044}
   - component: {fileID: 8178654672879501903}
-  - component: {fileID: 1546249228652170606}
+  - component: {fileID: 4747008019389673873}
   m_Layer: 0
   m_Name: Collectible
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -73,7 +73,7 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &1546249228652170606
+--- !u!114 &4747008019389673873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,12 +82,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2731523792246912202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd3bcf74baf23c4cb8a8385b758935f, type: 3}
+  m_Script: {fileID: 11500000, guid: a33ac411be9a5564a83cf16108a2206c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 15
-  verticalAmplitude: 2
-  verticalSpeed: 1
+  index: 0
 --- !u!1 &5660919820082782311
 GameObject:
   m_ObjectHideFlags: 0

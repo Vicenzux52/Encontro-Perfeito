@@ -17,7 +17,6 @@ public class CollectibleEffect : MonoBehaviour
     void Update()
     {
         timeVariation = Mathf.Abs(Mathf.Sin(Time.time * 1.5f)) * 0.45f + 0.55f;
-        Debug.Log(timeVariation);
         transform.Rotate(Vector3.up, rotationSpeed/10 * timeVariation);
         transform.position = originalPos + Vector3.up * verticalAmplitude/100 * Mathf.Sin(Time.time * verticalSpeed);
     }

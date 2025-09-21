@@ -222,9 +222,12 @@ public class Player : MonoBehaviour
             }
 
         }
-        if (CompareTag("Key"))
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Key"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
     }
 
