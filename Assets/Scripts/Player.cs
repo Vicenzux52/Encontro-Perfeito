@@ -36,13 +36,6 @@ public class Player : MonoBehaviour
     public float slideShakeForce = 3f;
     public float slideShakeSpeed = 100f;
 
-    [Header("Hit")]
-    public Material hitMaterial;
-    private Material originalMaterial;
-    private Renderer rend;
-    public float hitDuration = 3f;
-    private bool isHit = false;
-
     //Outros
     Rigidbody rb;
     Transform orientation;
@@ -63,9 +56,6 @@ public class Player : MonoBehaviour
         }
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-
-        rend = GetComponent<Renderer>();
-        originalMaterial = rend.material;
     }
 
     void Update()
@@ -92,7 +82,7 @@ public class Player : MonoBehaviour
             {
                 audioSource.Play();
             }
-
+            
             Jump();
             isJumping = true;
         }
@@ -194,25 +184,10 @@ public class Player : MonoBehaviour
                 if (transform.position.x < collision.transform.position.x) route--;
                 else route++;
             }
-
-            if (!isHit)
-            {
-                StartCoroutine(FlashMaterial());
-            }
-
         }
-        if (CompareTag("Key"))
+        if (CompareTag ("Key")) 
         {
             Destroy(collision.gameObject);
         }
-    }
-
-    private System.Collections.IEnumerator FlashMaterial()
-    {
-        isHit = true;
-        rend.material = hitMaterial;
-        yield return new WaitForSeconds(hitDuration);
-        rend.material = originalMaterial;
-        isHit = false;
     }
 }
