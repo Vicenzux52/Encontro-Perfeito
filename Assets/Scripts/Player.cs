@@ -54,6 +54,12 @@ public class Player : MonoBehaviour
 
     AudioSource audioSource;
 
+    //Mobile
+    private Vector2 startTouch;
+    private float lastTapTime = 0f;
+    private int tapCount = 0;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -75,37 +81,47 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
+        if (Input.touchCount == 1)
         {
-            route--;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DetectSwipes();
         }
-        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
+        else 
         {
-            route++;
-            if (!audioSource.isPlaying)
+            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
             {
-                audioSource.Play();
-            }
-        }
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
-        {
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
+                route--;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
             }
 
-            Jump();
-            isJumping = true;
+            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
+            {
+                route++;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
+
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+
+                Jump();
+                isJumping = true;
+            }
+
+            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding)
+            {
+                isSliding = true;
+            }
         }
 
-        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding)
-        {
-            isSliding = true;
-        }
         if (isSliding)
         {
             Slide();
@@ -238,5 +254,73 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
         rend.material = originalMaterial;
         isHit = false;
+    }
+
+    void DetectSwipes()
+    {
+        Touch t = Input.GetTouch(0);
+
+        if (t.phase == TouchPhase.Began)
+        {
+            startTouch = t.position;
+        }
+        else if (t.phase == TouchPhase.Ended)
+        {
+            Vector2 delta = t.position - startTouch;
+
+            if (delta.magnitude > 100)
+            {
+                if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+                {
+                    if (delta.x > 0)
+                    {
+                        Debug.Log("Swipe Right");
+
+                        route++;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                    }
+                    else
+                    {
+                        Debug.Log("Swipe Left");
+
+                        route--;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+                    }
+                }
+                else
+                {
+                    if (delta.y > 0)
+                    {
+                        Debug.Log("Swipe Up");
+
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                        Jump();
+                        isJumping = true;
+                    }
+                    else
+                    {
+                        Debug.Log("Swipe Down");
+
+                        isSliding = true;
+                    }
+                }
+            }
+        }
+
+        //if (Input.touchCount == 1)
+        //{
+
+        //}
     }
 }
