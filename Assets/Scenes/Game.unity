@@ -6929,6 +6929,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cb117dcb83ea6d469e51251476ed48f, type: 3}
+--- !u!1 &816152650 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7942164461054123148, guid: e56997a609c651d489b2933cae8cf6a1, type: 3}
+  m_PrefabInstance: {fileID: 7085594868324909205}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &819006184 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 34a128a45a50301429c4e9cc3b91b1f8, type: 3}
@@ -15802,6 +15807,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7310447014933464630, guid: e56997a609c651d489b2933cae8cf6a1, type: 3}
   m_PrefabInstance: {fileID: 7085594868324909205}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1902535429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816152650}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1286283, y: 1.6329336, z: 1.506159}
+  m_Center: {x: -0.005377769, y: 0.60247064, z: -0.19414239}
 --- !u!4 &1902847180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: caa7f74dd2f36b7498360856fb15ac9a, type: 3}
@@ -17733,6 +17759,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 146700928}
     m_Modifications:
+    - target: {fileID: 1249470434955876753, guid: 1a526326679880a42bab1659047e63c7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5007635451668081266, guid: 1a526326679880a42bab1659047e63c7, type: 3}
       propertyPath: m_Name
       value: TamagotchiPowerUp
@@ -17795,6 +17825,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1824281577}
     m_Modifications:
+    - target: {fileID: 551834612854515709, guid: a26da4452136a78479cde1c5bea13272, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8534405743766940294, guid: a26da4452136a78479cde1c5bea13272, type: 3}
       propertyPath: m_Name
       value: Carta
@@ -17864,6 +17898,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 146700928}
     m_Modifications:
+    - target: {fileID: -5863778575690864499, guid: 19e374fa7732b9042a666e87e4b148ce, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8437875522034329694, guid: 19e374fa7732b9042a666e87e4b148ce, type: 3}
       propertyPath: m_Name
       value: Belt
@@ -18035,6 +18073,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChocolateBox
       objectReference: {fileID: 0}
+    - target: {fileID: 4390574599789129676, guid: 5c999adcf68021d4c85bef5302a5e3e4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18048,6 +18090,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 146700928}
     m_Modifications:
+    - target: {fileID: -3554001867065436926, guid: b20b1f7d6b4ec864e9153035413213e0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2696171048101827598, guid: b20b1f7d6b4ec864e9153035413213e0, type: 3}
       propertyPath: m_Name
       value: HairClipPowerUp
@@ -18157,7 +18203,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7942164461054123148, guid: e56997a609c651d489b2933cae8cf6a1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1902535429}
   m_SourcePrefab: {fileID: 100100000, guid: e56997a609c651d489b2933cae8cf6a1, type: 3}
 --- !u!1001 &7976756247664898005
 PrefabInstance:
@@ -18167,6 +18216,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 146700928}
     m_Modifications:
+    - target: {fileID: -4945235344179996226, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.447178
