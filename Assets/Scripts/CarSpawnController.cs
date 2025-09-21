@@ -7,7 +7,6 @@ public class CarSpawnerController : MonoBehaviour
     public float timer, speed, time;
     public List<GameObject> carInstantiateL;
     public Transform carDestroyer;
-    public int i;
 
     void Start()
     {
