@@ -1,15 +1,18 @@
 using System.Threading;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
     static public UIController THIS;
+    static bool[] collectibleCheck = new bool[3];
+    static bool[] collectibleCollected = new bool[3];
+    static Image[] collectibleImages = new Image[3];
     static public GameObject inGameUI;
     static public GameObject pauseUI;
     static public GameObject gameOverUI;
     static public GameObject winUI;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         THIS = this;
@@ -23,9 +26,8 @@ public class UIController : MonoBehaviour
         winUI.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
-    {        
+    {
         if (Input.GetKeyDown(KeyCode.Escape) && !gameOverUI.activeSelf && !winUI.activeSelf)
         {
             if (pauseUI.activeSelf)
@@ -38,7 +40,7 @@ public class UIController : MonoBehaviour
             }
         }
     }
-    
+
     public static void GameOver()
     {
         Time.timeScale = 0;
@@ -81,7 +83,6 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
     }
 
-
     GameObject OnlyOneTaggedObject(string tag)
     {
         if (GameObject.FindGameObjectsWithTag(tag).Length > 1)
@@ -94,4 +95,17 @@ public class UIController : MonoBehaviour
             return GameObject.FindGameObjectWithTag(tag);
         }
     }
+
+    public static void RegisterCollectible(int index, Image collectibleImage)
+    {
+        if (collectibleCheck[index] == false) collectibleCollected[index] = true;
+        else Debug.LogError("Obstaculo com index repetido");
+        collectibleImages[index] = collectibleImage;
+    }
+
+    public static void collect(int index)
+    {
+        collectibleCollected[index] = true;
+    }
+
 }
