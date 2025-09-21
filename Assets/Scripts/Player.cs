@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && route > -routeQuantity)
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
         {
             route--;
             if (!audioSource.isPlaying)
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
                 audioSource.Play();
             }
         }
-        if (Input.GetKeyDown(KeyCode.D) && route < routeQuantity)
+        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
         {
             route++;
             if (!audioSource.isPlaying)
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
                 audioSource.Play();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
         {
             if (!audioSource.isPlaying)
             {
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
             isJumping = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && !isSliding)
+        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding)
         {
             isSliding = true;
         }
