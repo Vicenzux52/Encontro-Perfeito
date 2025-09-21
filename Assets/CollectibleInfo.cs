@@ -4,8 +4,8 @@ using UnityEngine;
 public class CollectibleInfo : MonoBehaviour
 {
     public int index;
-    public Sprite collectibleImage;
-    public Sprite collectibleSilhouetteImage;
+    // public Sprite collectibleImage;
+    // public Sprite collectibleSilhouetteImage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

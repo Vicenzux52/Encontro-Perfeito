@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     static public UIController THIS;
-    static bool[] collectibleCheck = new bool[3];
-    static bool[] collectibleCollected = new bool[3];
-    public Sprite[] collectibleImages = new Sprite[3];
-    public Sprite[] collectibleSilhouetteImages = new Sprite[3];
-    public GameObject[] collectibleObjects;
+    //static bool[] collectibleCheck = new bool[3];
+    public static bool[] collectibleCollected = new bool[3];
+    //public Sprite[] collectibleImages = new Sprite[3];
+    //public Sprite[] collectibleSilhouetteImages = new Sprite[3];
+    //public GameObject[] collectibleObjects;
     static public GameObject inGameUI;
     static public GameObject pauseUI;
     static public GameObject gameOverUI;
@@ -26,16 +26,11 @@ public class UIController : MonoBehaviour
         pauseUI.SetActive(false);
         gameOverUI.SetActive(false);
         winUI.SetActive(false);
-        if (collectibleObjects.Length != 3) Debug.LogError("coletaveis na hud insuficientes");
+        //if (collectibleObjects.Length != 3) Debug.LogError("coletaveis na hud insuficientes");
     }
 
     void Update()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            if (collectibleCheck[i]) collectibleObjects[i].GetComponent<Image>().sprite = collectibleImages[0];
-            else collectibleObjects[i].GetComponent<Image>().sprite = collectibleSilhouetteImages[0];
-        }
         if (Input.GetKeyDown(KeyCode.Escape) && !gameOverUI.activeSelf && !winUI.activeSelf)
         {
             if (pauseUI.activeSelf)
@@ -48,9 +43,14 @@ public class UIController : MonoBehaviour
             }
         }
 
-        /*for (int i = 0; i < 3; i++)
+        /*for (int i = 0; i <= 3; i++)
         {
-            if (collectibleCollected[i]) collectibleObjects[i].GetComponent<Image>().sprite = collectibleImages[0];
+            Debug.Log(i);
+            if (collectibleCollected[i])
+            {
+                Debug.Log("detectei");
+                collectibleObjects[i].GetComponent<Image>().sprite = collectibleImages[i];
+            }
         }*/
     }
 
@@ -120,7 +120,7 @@ public class UIController : MonoBehaviour
     public static void Collect(int index)
     {
         collectibleCollected[index] = true;
-        Debug.Log("Check: " + collectibleCheck[0] + ", " + collectibleCheck[1] + ", " + collectibleCheck[2]);
+        //Debug.Log("Check: " + collectibleCheck[0] + ", " + collectibleCheck[1] + ", " + collectibleCheck[2]);
         Debug.Log("Collected: " + collectibleCollected[0] + ", " + collectibleCollected[1] + ", " + collectibleCollected[2]);
     }
 }
