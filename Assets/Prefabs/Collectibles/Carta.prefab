@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Carta
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21b63f8a2004c3544bf5aac98a38a773, type: 3}
+      propertyPath: m_TagString
+      value: Key
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -78,6 +82,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 21b63f8a2004c3544bf5aac98a38a773, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7650200228404129588}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 21b63f8a2004c3544bf5aac98a38a773, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1681919804574672443}
   m_SourcePrefab: {fileID: 100100000, guid: 21b63f8a2004c3544bf5aac98a38a773, type: 3}
 --- !u!1 &8534405743766940294 stripped
 GameObject:
@@ -120,3 +127,16 @@ MonoBehaviour:
   rotationSpeed: 15
   verticalAmplitude: 2
   verticalSpeed: 1
+--- !u!114 &1681919804574672443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534405743766940294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a33ac411be9a5564a83cf16108a2206c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 1
