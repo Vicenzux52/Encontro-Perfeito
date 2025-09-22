@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
         }
         collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
 
+
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
 
         rend = GetComponent<Renderer>();

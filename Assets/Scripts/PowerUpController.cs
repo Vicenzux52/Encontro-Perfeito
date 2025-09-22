@@ -4,14 +4,14 @@ public class PowerUpController : MonoBehaviour
 {
     public Timer timer;
     public float extraTime;
-    AudioSource audioSource;
+    AudioSource powerupSound;
 
     public void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
+        powerupSound = transform.Find("PowerUpAudio").GetComponent<AudioSource>();
+        if (powerupSound == null)
         {
-            audioSource = gameObject.AddComponent<AudioSource>();
+            powerupSound = gameObject.AddComponent<AudioSource>();
         }
         //timer = GetComponent<Timer>();
     }
@@ -20,7 +20,7 @@ public class PowerUpController : MonoBehaviour
         if (other.gameObject.CompareTag("ClockPowerUp"))
         {
             timer.timeLeft += extraTime;
-            audioSource.Play();
+            powerupSound.Play();
             Destroy(other.gameObject);
         }
     }
