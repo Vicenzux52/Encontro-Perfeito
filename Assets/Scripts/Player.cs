@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
     public float limitSpeed = 100;
+    bool onMaxSpeed = false;
 
     [Header("Pulos")]
     public float peakHeight = 5f;
@@ -25,13 +26,17 @@ public class Player : MonoBehaviour
 
     [Header("Delay")]
     public float delayForce = 30f;
+    bool isDelayed = false;
+    public float lateralSpeedDelay = 0.5f;
+    public float delayTime = 1;
+    float delayCounter = 0;
 
     [Header("Slide")]
-    bool isSliding = false;
-    bool returnSlide = false;
     public float slideAngle = 75f;
     public float slideSpeed = 5f;
     public float slideTime = 1f;
+    bool isSliding = false;
+    bool returnSlide = false;
     float slideTimer = 0f;
     public float slideShakeForce = 3f;
     public float slideShakeSpeed = 100f;
@@ -48,6 +53,12 @@ public class Player : MonoBehaviour
     Transform orientation;
 
     AudioSource audioSource;
+
+    //Mobile
+    private Vector2 startTouch;
+    private float lastTapTime = 0f;
+    private int tapCount = 0;
+
 
     void Start()
     {
@@ -70,37 +81,47 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && route > -routeQuantity)
+        if (Input.touchCount == 1)
         {
-            route--;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DetectSwipes();
         }
-        if (Input.GetKeyDown(KeyCode.D) && route < routeQuantity)
+        else 
         {
-            route++;
-            if (!audioSource.isPlaying)
+            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
             {
-                audioSource.Play();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
-        {
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
+                route--;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
             }
 
-            Jump();
-            isJumping = true;
+            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
+            {
+                route++;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
+
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+
+                Jump();
+                isJumping = true;
+            }
+
+            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding)
+            {
+                isSliding = true;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && !isSliding)
-        {
-            isSliding = true;
-        }
         if (isSliding)
         {
             Slide();
@@ -108,6 +129,11 @@ public class Player : MonoBehaviour
 
         FrontalMovement();
         SideDash();
+
+        if (isDelayed)
+        {
+            Delay();
+        }
     }
 
     void FixedUpdate()
@@ -126,8 +152,14 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
-        rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
-        if (rb.linearVelocity.z > limitSpeed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
+        else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+        if (rb.linearVelocity.z > limitSpeed)
+        {
+            rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+            onMaxSpeed = true;
+        }
+        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay;
     }
 
     void SideDash()
@@ -175,24 +207,29 @@ public class Player : MonoBehaviour
         return 2 * peakHeight / (peakTime * peakTime);
     }
 
+    void Delay()
+    {
+        if (delayCounter < delayTime) delayCounter += Time.time;
+        else isDelayed = false;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             ContactPoint contact = collision.contacts[0];
             Vector3 normal = contact.normal;
-            if (isSliding)
+            if (Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) //bateu de frente ou deslizando
             {
+                onMaxSpeed = false;
                 rb.linearVelocity = -orientation.forward * delayForce;
             }
-            else if (Vector3.Dot(transform.forward, -normal) > 0.7f)
-            {
-                rb.linearVelocity = -orientation.forward * delayForce;
-            }
-            else if (Vector3.Dot(transform.forward, -normal) < 0.3f)
+            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
             {
                 if (transform.position.x < collision.transform.position.x) route--;
                 else route++;
+                onMaxSpeed = false;
+                isDelayed = true;
             }
 
             if (!isHit)
@@ -201,9 +238,12 @@ public class Player : MonoBehaviour
             }
 
         }
-        if (CompareTag("Key"))
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Key"))
         {
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
         }
     }
 
@@ -214,5 +254,73 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
         rend.material = originalMaterial;
         isHit = false;
+    }
+
+    void DetectSwipes()
+    {
+        Touch t = Input.GetTouch(0);
+
+        if (t.phase == TouchPhase.Began)
+        {
+            startTouch = t.position;
+        }
+        else if (t.phase == TouchPhase.Ended)
+        {
+            Vector2 delta = t.position - startTouch;
+
+            if (delta.magnitude > 100)
+            {
+                if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+                {
+                    if (delta.x > 0)
+                    {
+                        Debug.Log("Swipe Right");
+
+                        route++;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                    }
+                    else
+                    {
+                        Debug.Log("Swipe Left");
+
+                        route--;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+                    }
+                }
+                else
+                {
+                    if (delta.y > 0 && !isJumping)
+                    {
+                        Debug.Log("Swipe Up");
+
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                        Jump();
+                        isJumping = true;
+                    }
+                    else if (delta.y < 0 && !isSliding)
+                    {
+                        Debug.Log("Swipe Down");
+
+                        isSliding = true;
+                    }
+                }
+            }
+        }
+
+        //if (Input.touchCount == 1)
+        //{
+
+        //}
     }
 }
