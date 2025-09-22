@@ -8,7 +8,7 @@ public class CheckColletible : MonoBehaviour
     public Sprite collectibleSilhouetteImage;
     void Start()
     {
-        
+        gameObject.GetComponent<Image>().sprite = collectibleSilhouetteImage;
     }
 
     // Update is called once per frame
