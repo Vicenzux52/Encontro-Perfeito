@@ -1122,6 +1122,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7976756247664898006}
+  - {fileID: 1788468465}
   - {fileID: 1328958304060233436}
   - {fileID: 4793929909396394093}
   - {fileID: 265787620452532852}
@@ -3364,7 +3365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &389547516
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7326,7 +7327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &824485335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8394,6 +8395,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21f6e066ea32c69429d3a105bef4c77a, type: 3}
+--- !u!1001 &945598065
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 146700928}
+    m_Modifications:
+    - target: {fileID: -4945235344179996226, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -24.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -69.98106
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -34.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977330404715392742, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_Name
+      value: ClockPowerUp (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 977330404715392742, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_TagString
+      value: ClockPowerUp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
 --- !u!1001 &957973347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15188,7 +15254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1783337546
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15216,6 +15282,11 @@ RectTransform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: caa7f74dd2f36b7498360856fb15ac9a, type: 3}
   m_PrefabInstance: {fileID: 1751938458}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1788468465 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+  m_PrefabInstance: {fileID: 945598065}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1796396266
 GameObject:
@@ -18313,6 +18384,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TamagotchiPowerUp
       objectReference: {fileID: 0}
+    - target: {fileID: 5007635451668081266, guid: 1a526326679880a42bab1659047e63c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5635517461997842632, guid: 1a526326679880a42bab1659047e63c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.607178
@@ -18452,6 +18527,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Belt
       objectReference: {fileID: 0}
+    - target: {fileID: 8437875522034329694, guid: 19e374fa7732b9042a666e87e4b148ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9102491420457022180, guid: 19e374fa7732b9042a666e87e4b148ce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.587177
@@ -18514,14 +18593,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6342180127589059709, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
-      propertyPath: m_Height
-      value: 1.4727287
-      objectReference: {fileID: 0}
-    - target: {fileID: 6342180127589059709, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
-      propertyPath: m_Center.y
-      value: -0.3032377
-      objectReference: {fileID: 0}
+    - target: {fileID: 3395108804472191768, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 292366663}
     - target: {fileID: 6394784113639560864, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -18561,14 +18636,6 @@ PrefabInstance:
     - target: {fileID: 6394784113639560864, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8590867343501726945, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
-      propertyPath: timer
-      value: 
-      objectReference: {fileID: 292366663}
-    - target: {fileID: 8590867343501726945, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
-      propertyPath: extraTime
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18651,6 +18718,10 @@ PrefabInstance:
     - target: {fileID: 2696171048101827598, guid: b20b1f7d6b4ec864e9153035413213e0, type: 3}
       propertyPath: m_Name
       value: HairClipPowerUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2696171048101827598, guid: b20b1f7d6b4ec864e9153035413213e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3324054428444331700, guid: b20b1f7d6b4ec864e9153035413213e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18770,10 +18841,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 146700928}
     m_Modifications:
-    - target: {fileID: -4945235344179996226, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.447178
@@ -18784,7 +18851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 319.46683
+      value: 359.6
       objectReference: {fileID: 0}
     - target: {fileID: 494266209396569180, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18818,11 +18885,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClockPowerUp
       objectReference: {fileID: 0}
-    - target: {fileID: 977330404715392742, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
-      propertyPath: m_TagString
-      value: ClockPowerUp
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8138322874292113226, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 292366663}
+    m_RemovedComponents:
+    - {fileID: 8138322874292113226, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
