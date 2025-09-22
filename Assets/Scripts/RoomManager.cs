@@ -46,7 +46,7 @@ public class RoomManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     public void BackButton()

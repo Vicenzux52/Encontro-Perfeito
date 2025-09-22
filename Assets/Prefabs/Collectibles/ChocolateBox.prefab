@@ -68,10 +68,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChocolateBox
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
-      propertyPath: m_TagString
-      value: Key
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -82,9 +78,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4390574599789129676}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4315772132362205484}
   m_SourcePrefab: {fileID: 100100000, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
 --- !u!1 &2259881667603579595 stripped
 GameObject:
@@ -127,16 +120,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.748403, y: 0.53552336, z: 0.1604424}
   m_Center: {x: -0.018123357, y: -0.016060783, z: 0.015150453}
---- !u!114 &4315772132362205484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2259881667603579595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a33ac411be9a5564a83cf16108a2206c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 2
