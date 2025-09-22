@@ -48,7 +48,8 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     Transform orientation;
 
-    AudioSource audioSource;
+    public AudioSource audioSource;
+    public AudioSource collectibleSound;
 
     //Mobile
     private Vector2 startTouch;
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+        collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
 
@@ -239,6 +241,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Key"))
         {
+            collectibleSound.Play();
             Destroy(other.gameObject);
         }
     }
