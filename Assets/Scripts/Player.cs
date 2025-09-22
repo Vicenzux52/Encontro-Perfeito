@@ -296,7 +296,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    if (delta.y > 0)
+                    if (delta.y > 0 && !isJumping)
                     {
                         Debug.Log("Swipe Up");
 
@@ -308,7 +308,7 @@ public class Player : MonoBehaviour
                         Jump();
                         isJumping = true;
                     }
-                    else
+                    else if (delta.y < 0 && !isSliding)
                     {
                         Debug.Log("Swipe Down");
 
