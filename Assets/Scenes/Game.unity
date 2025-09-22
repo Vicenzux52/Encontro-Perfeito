@@ -11534,15 +11534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb51b5b74b719d49a46359240e2f1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectibleImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  collectibleSilhouetteImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  collectibleObjects: []
 --- !u!114 &1381933360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18025,6 +18016,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8590867343501726945, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 292366663}
+    - target: {fileID: 8590867343501726945, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: extraTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18271,6 +18270,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 977330404715392742, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
       propertyPath: m_Name
+      value: ClockPowerUp
+      objectReference: {fileID: 0}
+    - target: {fileID: 977330404715392742, guid: 2f1954d283c73514fa1c7a805251b1e3, type: 3}
+      propertyPath: m_TagString
       value: ClockPowerUp
       objectReference: {fileID: 0}
     m_RemovedComponents: []

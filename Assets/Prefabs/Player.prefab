@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6342180127589059709}
   - component: {fileID: 7024801644697959058}
   - component: {fileID: 6915209337319476207}
+  - component: {fileID: 8590867343501726945}
   - component: {fileID: 8055538250748518227}
   - component: {fileID: 9086941475640451032}
   - component: {fileID: 1869227631231005135}
@@ -165,6 +166,8 @@ MonoBehaviour:
   jumpCooldown: 0
   isJumping: 0
   delayForce: 20
+  lateralSpeedDelay: 0.5
+  delayTime: 1
   slideAngle: 75
   slideSpeed: 5
   slideTime: 1
@@ -172,6 +175,20 @@ MonoBehaviour:
   slideShakeSpeed: 100
   hitMaterial: {fileID: 2100000, guid: cac13b611c2fa484b8240689d94ab24c, type: 2}
   hitDuration: 0.5
+--- !u!114 &8590867343501726945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061800239123820124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01109cb650f3ff34eb14e397f447a6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timer: {fileID: 0}
+  extraTime: 10
 --- !u!82 &8055538250748518227
 AudioSource:
   m_ObjectHideFlags: 0
