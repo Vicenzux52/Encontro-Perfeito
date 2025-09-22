@@ -1,9 +1,5 @@
 using System;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -116,7 +112,7 @@ public class Player : MonoBehaviour
                 isJumping = true;
             }
 
-            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding)
+            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping)
             {
                 isSliding = true;
             }
@@ -219,7 +215,7 @@ public class Player : MonoBehaviour
         {
             ContactPoint contact = collision.contacts[0];
             Vector3 normal = contact.normal;
-            if (Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) //bateu de frente ou deslizando
+            if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
             {
                 onMaxSpeed = false;
                 rb.linearVelocity = -orientation.forward * delayForce;

@@ -11,6 +11,7 @@ TagManager:
   - Obstacle
   - Key
   - PowerUp
+  - Terrain
   layers:
   - Default
   - TransparentFX
