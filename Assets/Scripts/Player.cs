@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
     [Header("Rotas")]
     public float routeDistance = 1f;
-    int routeQuantity = 1;
+    public int routeQuantity = 1;
     [HideInInspector] public int route = 0;
 
     [Header("Movimento")]
