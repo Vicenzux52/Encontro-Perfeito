@@ -993,11 +993,11 @@ GameObject:
   - component: {fileID: 115547449}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &115547449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   routeQuantity: 1
   route: 0
   frontSpeed: 0.1
-  lateralSpeed: 1
+  lateralSpeed: 100
   limitSpeed: 100
   peakHeight: 5
   peakTime: 2
@@ -21127,7 +21127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1061800239123820124, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6394784113639560864, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21203,7 +21203,7 @@ GameObject:
   - component: {fileID: 2020008672191235218}
   m_Layer: 0
   m_Name: PlayerModel
-  m_TagString: Player
+  m_TagString: Model
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

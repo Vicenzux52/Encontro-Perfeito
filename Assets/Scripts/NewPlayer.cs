@@ -61,8 +61,10 @@ public class NewPlayer : MonoBehaviour
     {
         cC = GetComponent<CharacterController>();
         for (int i = 0; i < transform.childCount; i++)
-            if (transform.GetChild(i).name == "Orientation")
-                orientation = transform.GetChild(i);
+        {
+            if (transform.GetChild(i).name == "Orientation")orientation = transform.GetChild(i);
+            if (transform.GetChild(i).CompareTag("Model")) rend = transform.GetChild(i).GetComponent<Renderer>();
+        }
                 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -75,9 +77,6 @@ public class NewPlayer : MonoBehaviour
         initialHeight = cC.height;
         
         velocity.z = limitSpeed;
-
-        rend = GetComponent<Renderer>();
-        originalMaterial = rend.material;
     }
 
     void Update()
@@ -145,10 +144,12 @@ public class NewPlayer : MonoBehaviour
     void SideDash()
     {
         route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
-        transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+        if (transform.position.x == route * routeDistance) velocity.x = 0;
+        else velocity.x = route - transform.position.x * lateralSpeed;
+        //transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+        //transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
     }
-/*
+
     void Jump()
     {
         velocity.y = Mathf.Sqrt(2 * CalculateGravity() * peakHeight);
@@ -186,12 +187,12 @@ public class NewPlayer : MonoBehaviour
             }
         }
     }
-    */
+
     float CalculateGravity()
     {
         return 2 * peakHeight / (peakTime * peakTime);
     }
-    /*
+
     void Delay()
     {
         if (delayCounter < delayTime) delayCounter += Time.time;
@@ -238,5 +239,5 @@ public class NewPlayer : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
         rend.material = originalMaterial;
         isHit = false;
-    }*/
+    }
 }
