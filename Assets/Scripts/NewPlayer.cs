@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class NewPlayer : MonoBehaviour
 {
     [Header("Rotas")]
     public float routeDistance = 1f;
@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
     public float limitSpeed = 100;
-    public bool onMaxSpeed = false;
 
     [Header("Pulos")]
     public float peakHeight = 5f;
@@ -36,6 +35,10 @@ public class Player : MonoBehaviour
     float slideTimer = 0f;
     public float slideShakeForce = 3f;
     public float slideShakeSpeed = 100f;
+    Vector3 initialCenter;
+    float initialHeight;
+    public Vector3 slideCenter;
+    public float slideHeight;
 
     [Header("Hit")]
     public Material hitMaterial;
@@ -45,7 +48,8 @@ public class Player : MonoBehaviour
     private bool isHit = false;
 
     //Outros
-    Rigidbody rb;
+    CharacterController cC;
+    Vector3 velocity;
     Transform orientation;
 
     public AudioSource audioSource;
@@ -55,11 +59,11 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
+        cC = GetComponent<CharacterController>();
         for (int i = 0; i < transform.childCount; i++)
-            if (transform.GetChild(i).name == "Orientation") orientation = transform.GetChild(i);
-
+            if (transform.GetChild(i).name == "Orientation")
+                orientation = transform.GetChild(i);
+                
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
@@ -67,8 +71,10 @@ public class Player : MonoBehaviour
         }
         collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
 
-
-        rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+        initialCenter = cC.center;
+        initialHeight = cC.height;
+        
+        velocity.z = limitSpeed;
 
         rend = GetComponent<Renderer>();
         originalMaterial = rend.material;
@@ -94,6 +100,7 @@ public class Player : MonoBehaviour
             }
         }
 
+/*
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
         {
             if (!audioSource.isPlaying)
@@ -108,48 +115,31 @@ public class Player : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping)
         {
             isSliding = true;
-        }
-        //}
+        }*/
 
-        if (isSliding)
-        {
-            Slide();
-        }
+        //if (isSliding) Slide();
 
         FrontalMovement();
         SideDash();
 
-        if (isDelayed)
-        {
-            Delay();
-        }
+        //if (isDelayed) Delay();
 
-        if (isJumping)
-        {
-            jumpCooldown += Time.deltaTime;
-        }
-        if (jumpCooldown >= 2 * peakTime)
-        {
-            isJumping = false;
-            jumpCooldown = 0;
-        }
+        if (cC.isGrounded) isJumping = true;
+
+        else isJumping = false;
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
+        velocity.y -= CalculateGravity() * Time.deltaTime;
+        cC.Move(velocity * Time.deltaTime);
     }
 
     void FrontalMovement()
     {
-        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.1f * frontSpeed, ForceMode.VelocityChange);
-        else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-        if (rb.linearVelocity.z > limitSpeed)
-        {
-            rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-            onMaxSpeed = true;
-        }
-        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay;
+        velocity.z = Mathf.Min(velocity.z + frontSpeed/10 * Time.deltaTime, limitSpeed/10);
+        if (isDelayed)
+            velocity.z = limitSpeed * lateralSpeedDelay;
     }
 
     void SideDash()
@@ -158,16 +148,19 @@ public class Player : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
         transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
     }
-
+/*
     void Jump()
     {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, peakTime * CalculateGravity(), rb.linearVelocity.z);
+        velocity.y = Mathf.Sqrt(2 * CalculateGravity() * peakHeight);
+        isJumping = true;
     }
 
     void Slide()
     {
         if (!returnSlide)
         {
+            cC.height = slideHeight;
+            cC.center = slideCenter;
             if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
             if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 359 - slideAngle) || slideTimer != 0f)
             {
@@ -187,16 +180,18 @@ public class Player : MonoBehaviour
             {
                 returnSlide = false;
                 isSliding = false;
+                cC.height = initialHeight;
+                cC.center = initialCenter;
                 transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
             }
         }
     }
-
+    */
     float CalculateGravity()
     {
         return 2 * peakHeight / (peakTime * peakTime);
     }
-
+    /*
     void Delay()
     {
         if (delayCounter < delayTime) delayCounter += Time.time;
@@ -211,14 +206,12 @@ public class Player : MonoBehaviour
             Vector3 normal = contact.normal;
             if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
             {
-                onMaxSpeed = false;
-                rb.linearVelocity = -orientation.forward * delayForce;
+                velocity.z = -delayForce;
             }
             else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
             {
                 if (transform.position.x < collision.transform.position.x) route--;
                 else route++;
-                onMaxSpeed = false;
                 isDelayed = true;
             }
 
@@ -245,5 +238,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
         rend.material = originalMaterial;
         isHit = false;
-    }
+    }*/
 }
