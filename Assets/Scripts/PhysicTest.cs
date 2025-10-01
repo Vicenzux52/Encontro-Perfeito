@@ -1,99 +1,94 @@
-using NUnit.Framework;
+using System;
 using UnityEngine;
 
 public class PhysicTest : MonoBehaviour
 {
-    Rigidbody rb;
-    bool isSliding = false;
-    bool returnSlide = false;
-    public float slideAngle = 75f;
-    public float slideSpeed = 5f;
-    public float slideTime = 1f;
-    float slideTimer = 0f;
-    public float slideShakeForce = 3f;
-    public float slideShakeSpeed = 100f;
+    [Header("Rotas")]
+    public float routeDistance = 1f;
+    public int routeQuantity = 1;
+    [HideInInspector] public int route = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Movimento")]
+    public float frontSpeed = 0.1f;
+    public float lateralSpeed = 1;
+    public float limitSpeed = 100;
+
+    [Header("Pulos")]
+    public float peakHeight = 5f;
+    public float peakTime = 2f;
+    public float jumpCooldown = 0;
+    public bool isJumping = false;
+
+    //Outros
+    CharacterController cC;
+    Vector3 velocity;
+    Transform orientation;
+
+    public AudioSource audioSource;
+    public AudioSource collectibleSound;
+
+
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity = false;
+        cC = GetComponent<CharacterController>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).name == "Orientation")orientation = transform.GetChild(i);
+        }
+        
+        //velocity.z = limitSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S) && !isSliding)
+        Debug.Log(velocity);
+        velocity = Vector3.zero;
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
         {
-            isSliding = true;
+            route--;
         }
-        if (isSliding)
+
+        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
         {
-            Slide();
+            route++;
         }
+        if (cC.isGrounded) isJumping = true;
+
+        else isJumping = false;
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(Vector3.down * CalculateGravity(), ForceMode.Acceleration);
+        velocity.y -= CalculateGravity() * Time.deltaTime;
+        cC.Move(velocity * Time.deltaTime);
     }
 
-    void Slide()
+    /* void FrontalMovement()
     {
-        // fase 1: Descida 		| Se não na faixa do ângulo e não retornando
-        if (!returnSlide /*&& não na faixa do angulo*/)
-        {
-            if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
-            // fase 2: Parada com tremida	| Se no timer, não retornando
-            if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 35 - slideAngle) || slideTimer != 0f)
-            {
-                Debug.Log("Ponto baixo");
-                slideTimer += Time.deltaTime;
-                if (slideTimer > slideTime)
-                {
-                    slideTimer = 0f;
-                    returnSlide = true;
-                }
-                transform.localRotation = Quaternion.Euler(new Vector3(-75 + Mathf.Sin(Time.time * slideShakeSpeed) * slideShakeForce, 0, 0));
-            }
-        }
-        
-        // fase 3: Subida		| Se timer > time Retornando
-        if (returnSlide)
-        {
-            transform.RotateAround(transform.position, Vector3.right, slideAngle * 0.75f * slideSpeed * Time.deltaTime);
-            if (transform.eulerAngles.x > 0 && transform.eulerAngles.x < 5)
-            {
-                returnSlide = false;
-                isSliding = false;
-                transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-            }
-        }
+        velocity.z = Mathf.Min(velocity.z + frontSpeed/10 * Time.deltaTime, limitSpeed/10);
+        if (isDelayed)
+            velocity.z = limitSpeed * lateralSpeedDelay;
+    } */
 
-        /*if (!returnSlide && slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
-        else if (returnSlide) transform.RotateAround(transform.position, Vector3.right, slideAngle * 0.75f * slideSpeed * Time.deltaTime);
-        if (transform.eulerAngles.x <= 360 - slideAngle && transform.eulerAngles.x > 355 - slideAngle && !returnSlide)
-        {
-            Debug.Log("Start timer");
-            slideTimer += Time.deltaTime;
-            if (slideTimer > slideTime)
-            {
-                slideTimer = 0f;
-                returnSlide = true;
-            }
-        }
-        Debug.Log("Timer: " + slideTimer + " / " + slideTime);
-        if (transform.eulerAngles.x > 0 && transform.eulerAngles.x < 5 && returnSlide)
-        {
+    void SideDash()
+    {
+        route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
+        if (transform.position.x == route * routeDistance) velocity.x = 0;
+        else velocity.x = route - transform.position.x * lateralSpeed;
+        //transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+        //transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+    }
 
-            returnSlide = false;
-            isSliding = false;
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-        }*/
+    void Jump()
+    {
+        velocity.y = Mathf.Sqrt(2 * CalculateGravity() * peakHeight);
+        isJumping = true;
     }
 
     float CalculateGravity()
     {
-        return 2 * 2 / (0.45f * 0.45f);
+        return 2 * peakHeight / (peakTime * peakTime);
     }
 }
+
