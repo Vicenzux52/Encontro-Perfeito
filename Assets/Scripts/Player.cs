@@ -1,19 +1,18 @@
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.SearchService;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     [Header("Rotas")]
     public float routeDistance = 1f;
-    int routeQuantity = 1;
+    public int routeQuantity = 1;
     [HideInInspector] public int route = 0;
 
-    [Header("Movimentação")]
+    [Header("Movimento")]
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
+    public float limitSpeed = 100;
+    bool onMaxSpeed = false;
 
     [Header("Pulos")]
     public float peakHeight = 5f;
@@ -21,110 +20,124 @@ public class Player : MonoBehaviour
     public float jumpCooldown = 0;
     public bool isJumping = false;
 
-    [Header("Tropeço")]
-    bool onFrontSlip = false;
-    public float frontSlipDistance = 1.5f;
-    public float frontSlipInitial = 0;
-    public float others = 1f;
-
     [Header("Delay")]
-    public bool isDelayed = false;
-    public float delayTime = 0;
-    public float delaySpeed = 0.5f;
+    public float delayForce = 30f;
+    bool isDelayed = false;
+    public float lateralSpeedDelay = 0.5f;
+    public float delayTime = 1;
+    float delayCounter = 0;
 
     [Header("Slide")]
-    bool isSliding = false;
-    bool returnSlide = false;
     public float slideAngle = 75f;
     public float slideSpeed = 5f;
     public float slideTime = 1f;
+    bool isSliding = false;
+    bool returnSlide = false;
     float slideTimer = 0f;
     public float slideShakeForce = 3f;
     public float slideShakeSpeed = 100f;
-    public float screenShakeForce = 1f;
-    [HideInInspector] public bool screenShake = false;
 
-    [Header("KeyCodes")]
-    KeyCode[] leftKeys = { KeyCode.LeftArrow, KeyCode.A };
-    KeyCode[] rightKeys = { KeyCode.RightArrow, KeyCode.D };
-    KeyCode[] jumpKeys = { KeyCode.UpArrow, KeyCode.W, KeyCode.Space };
-    KeyCode[] downKeys = { KeyCode.DownArrow, KeyCode.S };
+    [Header("Hit")]
+    public Material hitMaterial;
+    private Material originalMaterial;
+    private Renderer rend;
+    public float hitDuration = 3f;
+    private bool isHit = false;
 
     //Outros
     Rigidbody rb;
-    char returnOperation;
-    float dSTemp;
-    float dTTemp;
+    Transform orientation;
 
-    AudioSource audioSource;
+    public AudioSource audioSource;
+    public AudioSource collectibleSound;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //Mobile
+    private Vector2 startTouch;
+    private float lastTapTime = 0f;
+    private int tapCount = 0;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
+        for (int i = 0; i < transform.childCount; i++)
+            if (transform.GetChild(i).name == "Orientation") orientation = transform.GetChild(i);
 
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+        collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
+
+
+        rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+
+        rend = GetComponent<Renderer>();
+        originalMaterial = rend.material;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (leftKeys.Any(Input.GetKeyDown) && route > -routeQuantity)
+        if (Input.touchCount == 1)
         {
-            route--;
-            returnOperation = '+';
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DetectSwipes();
         }
-        if (rightKeys.Any(Input.GetKeyDown) && route < routeQuantity)
+        else 
         {
-            route++;
-            returnOperation = '-';
-            if (!audioSource.isPlaying)
+            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
             {
-                audioSource.Play();
+                route--;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
             }
-        }
-        if (jumpKeys.Any(Input.GetKeyDown) && !isJumping)
-        {
-            Jump();
-            isJumping = true;
+
+            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
+            {
+                route++;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
+
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+
+                Jump();
+                isJumping = true;
+            }
+
+            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping)
+            {
+                isSliding = true;
+            }
         }
 
-        if (downKeys.Any(Input.GetKeyDown) && !isSliding)
-        {
-            isSliding = true;
-        }
         if (isSliding)
         {
             Slide();
         }
 
         FrontalMovement();
-
         SideDash();
 
-        if (onFrontSlip)
-        {
-            FrontSlip();
-        }
         if (isDelayed)
         {
             Delay();
         }
-
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(Vector3.down * CalculateGravity() * others, ForceMode.Acceleration);
+        rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
         if (isJumping)
         {
             jumpCooldown += Time.deltaTime;
@@ -138,67 +151,26 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
-        if (isDelayed)
+        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
+        else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+        if (rb.linearVelocity.z > limitSpeed)
         {
-            transform.position += new Vector3(0, 0, frontSpeed * Time.deltaTime * others);
+            rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
+            onMaxSpeed = true;
         }
-        else
-        {
-            transform.position += new Vector3(0, 0, frontSpeed * Time.deltaTime * delaySpeed * others);
-        }
+        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay;
     }
 
     void SideDash()
     {
+        route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
         transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
-    }
-    public void ReturnDash()
-    {
-        if (returnOperation == '+')
-        {
-            route++;
-        }
-        else if (returnOperation == '-')
-        {
-            route--;
-        }
-    }
-
-    public void FrontSlip(float dT, float dS)
-    {
-        dTTemp = dT;
-        dSTemp = dS;
-        onFrontSlip = true;
-        frontSlipInitial = transform.position.z;
-        others = 1.5f;
-    }
-
-    public void FrontSlip()
-    {
-        if (transform.position.z - frontSlipInitial > frontSlipDistance)
-        {
-            Debug.Log("Front slip ended and slowed down");
-            onFrontSlip = false;
-            others = 1f;
-            delayTime = dTTemp;
-            delaySpeed = dSTemp;
-            isDelayed = true;
-        }
     }
 
     void Jump()
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, peakTime * CalculateGravity(), rb.linearVelocity.z);
-    }
-
-    public void Delay()
-    {
-        delayTime -= Time.deltaTime;
-        if (delayTime <= 0)
-        {
-            isDelayed = false;
-        }
     }
 
     void Slide()
@@ -208,13 +180,11 @@ public class Player : MonoBehaviour
             if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
             if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 359 - slideAngle) || slideTimer != 0f)
             {
-                screenShake = true;
                 slideTimer += Time.deltaTime;
                 if (slideTimer > slideTime)
                 {
                     slideTimer = 0f;
                     returnSlide = true;
-                    screenShake = false;
                 }
                 transform.localRotation = Quaternion.Euler(new Vector3(-75 + Mathf.Sin(Time.time * slideShakeSpeed) * slideShakeForce, 0, 0));
             }
@@ -236,26 +206,121 @@ public class Player : MonoBehaviour
         return 2 * peakHeight / (peakTime * peakTime);
     }
 
+    void Delay()
+    {
+        if (delayCounter < delayTime) delayCounter += Time.time;
+        else isDelayed = false;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            ContactPoint contact = collision.contacts[0];
+            Vector3 normal = contact.normal;
+            if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+            {
+                onMaxSpeed = false;
+                rb.linearVelocity = -orientation.forward * delayForce;
+            }
+            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
+            {
+                if (transform.position.x < collision.transform.position.x) route--;
+                else route++;
+                onMaxSpeed = false;
+                isDelayed = true;
+            }
+
+            if (!isHit)
+            {
+                StartCoroutine(FlashMaterial());
+            }
+
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("Key"))
         {
-            if (other.name == "FrontCollider")
+            collectibleSound.Play();
+            Destroy(other.gameObject);
+        }
+    }
+
+    private System.Collections.IEnumerator FlashMaterial()
+    {
+        isHit = true;
+        rend.material = hitMaterial;
+        yield return new WaitForSeconds(hitDuration);
+        rend.material = originalMaterial;
+        isHit = false;
+    }
+
+    void DetectSwipes()
+    {
+        Touch t = Input.GetTouch(0);
+
+        if (t.phase == TouchPhase.Began)
+        {
+            startTouch = t.position;
+        }
+        else if (t.phase == TouchPhase.Ended)
+        {
+            Vector2 delta = t.position - startTouch;
+
+            if (delta.magnitude > 100)
             {
-                rb.AddForce(Vector3.back * other.GetComponent<Obstacle>().delaySpeed, ForceMode.Impulse);
-            }
-            else if (other.name == "SideCollider")
-            {
-                ReturnDash();
-            }
-            else if (other.name == "TopCollider")
-            {
-                FrontSlip(other.GetComponent<Obstacle>().delayTime, other.GetComponent<Obstacle>().delaySpeed);
-            }
-            else
-            {
-                Debug.Log("Steppable obstacle");
+                if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+                {
+                    if (delta.x > 0)
+                    {
+                        Debug.Log("Swipe Right");
+
+                        route++;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                    }
+                    else
+                    {
+                        Debug.Log("Swipe Left");
+
+                        route--;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+                    }
+                }
+                else
+                {
+                    if (delta.y > 0 && !isJumping)
+                    {
+                        Debug.Log("Swipe Up");
+
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                        Jump();
+                        isJumping = true;
+                    }
+                    else if (delta.y < 0 && !isSliding)
+                    {
+                        Debug.Log("Swipe Down");
+
+                        isSliding = true;
+                    }
+                }
             }
         }
+
+        //if (Input.touchCount == 1)
+        //{
+
+        //}
     }
 }
