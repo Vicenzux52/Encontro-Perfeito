@@ -9,9 +9,6 @@ TagManager:
   - GameOverUI
   - WinUI
   - Obstacle
-  - Key
-  - PowerUp
-  - Terrain
   layers:
   - Default
   - TransparentFX
