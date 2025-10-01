@@ -8,6 +8,8 @@ public class RoomManager : MonoBehaviour
     public GameObject Door;
     public GameObject PhotoAlbum;
     public GameObject Radio;
+    public GameObject Wardrobe;
+    public GameObject Calendar;
 
     public float timeCounter = 10f;
     private float time = 0f;
@@ -35,7 +37,7 @@ public class RoomManager : MonoBehaviour
                     playPanel.SetActive(true);
                 }
 
-                if (hit.collider.gameObject == PhotoAlbum || hit.collider.gameObject == Radio)
+                if (hit.collider.gameObject == PhotoAlbum || hit.collider.gameObject == Radio || hit.collider.gameObject == Calendar || hit.collider.gameObject == Wardrobe)
                 {
                     textUI.SetActive(true);
                     time = timeCounter;
