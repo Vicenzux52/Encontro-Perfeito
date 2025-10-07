@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   routeDistance: 2
-  routeQuantity: 1
   route: 0
   frontSpeed: 10
   lateralSpeed: 10
@@ -180,6 +179,7 @@ MonoBehaviour:
   hitDuration: 0.5
   audioSource: {fileID: 8055538250748518227}
   collectibleSound: {fileID: 5363013460493175401}
+  powerupSound: {fileID: 0}
 --- !u!114 &3395108804472191768
 MonoBehaviour:
   m_ObjectHideFlags: 0
