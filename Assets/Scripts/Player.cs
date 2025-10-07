@@ -5,14 +5,14 @@ public class Player : MonoBehaviour
 {
     [Header("Rotas")]
     public float routeDistance = 1f;
-    public int routeQuantity = 1;
+    int routeQuantity = 1;
     [HideInInspector] public int route = 0;
 
     [Header("Movimento")]
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
     public float limitSpeed = 100;
-    public bool onMaxSpeed = false;
+    bool onMaxSpeed = false;
 
     [Header("Pulos")]
     public float peakHeight = 5f;
@@ -51,6 +51,10 @@ public class Player : MonoBehaviour
     public AudioSource audioSource;
     public AudioSource collectibleSound;
 
+    //Mobile
+    private Vector2 startTouch;
+    private float lastTapTime = 0f;
+    private int tapCount = 0;
 
 
     void Start()
@@ -76,40 +80,46 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
+        if (Input.touchCount == 1)
         {
-            route--;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DetectSwipes();
         }
-
-        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
+        else 
         {
-            route++;
-            if (!audioSource.isPlaying)
+            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
             {
-                audioSource.Play();
-            }
-        }
-
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
-        {
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
+                route--;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
             }
 
-            Jump();
-            isJumping = true;
-        }
+            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
+            {
+                route++;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+            }
 
-        if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping)
-        {
-            isSliding = true;
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+
+                Jump();
+                isJumping = true;
+            }
+
+            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping)
+            {
+                isSliding = true;
+            }
         }
-        //}
 
         if (isSliding)
         {
@@ -123,7 +133,11 @@ public class Player : MonoBehaviour
         {
             Delay();
         }
+    }
 
+    void FixedUpdate()
+    {
+        rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
         if (isJumping)
         {
             jumpCooldown += Time.deltaTime;
@@ -135,14 +149,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
-    }
-
     void FrontalMovement()
     {
-        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.1f * frontSpeed, ForceMode.VelocityChange);
+        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
         else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
         if (rb.linearVelocity.z > limitSpeed)
         {
@@ -245,5 +254,73 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
         rend.material = originalMaterial;
         isHit = false;
+    }
+
+    void DetectSwipes()
+    {
+        Touch t = Input.GetTouch(0);
+
+        if (t.phase == TouchPhase.Began)
+        {
+            startTouch = t.position;
+        }
+        else if (t.phase == TouchPhase.Ended)
+        {
+            Vector2 delta = t.position - startTouch;
+
+            if (delta.magnitude > 100)
+            {
+                if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+                {
+                    if (delta.x > 0)
+                    {
+                        Debug.Log("Swipe Right");
+
+                        route++;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                    }
+                    else
+                    {
+                        Debug.Log("Swipe Left");
+
+                        route--;
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+                    }
+                }
+                else
+                {
+                    if (delta.y > 0 && !isJumping)
+                    {
+                        Debug.Log("Swipe Up");
+
+                        if (!audioSource.isPlaying)
+                        {
+                            audioSource.Play();
+                        }
+
+                        Jump();
+                        isJumping = true;
+                    }
+                    else if (delta.y < 0 && !isSliding)
+                    {
+                        Debug.Log("Swipe Down");
+
+                        isSliding = true;
+                    }
+                }
+            }
+        }
+
+        //if (Input.touchCount == 1)
+        //{
+
+        //}
     }
 }
