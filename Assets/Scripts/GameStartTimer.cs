@@ -7,13 +7,15 @@ public class GameStartTimer : MonoBehaviour
     public TextMeshProUGUI timerText;
     private float endTime;
     private bool gameStarted = false;
+    public GameObject player; 
+    private Rigidbody playerRb;
 
     void Start()
     {
-        Time.timeScale = 0f;
+        playerRb = player.GetComponent<Rigidbody>();
+        playerRb.isKinematic = true;
 
         endTime = Time.realtimeSinceStartup + startTime;
-
         UpdateTimerText();
     }
 
@@ -30,9 +32,9 @@ public class GameStartTimer : MonoBehaviour
         else
         {
             timerText.text = "Já!";
-            Time.timeScale = 1f;
             gameStarted = true;
-
+            playerRb.isKinematic = false;
+             playerRb.linearVelocity = Vector3.forward * player.GetComponent<Player>().limitSpeed;
             Invoke(nameof(HideTimer), 0.5f);
         }
     }
