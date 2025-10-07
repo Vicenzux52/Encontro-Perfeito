@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1.4413054, y: 1.6630448, z: 1.4413054}
+  m_LocalScale: {x: 1.575097, y: 1.6630448, z: 1.4413054}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3399230314347145811}
@@ -50,7 +50,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061800239123820124}
-  m_Mesh: {fileID: 2534964839176971238, guid: 86811110e1910cc4da5d3c154e016cdb, type: 3}
+  m_Mesh: {fileID: -7972542528735242229, guid: f94f588fd2c22b348a4569ad0987a83e, type: 3}
 --- !u!23 &6822708431380698440
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -116,9 +116,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3
-  m_Height: 1.4727287
+  m_Height: 1.6348733
   m_Direction: 1
-  m_Center: {x: 0, y: -0.3032377, z: 0}
+  m_Center: {x: 0, y: 0.78264695, z: 0}
 --- !u!54 &7024801644697959058
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   routeDistance: 2
   routeQuantity: 1
   route: 0
-  frontSpeed: 10
+  frontSpeed: 100
   lateralSpeed: 10
   limitSpeed: 15
   peakHeight: 3

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1.25
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 13cf0e82d305bd1468ee7d6114dfeae1, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b99659f12c3f5184894990cadceb0504, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1665,16 +1665,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 1625100734}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3679992
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3679992
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3679992
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.03388805
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.629
+      value: -1.624
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.3217912
+      value: -0.37012
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1704,6 +1716,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5205247931398016243, guid: cd5b2231ddac1ad498f10feb87cfe6fd, type: 3}
     - target: {fileID: 919132149155446097, guid: e0bd39069c76f9f40926e735f789d0cc, type: 3}
       propertyPath: m_Name
       value: ChibiProtagonist
