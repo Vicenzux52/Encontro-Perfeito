@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
                 audioSource.Play();
             }
 
+            Jump();
             isJumping = true;
         }
 
@@ -108,6 +109,7 @@ public class Player : MonoBehaviour
         {
             isSliding = true;
         }
+        //}
 
         if (isSliding)
         {
@@ -116,7 +118,6 @@ public class Player : MonoBehaviour
 
         FrontalMovement();
         SideDash();
-        Jump();
 
         if (isDelayed)
         {
@@ -136,7 +137,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        //rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
+        rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
     }
 
     void FrontalMovement()
@@ -160,8 +161,7 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        //rb.linearVelocity = new Vector3(rb.linearVelocity.x, peakTime * CalculateGravity(), rb.linearVelocity.z);
-        transform.position += Vector3.up * Mathf.Abs(Mathf.Sin(t));
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, peakTime * CalculateGravity(), rb.linearVelocity.z);
     }
 
     void Slide()
@@ -192,10 +192,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    /* float CalculateGravity()
+    float CalculateGravity()
     {
         return 2 * peakHeight / (peakTime * peakTime);
-    } */
+    }
 
     void Delay()
     {
