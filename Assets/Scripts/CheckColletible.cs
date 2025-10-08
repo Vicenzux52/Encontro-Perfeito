@@ -16,7 +16,6 @@ public class CheckColletible : MonoBehaviour
     {
         if (UIController.collectibleCollected[index])
         {
-            Debug.Log("detectei");
             gameObject.GetComponent<Image>().sprite = collectibleImage;
         }
     }

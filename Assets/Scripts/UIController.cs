@@ -121,6 +121,5 @@ public class UIController : MonoBehaviour
     {
         collectibleCollected[index] = true;
         //Debug.Log("Check: " + collectibleCheck[0] + ", " + collectibleCheck[1] + ", " + collectibleCheck[2]);
-        Debug.Log("Collected: " + collectibleCollected[0] + ", " + collectibleCollected[1] + ", " + collectibleCollected[2]);
     }
 }

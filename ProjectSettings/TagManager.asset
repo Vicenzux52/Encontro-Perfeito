@@ -12,6 +12,8 @@ TagManager:
   - Key
   - PowerUp
   - Terrain
+  - ClockPowerUp
+  - PlayerModel
   layers:
   - Default
   - TransparentFX

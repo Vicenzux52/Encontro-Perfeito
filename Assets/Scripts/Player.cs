@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour
 {
     [Header("Rotas")]
-    public float routeDistance = 1f;
-    int routeQuantity = 1;
+    [SerializeField] float routeDistance = 1f;
+    [SerializeField] int routeQuantity = 1;
     [HideInInspector] public int route = 0;
 
     [Header("Movimento")]
@@ -15,27 +16,29 @@ public class Player : MonoBehaviour
     bool onMaxSpeed = false;
 
     [Header("Pulos")]
-    public float peakHeight = 5f;
-    public float peakTime = 2f;
-    public float jumpCooldown = 0;
-    public bool isJumping = false;
+    public float JumpHeight = 5f;
+    public float jumpDuration = 2f;
+    public float gravity = 10;
+    float initialYJump = 0;
+    float timeX = 0;
+    bool isJumping = false;
 
     [Header("Delay")]
     public float delayForce = 30f;
     bool isDelayed = false;
     public float lateralSpeedDelay = 0.5f;
     public float delayTime = 1;
-    float delayCounter = 0;
+    float delayCounter = 0; //deve tirar
 
     [Header("Slide")]
-    public float slideAngle = 75f;
-    public float slideSpeed = 5f;
-    public float slideTime = 1f;
+    [SerializeField] float slideAngle = 75f;
+    [SerializeField] float slideSpeed = 5f;
+    [SerializeField] float slideTime = 1f;
     bool isSliding = false;
     bool returnSlide = false;
-    float slideTimer = 0f;
-    public float slideShakeForce = 3f;
-    public float slideShakeSpeed = 100f;
+    float slideTimer = 0f; //deve tirar
+    [SerializeField] float slideShakeForce = 3f;
+    [SerializeField] float slideShakeSpeed = 100f;
 
     [Header("Hit")]
     public Material hitMaterial;
@@ -50,11 +53,6 @@ public class Player : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioSource collectibleSound;
-
-    //Mobile
-    private Vector2 startTouch;
-    private float lastTapTime = 0f;
-    private int tapCount = 0;
 
 
     void Start()
@@ -74,78 +72,77 @@ public class Player : MonoBehaviour
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
 
-        rend = GetComponent<Renderer>();
-        originalMaterial = rend.material;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.CompareTag("PlayerModel"))
+            {
+                rend = transform.GetChild(i).GetComponent<Renderer>();
+                originalMaterial = rend.material;
+            }
+        }
+        
     }
 
     void Update()
     {
-        if (Input.touchCount == 1)
-        {
-            DetectSwipes();
-        }
-        else 
-        {
-            if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity)
-            {
-                route--;
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.Play();
-                }
-            }
-
-            if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity)
-            {
-                route++;
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.Play();
-                }
-            }
-
-            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isJumping)
-            {
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.Play();
-                }
-
-                Jump();
-                isJumping = true;
-            }
-
-            if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping)
-            {
-                isSliding = true;
-            }
-        }
-
-        if (isSliding)
-        {
-            Slide();
-        }
-
+        GetInputs();
+        Slide();
         FrontalMovement();
         SideDash();
-
-        if (isDelayed)
-        {
-            Delay();
-        }
+        Delay();
+        Jump();
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(-orientation.up * CalculateGravity(), ForceMode.Acceleration);
-        if (isJumping)
+        if (!isJumping) rb.AddForce(-orientation.up * gravity, ForceMode.Acceleration);
+    }
+    void GetInputs()
+    {
+        bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
+        bool rightInputs = (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity;
+        bool upInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
+        bool slideInputs = (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping;
+        slideInputs |= (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) && !isSliding && !isJumping;
+        bool downInputs = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && isJumping;
+
+        if (leftInputs)
         {
-            jumpCooldown += Time.deltaTime;
+            route--;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
-        if (jumpCooldown >= 2 * peakTime)
+
+        if (rightInputs)
         {
-            isJumping = false;
-            jumpCooldown = 0;
+            route++;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+
+        if (upInputs)
+        {
+            initialYJump = transform.position.y;
+            isJumping = true;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+
+        }
+
+        if (slideInputs)
+        {
+            isSliding = true;
+        }
+
+        if (downInputs)
+        {
+            Jump();
         }
     }
 
@@ -170,12 +167,22 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, peakTime * CalculateGravity(), rb.linearVelocity.z);
+        if (isJumping)
+        {
+            transform.position = new Vector3(transform.position.x, initialYJump + JumpHeight * Mathf.Pow(Mathf.Sin(timeX / jumpDuration), 1f / 2f),
+            transform.position.z);
+            timeX += Time.deltaTime;
+            if (Mathf.Sin(timeX / jumpDuration) < 0)
+            {
+                isJumping = false;
+                timeX = 0;
+            }
+        }
     }
 
     void Slide()
     {
-        if (!returnSlide)
+        if (!returnSlide && isSliding)
         {
             if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
             if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 359 - slideAngle) || slideTimer != 0f)
@@ -189,7 +196,7 @@ public class Player : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(new Vector3(-75 + Mathf.Sin(Time.time * slideShakeSpeed) * slideShakeForce, 0, 0));
             }
         }
-        if (returnSlide)
+        if (returnSlide && isSliding)
         {
             transform.RotateAround(transform.position, Vector3.right, slideAngle * 0.75f * slideSpeed * Time.deltaTime);
             if (transform.eulerAngles.x > 0 && transform.eulerAngles.x < 5)
@@ -201,14 +208,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    float CalculateGravity()
-    {
-        return 2 * peakHeight / (peakTime * peakTime);
-    }
-
     void Delay()
     {
-        if (delayCounter < delayTime) delayCounter += Time.time;
+        if (delayCounter < delayTime && isDelayed) delayCounter += Time.time;
         else isDelayed = false;
     }
 
@@ -254,73 +256,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
         rend.material = originalMaterial;
         isHit = false;
-    }
-
-    void DetectSwipes()
-    {
-        Touch t = Input.GetTouch(0);
-
-        if (t.phase == TouchPhase.Began)
-        {
-            startTouch = t.position;
-        }
-        else if (t.phase == TouchPhase.Ended)
-        {
-            Vector2 delta = t.position - startTouch;
-
-            if (delta.magnitude > 100)
-            {
-                if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
-                {
-                    if (delta.x > 0)
-                    {
-                        Debug.Log("Swipe Right");
-
-                        route++;
-                        if (!audioSource.isPlaying)
-                        {
-                            audioSource.Play();
-                        }
-
-                    }
-                    else
-                    {
-                        Debug.Log("Swipe Left");
-
-                        route--;
-                        if (!audioSource.isPlaying)
-                        {
-                            audioSource.Play();
-                        }
-                    }
-                }
-                else
-                {
-                    if (delta.y > 0 && !isJumping)
-                    {
-                        Debug.Log("Swipe Up");
-
-                        if (!audioSource.isPlaying)
-                        {
-                            audioSource.Play();
-                        }
-
-                        Jump();
-                        isJumping = true;
-                    }
-                    else if (delta.y < 0 && !isSliding)
-                    {
-                        Debug.Log("Swipe Down");
-
-                        isSliding = true;
-                    }
-                }
-            }
-        }
-
-        //if (Input.touchCount == 1)
-        //{
-
-        //}
     }
 }
