@@ -5,9 +5,13 @@ public class RoomManager : MonoBehaviour
 {
     public GameObject textUI;
     public GameObject playPanel;
+    public GameObject calendarPanel;
     public GameObject Door;
     public GameObject PhotoAlbum;
     public GameObject Radio;
+    public GameObject Calendar;
+    public GameObject wardrobePanel;
+    public GameObject Wardrobe;
 
     public float timeCounter = 10f;
     private float time = 0f;
@@ -40,6 +44,16 @@ public class RoomManager : MonoBehaviour
                     textUI.SetActive(true);
                     time = timeCounter;
                 }
+
+                if (hit.collider.gameObject == Calendar)
+                {
+                    calendarPanel.SetActive(true);
+                }
+
+                if (hit.collider.gameObject == Wardrobe)
+                {
+                    wardrobePanel.SetActive(true);
+                }
             }
         }
     }
@@ -52,5 +66,13 @@ public class RoomManager : MonoBehaviour
     public void BackButton()
     {
         playPanel.SetActive(false);
+    }
+    public void BackButtonCalendar()
+    {
+        calendarPanel.SetActive(false);
+    }
+    public void BackButtonWardrobe()
+    {
+        wardrobePanel.SetActive(false);
     }
 }
