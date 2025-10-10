@@ -60,7 +60,7 @@ public class RoomManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void BackButton()
@@ -73,6 +73,6 @@ public class RoomManager : MonoBehaviour
     }
     public void BackButtonWardrobe()
     {
-        wardrobePanel.SetActive(false);
+        SceneManager.LoadScene("RoomWardrobe");
     }
 }
