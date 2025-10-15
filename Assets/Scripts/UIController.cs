@@ -96,6 +96,12 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public static void BackToRoom()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Room");
+    }
+
     GameObject OnlyOneTaggedObject(string tag)
     {
         if (GameObject.FindGameObjectsWithTag(tag).Length > 1)

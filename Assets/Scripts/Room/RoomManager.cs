@@ -7,6 +7,7 @@ public class RoomManager : MonoBehaviour
     public GameObject textUI;
     public GameObject playPanel;
     public GameObject calendarPanel;
+    public GameObject albumPanel;
 
     [Header("Ui Timer")]
     public float timeCounter = 10f;
@@ -33,6 +34,9 @@ public class RoomManager : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
     public LayerMask collisionLayer;
+
+    //[Header("Calendario Script")]
+    //public CalendarioManager calendarioScript;
 
     private Rigidbody playerRb;
     private Vector3 targetPosition;
@@ -119,7 +123,10 @@ public class RoomManager : MonoBehaviour
 
     void MovePlayer()
     {
-        if (!moving) return;
+        if (!moving)
+        {
+            return;
+        }
 
         Vector3 direction = targetPosition - playerRb.position;
         direction.y = 0;
@@ -162,8 +169,9 @@ public class RoomManager : MonoBehaviour
         if (targetObject == Door)
         {
             playPanel.SetActive(true);
+            Time.timeScale = 0f;
         }
-        else if (targetObject == PhotoAlbum || targetObject == Radio)
+        else if (targetObject == Radio)
         {
             textUI.SetActive(true);
             time = timeCounter;
@@ -171,6 +179,12 @@ public class RoomManager : MonoBehaviour
         else if (targetObject == Calendar)
         {
             calendarPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else if (targetObject == PhotoAlbum)
+        {
+            albumPanel.SetActive(true);
+            Time.timeScale = 0f;
         }
         else if (targetObject == Wardrobe)
         {
@@ -183,16 +197,15 @@ public class RoomManager : MonoBehaviour
     public void StartButton()
     {
         SceneManager.LoadScene("Fase1");
+        Time.timeScale = 1f;
     }
 
     public void BackButton()
     {
         playPanel.SetActive(false);
-    }
-
-    public void BackButtonCalendar()
-    {
         calendarPanel.SetActive(false);
+        albumPanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void BackButtonWardrobe()

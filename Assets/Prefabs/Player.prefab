@@ -110,10 +110,9 @@ MonoBehaviour:
   frontSpeed: 100
   lateralSpeed: 10
   limitSpeed: 15
-  peakHeight: 3
-  peakTime: 0.45
-  jumpCooldown: 0
-  isJumping: 0
+  JumpHeight: 5
+  jumpDuration: 2
+  gravity: 10
   delayForce: 20
   lateralSpeedDelay: 0.5
   delayTime: 1
@@ -624,7 +623,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e601868e425b96042870e108425e9c7d, type: 2}
+  - {fileID: 2100000, guid: 596a60b36ef5a9a48abc7d5b12a0a03b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
