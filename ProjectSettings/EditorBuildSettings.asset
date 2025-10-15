@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 4f042d0b45341fa449e7959dbbd486e6
   - enabled: 1
+    path: Assets/Scenes/EscolhaPaqueras.unity
+    guid: 4c8adda0066fa5b4fa802e0bc708e0f5
+  - enabled: 1
     path: Assets/Scenes/Room.unity
     guid: ddbe637ab7aea424baaee1d7941c5ce9
   - enabled: 1
