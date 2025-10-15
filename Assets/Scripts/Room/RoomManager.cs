@@ -12,6 +12,13 @@ public class RoomManager : MonoBehaviour
     public float timeCounter = 10f;
     private float time = 0f;
 
+    [Header("Chibi's Opening Speech")]
+    public GameObject dialoguePanel;
+    public float duration = 3f;
+    public float delayBeforeShow = 0.5f;
+    private float timer;
+    private bool isShowing;
+
     [Header("Interactable Objects")]
     public GameObject Door;
     public GameObject PhotoAlbum;
@@ -36,10 +43,44 @@ public class RoomManager : MonoBehaviour
     {
         playerRb = player.GetComponent<Rigidbody>();
         playerRb.freezeRotation = true;
+
+        if (dialoguePanel != null)
+        {
+            dialoguePanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("dialoguePanel não atribuido");
+        }
+
+        Invoke(nameof(ShowDialogue), delayBeforeShow);
+    }
+
+    void ShowDialogue()
+    {
+        if (dialoguePanel == null)
+        {
+            return;
+        }
+
+        dialoguePanel.SetActive(true);
+        isShowing = true;
+        timer = duration;
     }
 
     void Update()
     {
+        if (isShowing)
+        {
+            timer -= Time.deltaTime;
+
+            if (timer <= 0f)
+            {
+                dialoguePanel.gameObject.SetActive(false);
+                isShowing = false;
+            }
+        }
+
         HandleTimer();
         HandleClick();
     }
