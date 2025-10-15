@@ -141,7 +141,7 @@ public class RoomManager : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("Fase1");
     }
 
     public void BackButton()

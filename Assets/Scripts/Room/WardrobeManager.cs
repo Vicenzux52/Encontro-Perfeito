@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WardrobeManager : MonoBehaviour
 {
@@ -35,5 +36,10 @@ public class WardrobeManager : MonoBehaviour
     {
         DeactivateAll();
         ProtagonistBelt.SetActive(true);
+    }
+
+    public void BackButton()
+    {
+        SceneManager.LoadScene("Room");
     }
 }
