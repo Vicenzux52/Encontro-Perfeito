@@ -1,33 +1,40 @@
 using UnityEngine;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class PhotoData
+{
+    public Image photoImage;
+    public Sprite[] photoParts;
+    //[HideInInspector] public int collectedParts = 0;
+}
 
 public class PhotoAlbumManager : MonoBehaviour
 {
-    [Header("CheckCollectible Script")]
-    public CheckColletible checkColletible;
-
     [Header("Photos")]
-    public GameObject[] photos;
+    public PhotoData[] photos;
 
     void Start()
     {
-        if (checkColletible == null)
-        {
-            checkColletible = GetComponent<CheckColletible>();
-        }
-        
-        foreach (GameObject photo in photos)
-        {
-            photo.SetActive(false);
-        }
+        UpdatePhotos();
     }
 
-    void Update()
+    public void UpdatePhotos()
     {
-        int photoIndex = checkColletible.photoQuant;
-
         for (int i = 0; i < photos.Length; i++)
         {
-            photos[i].SetActive(i == photoIndex);
+            int collectedParts = CollectibleProgress.photoPartsCollected[i];
+
+            if (collectedParts >= 3)
+            {
+                photos[i].photoImage.enabled = false;
+            }
+            else
+            {
+                photos[i].photoImage.enabled = true;
+                int partIndex = Mathf.Clamp(collectedParts, 0, photos[i].photoParts.Length - 1);
+                photos[i].photoImage.sprite = photos[i].photoParts[partIndex];
+            }
         }
     }
 }
