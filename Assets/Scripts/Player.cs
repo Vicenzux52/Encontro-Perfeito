@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     Transform orientation;
 
+    [Header("Audio")]
     public AudioSource audioSource;
     public AudioSource collectibleSound;
 

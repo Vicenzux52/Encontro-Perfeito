@@ -14,7 +14,13 @@ public class UIController : MonoBehaviour
     static public GameObject inGameUI;
     static public GameObject pauseUI;
     static public GameObject gameOverUI;
+
+    [Header("Photo Win")]
+    public int photoIndex;
     static public GameObject winUI;
+    public Image victoryPhoto;
+    public Sprite[] victoryMasks;
+
     void Start()
     {
         THIS = this;
@@ -63,13 +69,27 @@ public class UIController : MonoBehaviour
         winUI.SetActive(false);
     }
 
-    public static void Win()
+    public void Win()
     {
         Time.timeScale = 0;
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverUI.SetActive(false);
         winUI.SetActive(true);
+
+        int collectedParts = CollectibleProgress.photoPartsCollected[photoIndex];
+
+        if (collectedParts >= 3)
+        {
+            victoryPhoto.enabled = false;
+        }
+        else
+        {
+            victoryPhoto.enabled = true;
+
+            int maskIndex = Mathf.Clamp(collectedParts, 0, victoryMasks.Length - 1);
+            victoryPhoto.sprite = victoryMasks[maskIndex];
+        }
     }
 
     public static void Pause()
