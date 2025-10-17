@@ -338,7 +338,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 997065612}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CalendarioManager, Assembly-CSharp
         m_MethodName: Fase1Button
         m_Mode: 1
@@ -717,7 +717,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 997065612}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CalendarioManager, Assembly-CSharp
         m_MethodName: Fase3Button
         m_Mode: 1
@@ -1983,7 +1983,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 997065612}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CalendarioManager, Assembly-CSharp
         m_MethodName: Fase2Button
         m_Mode: 1
@@ -2500,7 +2500,6 @@ GameObject:
   m_Component:
   - component: {fileID: 997065611}
   - component: {fileID: 997065610}
-  - component: {fileID: 997065612}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -2554,27 +2553,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &997065612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 997065609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2a7abfb89080514cab9991644397376, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fasesButtons: {fileID: 0}
-  Fase1: {fileID: 46493594}
-  Fase2: {fileID: 737651579}
-  Fase3: {fileID: 267655466}
-  Fase4: {fileID: 1915243804}
-  fase1: 0
-  fase2: 0
-  fase3: 0
-  fase4: 0
 --- !u!1 &1053197564
 GameObject:
   m_ObjectHideFlags: 0
@@ -4209,7 +4187,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 997065612}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CalendarioManager, Assembly-CSharp
         m_MethodName: Fase4Button
         m_Mode: 1
