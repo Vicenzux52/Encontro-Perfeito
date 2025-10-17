@@ -8247,6 +8247,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6bce71a190a3c5f4cbbfa9347ad3041b, type: 3}
   m_PrefabInstance: {fileID: 1961373276}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &271500557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6758559560756156536, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+  m_PrefabInstance: {fileID: 5397797393839403488}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb51b5b74b719d49a46359240e2f1c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &273318691
 GameObject:
   m_ObjectHideFlags: 0
@@ -48918,6 +48929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de9f84ee85fcc142be4e70f6b5678d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiController: {fileID: 271500557}
 --- !u!65 &1772677531
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60098,6 +60110,10 @@ PrefabInstance:
       propertyPath: slideShakeSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7024801644697959058, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60309,6 +60325,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -405.07996
       objectReference: {fileID: 0}
+    - target: {fileID: 7090824072134666720, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090824072134666720, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090824072134666720, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090824072134666720, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 5dd49b3eacc540408c98eee0de38e0f1, type: 3}
     - target: {fileID: 7141732443437648565, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
       propertyPath: photoIndex
       value: 2
