@@ -2,23 +2,13 @@ using UnityEngine;
 
 public class WinArea : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    public UIController uiController;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            UIController.Win();
+            uiController.Win();
         }
     }
 }
