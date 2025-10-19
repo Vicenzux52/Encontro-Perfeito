@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -12,16 +13,18 @@ public class Player : MonoBehaviour
     [Header("Movimento")]
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
+    public float backDash = 20f;
     public float limitSpeed = 100;
     bool onMaxSpeed = false;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
     public float jumpDuration = 2f;
-    public float gravity = 10;
+    float gravity = 10;
     float initialYJump = 0;
     float timeX = 0;
     bool isJumping = false;
+    float down = 1;
 
     [Header("Delay")]
     public float delayForce = 30f;
@@ -39,6 +42,7 @@ public class Player : MonoBehaviour
     float slideTimer = 0f; //deve tirar
     [SerializeField] float slideShakeForce = 3f;
     [SerializeField] float slideShakeSpeed = 100f;
+    float up = 1;
 
     [Header("Hit")]
     public Material hitMaterial;
@@ -48,7 +52,9 @@ public class Player : MonoBehaviour
     private bool isHit = false;
 
     //Outros
+    int cameraState = 0;
     Rigidbody rb;
+    GameObject cameraHolder;
     Transform orientation;
 
     [Header("Audio")]
@@ -82,11 +88,13 @@ public class Player : MonoBehaviour
             }
         }
         
+        cameraHolder = Camera.main.transform.parent.gameObject;
     }
 
     void Update()
     {
         GetInputs();
+        CheckCameraState();
         Slide();
         FrontalMovement();
         SideDash();
@@ -102,7 +110,8 @@ public class Player : MonoBehaviour
     {
         bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
         bool rightInputs = (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity;
-        bool upInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
+        bool jumpInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
+        bool upInputs = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)) && !isSliding && !isJumping;
         bool slideInputs = (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping;
         slideInputs |= (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) && !isSliding && !isJumping;
         bool downInputs = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && isJumping;
@@ -125,7 +134,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (upInputs)
+        if (jumpInputs)
         {
             initialYJump = transform.position.y;
             isJumping = true;
@@ -133,7 +142,11 @@ public class Player : MonoBehaviour
             {
                 audioSource.Play();
             }
+        }
 
+        if (upInputs)
+        {
+            up += 0.01f;
         }
 
         if (slideInputs)
@@ -143,7 +156,7 @@ public class Player : MonoBehaviour
 
         if (downInputs)
         {
-            Jump();
+            down += 0.01f;
         }
     }
 
@@ -161,9 +174,21 @@ public class Player : MonoBehaviour
 
     void SideDash()
     {
-        route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
-        transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+        if (cameraState == 0)
+        {
+            route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+            transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (route == -1)
+            {
+                onMaxSpeed = false;
+                rb.linearVelocity = -orientation.forward * backDash;
+            }
+            route = 0;
+        }
     }
 
     void Jump()
@@ -172,9 +197,10 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, initialYJump + JumpHeight * Mathf.Pow(Mathf.Sin(timeX / jumpDuration), 1f / 2f),
             transform.position.z);
-            timeX += Time.deltaTime;
+            timeX += down * Time.deltaTime;
             if (Mathf.Sin(timeX / jumpDuration) < 0)
             {
+                down = 1;
                 isJumping = false;
                 timeX = 0;
             }
@@ -188,7 +214,7 @@ public class Player : MonoBehaviour
             if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
             if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 359 - slideAngle) || slideTimer != 0f)
             {
-                slideTimer += Time.deltaTime;
+                slideTimer += up *Time.deltaTime;
                 if (slideTimer > slideTime)
                 {
                     slideTimer = 0f;
@@ -204,6 +230,7 @@ public class Player : MonoBehaviour
             {
                 returnSlide = false;
                 isSliding = false;
+                up = 0f;
                 transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
             }
         }
@@ -215,6 +242,11 @@ public class Player : MonoBehaviour
         else isDelayed = false;
     }
 
+    void CheckCameraState()
+    {
+        if (cameraHolder.GetComponent<CameraHolder>().cameraState == 1) cameraState = 1;
+        else cameraState = 0;
+    }
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
@@ -233,6 +265,8 @@ public class Player : MonoBehaviour
                 onMaxSpeed = false;
                 isDelayed = true;
             }
+
+            if (isJumping) down *= 2;
 
             if (!isHit)
             {
