@@ -11,7 +11,7 @@ public class CarSpawnerController : MonoBehaviour
     void Start()
     {
         carInstantiateL = new List<GameObject>();
-        timer = time;
+        timer = 0f;
     }
 
     void Update()
