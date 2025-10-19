@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 1f502de80be5c0d40bf5de27778e1792, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -1981681102287493673, guid: 0deae34188e2af9469cf1e6919f3a683, type: 3}
     - target: {fileID: 919132149155446097, guid: 1f502de80be5c0d40bf5de27778e1792, type: 3}
       propertyPath: m_Name
       value: LampPost
