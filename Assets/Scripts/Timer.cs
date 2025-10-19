@@ -12,11 +12,18 @@ public class Timer : MonoBehaviour
     {
         timeLeft = initialTime;
         timerText = gameObject.GetComponent<Text>();
+
+        timerText.text = TimeFormat(timeLeft);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!GameStartTimer.gameStarted)
+        {
+            return;
+        }
+
         if (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
