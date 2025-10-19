@@ -35,8 +35,7 @@ public class RoomManager : MonoBehaviour
     public float rotationSpeed = 10f;
     public LayerMask collisionLayer;
 
-    //[Header("Calendario Script")]
-    //public CalendarioManager calendarioScript;
+    private int faseSelecionada = 0;
 
     private Rigidbody playerRb;
     private Vector3 targetPosition;
@@ -194,10 +193,39 @@ public class RoomManager : MonoBehaviour
         targetObject = null;
     }
 
+    public void SelecionarFase(int indiceFase)
+    {
+        if (FaseManager.Instance != null && FaseManager.Instance.FaseLiberada(indiceFase))
+        {
+            faseSelecionada = indiceFase;
+            Debug.Log($"Fase {indiceFase + 1} selecionada!");
+        }
+        else
+        {
+            Debug.LogWarning($"Fase {indiceFase + 1} não está liberada!");
+        }
+    }
+
     public void StartButton()
     {
-        SceneManager.LoadScene("Fase1");
-        Time.timeScale = 1f;
+        if (FaseManager.Instance != null && FaseManager.Instance.FaseLiberada(faseSelecionada))
+        {
+            string nomeCena = ObterNomeCenaPorFase(faseSelecionada);
+            SceneManager.LoadScene(nomeCena);
+            Time.timeScale = 1f;
+        }
+    }
+
+    private string ObterNomeCenaPorFase(int indiceFase)
+    {
+        switch (indiceFase)
+        {
+            case 0: return "Fase1";
+            case 1: return "Fase2";
+            case 2: return "Fase3";
+            case 3: return "Fase4";
+            default: return "Fase1";
+        }
     }
 
     public void BackButton()
