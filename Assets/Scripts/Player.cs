@@ -216,7 +216,6 @@ public class Player : MonoBehaviour
         {
             targetRotation = Quaternion.Euler(-slideAngle, 0, 0);
             slideTimer += up * Time.deltaTime;
-            Debug.Log("up: " + up);
             if (slideTimer > slideTime)
             {
                 slideTimer = 0f;
