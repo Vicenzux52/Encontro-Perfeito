@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -51,6 +52,8 @@ public class Player : MonoBehaviour
     public float hitDuration = 3f;
     private bool isHit = false;
 
+    [Header("Hit")]
+    public int upgrade;
     //Outros
     int cameraState = 0;
     Rigidbody rb;
@@ -76,6 +79,8 @@ public class Player : MonoBehaviour
         }
         collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
 
+        //upgrade = upgrade selecionado
+        SetUpgrade();
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
 
@@ -106,6 +111,7 @@ public class Player : MonoBehaviour
     {
         if (!isJumping) rb.AddForce(-orientation.up * gravity, ForceMode.Acceleration);
     }
+    
     void GetInputs()
     {
         bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
@@ -247,6 +253,29 @@ public class Player : MonoBehaviour
         if (cameraHolder.GetComponent<CameraHolder>().cameraState == 1) cameraState = 1;
         else cameraState = 0;
     }
+
+    void SetUpgrade()
+    {
+        switch (upgrade)
+        {
+            case 0:                         //Tamagochi
+
+                break;
+
+            case 1:                         //Presilha
+
+                break;
+
+            case 2:                         //Relogio
+
+                break;
+            case 3:                         //cinto
+
+                break;
+
+        }
+    }
+    
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
