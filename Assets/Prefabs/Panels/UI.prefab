@@ -3810,7 +3810,7 @@ GameObject:
   - component: {fileID: 1297206409310450582}
   - component: {fileID: 2746105660568191281}
   m_Layer: 0
-  m_Name: Coffe
+  m_Name: Collectible1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3885,7 +3885,7 @@ GameObject:
   - component: {fileID: 7014341209252266914}
   - component: {fileID: 103171602839194008}
   m_Layer: 0
-  m_Name: CherryPie
+  m_Name: Collectible2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4527,7 +4527,7 @@ GameObject:
   - component: {fileID: 5731091003594081993}
   - component: {fileID: 6722531357378716061}
   m_Layer: 0
-  m_Name: Buque
+  m_Name: Collectible3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
