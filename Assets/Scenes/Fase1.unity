@@ -25652,7 +25652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionalLight: {fileID: 410087041}
-  rotationTime: 180
+  rotationTime: 200
   skyboxRotation: {fileID: 2100000, guid: 3cc42bf74581d0d4f84c9e6214f44e01, type: 2}
   skyboxNight: {fileID: 2100000, guid: b99659f12c3f5184894990cadceb0504, type: 2}
 --- !u!4 &1285740480
@@ -43610,7 +43610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205271072670904649, guid: 04812b1422e0c3e47870fabf415c6e5c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2341456464429542328, guid: 04812b1422e0c3e47870fabf415c6e5c, type: 3}
       propertyPath: m_LocalPosition.x
