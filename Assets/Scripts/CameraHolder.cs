@@ -11,7 +11,7 @@ public class CameraHolder : MonoBehaviour
     public float cameraHeight = 2;
     public float xRotation = 15;
     public float yRotation = 0;
-    public float rotationSpeed = 15;
+    public float rotationSpeed = 60;
     public int cameraState = 0; //0 - Normal | 1 - Lateral
     public bool onTransition = false;
     Quaternion targetRotation;

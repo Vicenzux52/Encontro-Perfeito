@@ -44639,6 +44639,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 791087298910381257, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 791087298910381257, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 1452457427310857363, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
       propertyPath: m_Name
       value: CameraHolder
@@ -44687,11 +44695,31 @@ PrefabInstance:
       propertyPath: field of view
       value: 67
       objectReference: {fileID: 0}
+    - target: {fileID: 5293106062991407196, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
+      propertyPath: cameraHeight
+      value: 2.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 5293106062991407196, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
+      propertyPath: cameraDistance
+      value: 4.55
+      objectReference: {fileID: 0}
     - target: {fileID: 5901975775040816263, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 5901975775040816263, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702862412238342525, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702862412238342525, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 6702862412238342525, guid: 75f37f5df29716c409a5b70c0326d78b, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4.55
       objectReference: {fileID: 0}
@@ -45205,8 +45233,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
-  - {fileID: 2559025391271706048}
   - {fileID: 3124663429323029943}
+  - {fileID: 2559025391271706048}
   - {fileID: 1625100734}
   - {fileID: 1870040511109409675}
   - {fileID: 5397797393839403488}
