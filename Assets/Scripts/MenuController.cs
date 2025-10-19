@@ -11,5 +11,15 @@ public class MenuController : MonoBehaviour
         Debug.Log("Fechou");
         Application.Quit();
     }
+
+    void Start()
+    {
+        PlayerPrefs.DeleteKey("UpgradeID");
+        PlayerPrefs.DeleteKey("paqueraSelect");
+        PlayerPrefs.DeleteKey("petSelect");
+        PlayerPrefs.Save();
+
+        Debug.Log("Upgrades e escolhas resetados!");
+    }
 }
 

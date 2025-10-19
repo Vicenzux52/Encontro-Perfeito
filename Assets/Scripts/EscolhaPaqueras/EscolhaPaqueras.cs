@@ -21,7 +21,7 @@ public class EscolhaPaqueras : MonoBehaviour
     private bool escolheuPet = false;
 
     void Start()
-    {
+    {        
         Rabbit.SetActive(false);
         Cat.SetActive(false);
         Tortoise.SetActive(false);
@@ -92,7 +92,7 @@ public class EscolhaPaqueras : MonoBehaviour
 
         escolheuPet = true;
         Debug.Log("Pet escolhido: " + pet);
-
+        PlayerPrefs.DeleteKey("Upgrade");
         SceneManager.LoadScene("Room");
     }
 }
