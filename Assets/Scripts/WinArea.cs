@@ -4,11 +4,19 @@ public class WinArea : MonoBehaviour
 {
     public UIController uiController;
 
+    public void Start()
+    {
+        uiController = FindFirstObjectByType<UIController>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            uiController.Win();
+            if (uiController != null)
+            {
+                uiController.Win();
+            }
         }
     }
 }

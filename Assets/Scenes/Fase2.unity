@@ -359,6 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de9f84ee85fcc142be4e70f6b5678d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiController: {fileID: 0}
 --- !u!65 &144144109
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8270,6 +8271,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb51b5b74b719d49a46359240e2f1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  photoIndex: 0
+  victoryPhoto: {fileID: 0}
+  victoryMasks: []
+  indiceFaseAtual: 1
 --- !u!224 &6773958323648221608
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8474,9 +8479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf4cb607017b6a4cab2cf741017e916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiIcon: {fileID: 0}
   index: 2
   collectibleImage: {fileID: 322842044, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: 1334273225, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  photoIndex: 0
 --- !u!222 &7165315978694454206
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8711,9 +8718,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf4cb607017b6a4cab2cf741017e916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiIcon: {fileID: 0}
   index: 0
   collectibleImage: {fileID: -966922364, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -1372378291, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  photoIndex: 0
 --- !u!1 &7755818933050514526
 GameObject:
   m_ObjectHideFlags: 0
@@ -8782,9 +8791,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf4cb607017b6a4cab2cf741017e916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiIcon: {fileID: 0}
   index: 1
   collectibleImage: {fileID: 1472989262, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: 269477016, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  photoIndex: 0
 --- !u!114 &7877168223458494815
 MonoBehaviour:
   m_ObjectHideFlags: 0

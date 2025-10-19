@@ -21,6 +21,9 @@ public class UIController : MonoBehaviour
     public Image victoryPhoto;
     public Sprite[] victoryMasks;
 
+    [Header("Fase Configuration")]
+    public int indiceFaseAtual = 0; // Define qual fase esta cena representa
+
     void Start()
     {
         THIS = this;
@@ -89,6 +92,16 @@ public class UIController : MonoBehaviour
 
             int maskIndex = Mathf.Clamp(collectedParts, 0, victoryMasks.Length - 1);
             victoryPhoto.sprite = victoryMasks[maskIndex];
+        }
+
+        CompletarFaseAtual();
+    }
+
+    private void CompletarFaseAtual()
+    {
+        if (FaseManager.Instance != null)
+        {
+            FaseManager.Instance.CompletarFase(indiceFaseAtual);
         }
     }
 
