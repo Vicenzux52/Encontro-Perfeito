@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -36,13 +35,11 @@ public class Player : MonoBehaviour
 
     [Header("Slide")]
     [SerializeField] float slideAngle = 75f;
-    [SerializeField] float slideSpeed = 5f;
+    [SerializeField] float slideRotationSpeed = 75f;
     [SerializeField] float slideTime = 1f;
+    Quaternion targetRotation;
     bool isSliding = false;
-    bool returnSlide = false;
     float slideTimer = 0f; //deve tirar
-    [SerializeField] float slideShakeForce = 3f;
-    [SerializeField] float slideShakeSpeed = 100f;
     float up = 1;
 
     [Header("Hit")]
@@ -215,31 +212,23 @@ public class Player : MonoBehaviour
 
     void Slide()
     {
-        if (!returnSlide && isSliding)
+        if (isSliding)
         {
-            if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
-            if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 359 - slideAngle) || slideTimer != 0f)
+            targetRotation = Quaternion.Euler(-slideAngle, 0, 0);
+            slideTimer += up * Time.deltaTime;
+            Debug.Log("up: " + up);
+            if (slideTimer > slideTime)
             {
-                slideTimer += up *Time.deltaTime;
-                if (slideTimer > slideTime)
-                {
-                    slideTimer = 0f;
-                    returnSlide = true;
-                }
-                transform.localRotation = Quaternion.Euler(new Vector3(-75 + Mathf.Sin(Time.time * slideShakeSpeed) * slideShakeForce, 0, 0));
-            }
-        }
-        if (returnSlide && isSliding)
-        {
-            transform.RotateAround(transform.position, Vector3.right, slideAngle * 0.75f * slideSpeed * Time.deltaTime);
-            if (transform.eulerAngles.x > 0 && transform.eulerAngles.x < 5)
-            {
-                returnSlide = false;
+                slideTimer = 0f;
+                up = 1f;
                 isSliding = false;
-                up = 0f;
-                transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
             }
         }
+        if (!isSliding)
+        {
+            targetRotation = Quaternion.Euler(0, 0, 0);
+        }
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, slideRotationSpeed * Time.deltaTime);
     }
 
     void Delay()
@@ -262,11 +251,11 @@ public class Player : MonoBehaviour
 
                 break;
 
-            case 1:                         //Presilha
+            case 1:                         //Relogio
 
                 break;
 
-            case 2:                         //Relogio
+            case 2:                         //Presilha
 
                 break;
             case 3:                         //cinto
