@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 3e7960b410c662348972ff06577c9bbb, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7369533594620771204, guid: 2697e4c0da8b3164bb2178f07d7b9cf1, type: 3}
     - target: {fileID: 919132149155446097, guid: 3e7960b410c662348972ff06577c9bbb, type: 3}
       propertyPath: m_Name
       value: Trestle
