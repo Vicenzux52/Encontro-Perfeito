@@ -248,11 +248,11 @@ public class Player : MonoBehaviour
         {
             case 0:                         //Tamagochi
                 JumpHeight *= 2;
-
+                limitSpeed /= 2;
                 break;
 
             case 1:                         //Relogio
-
+                lateralSpeed -= 5;
                 break;
 
             case 2:                         //Presilha
