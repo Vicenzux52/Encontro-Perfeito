@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class RoomManager : MonoBehaviour
     public GameObject playPanel;
     public GameObject calendarPanel;
     public GameObject albumPanel;
+    public GameObject pausePanel;
 
     [Header("Ui Timer")]
     public float timeCounter = 10f;
@@ -214,6 +216,17 @@ public class RoomManager : MonoBehaviour
             SceneManager.LoadScene(nomeCena);
             Time.timeScale = 1f;
         }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public static void PauseButton(GameObject pauseUI)
+    {
+        Time.timeScale = 0;
+        pauseUI.SetActive(true);
     }
 
     private string ObterNomeCenaPorFase(int indiceFase)
