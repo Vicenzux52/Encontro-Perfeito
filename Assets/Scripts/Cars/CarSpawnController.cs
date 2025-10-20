@@ -8,18 +8,28 @@ public class CarSpawnerController : MonoBehaviour
     public List<GameObject> carInstantiateL;
     public Transform carDestroyer;
 
+    CameraHolder turning;
+
+    public int i;
+
     void Start()
     {
         carInstantiateL = new List<GameObject>();
+        turning = FindFirstObjectByType<CameraHolder>();
         timer = 0f;
     }
 
     void Update()
     {
         timer += Time.deltaTime;
-        Spawner();
-        Movement();
-        Clear();
+
+        if (i == turning.cameraState) 
+        {
+            Debug.Log("State " + turning.cameraState);
+            Spawner();
+            Movement();
+            Clear();
+        }
     }
 
     public void Spawner()
