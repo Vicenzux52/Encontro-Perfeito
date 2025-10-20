@@ -43328,7 +43328,8 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8492904523583913549, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
@@ -43473,6 +43474,10 @@ PrefabInstance:
     - target: {fileID: 2509906245586137466, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739514772593197580, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: initialTime
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4822382983974628457, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
       propertyPath: m_IsActive

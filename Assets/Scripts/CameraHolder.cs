@@ -21,6 +21,7 @@ public class CameraHolder : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = Camera.main.gameObject;
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         mainCamera.transform.localPosition = Vector3.right * mainCamera.transform.position.x;
         mainCamera.transform.localPosition += Vector3.up * cameraHeight + Vector3.back * cameraDistance;
         targetRotation = Quaternion.Euler(xRotation, 0, yRotation);

@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         }
         collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
 
-        //upgrade = upgrade selecionado
+        upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
