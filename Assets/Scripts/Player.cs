@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
 
         if (upInputs)
         {
-            up += 0.01f;
+            up += 0.05f;
         }
 
         if (slideInputs)
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
 
         if (downInputs)
         {
-            down += 0.01f;
+            down += 0.05f;
         }
     }
 
