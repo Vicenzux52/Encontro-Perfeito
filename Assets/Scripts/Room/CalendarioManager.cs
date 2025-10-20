@@ -1,9 +1,9 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CalendarioManager : MonoBehaviour
 {
-    [Header("UI Buttons")]
     public GameObject[] fases;
 
     private FaseManager progressManager;
@@ -13,6 +13,7 @@ public class CalendarioManager : MonoBehaviour
         progressManager = FaseManager.Instance;
         AtualizarBotoesFases();
         ConfigurarBotoesFases();
+        AtualizarTextosFases();
     }
 
     void AtualizarBotoesFases()
@@ -23,6 +24,31 @@ public class CalendarioManager : MonoBehaviour
             {
                 bool faseLiberada = progressManager.FaseLiberada(i);
                 fases[i].SetActive(faseLiberada);
+            }
+        }
+    }
+
+    void AtualizarTextosFases()
+    {
+        for (int i = 0; i < fases.Length; i++)
+        {
+            if (fases[i] != null)
+            {
+                TextMeshProUGUI textF = fases[i].GetComponentInChildren<TextMeshProUGUI>();
+
+                if (textF != null)
+                {
+                    bool faseCompletada = progressManager.FaseCompletada(i);
+
+                    if (faseCompletada)
+                    {
+                        textF.text = "X";
+                    }
+                    else
+                    {
+                        textF.text = "O";
+                    }
+                }
             }
         }
     }
@@ -59,5 +85,6 @@ public class CalendarioManager : MonoBehaviour
     public void RefreshFases()
     {
         AtualizarBotoesFases();
+        AtualizarTextosFases();
     }
 }
