@@ -246,6 +246,7 @@ public class RoomManager : MonoBehaviour
         playPanel.SetActive(false);
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
+        pausePanel.SetActive(false);
         Time.timeScale = 1f;
     }
 
