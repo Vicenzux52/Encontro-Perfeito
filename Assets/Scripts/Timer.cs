@@ -6,12 +6,16 @@ public class Timer : MonoBehaviour
     public float initialTime = 60.0f;
     public float timeLeft;
     public Text timerText;
+    int upgrade;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         timeLeft = initialTime;
         timerText = gameObject.GetComponent<Text>();
+        
+        upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
+        SetUpgrade();
     }
 
     // Update is called once per frame
@@ -54,6 +58,24 @@ public class Timer : MonoBehaviour
         else
         {
             return (int)seconds / 3600 + ":" + (int)(seconds % 3600) / 60 + ":" + (int)(seconds % 60);
+        }
+    }
+
+    void SetUpgrade()
+    {
+        switch (upgrade)
+        {
+            case 1:                         //Relogio
+                timeLeft += 30;
+                break;
+
+            case 2:                         //Presilha
+                //tem que ver ainda
+                break;
+            case 3:                         //cinto
+                timeLeft -= 30;
+                break;
+
         }
     }
 }

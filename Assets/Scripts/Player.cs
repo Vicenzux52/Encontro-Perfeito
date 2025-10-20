@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         }
         collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
 
-        //upgrade = upgrade selecionado
+        upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
@@ -248,11 +248,11 @@ public class Player : MonoBehaviour
         {
             case 0:                         //Tamagochi
                 JumpHeight *= 2;
-
+                limitSpeed /= 2;
                 break;
 
             case 1:                         //Relogio
-
+                lateralSpeed -= 5;
                 break;
 
             case 2:                         //Presilha
