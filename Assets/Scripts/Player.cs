@@ -247,6 +247,7 @@ public class Player : MonoBehaviour
         switch (upgrade)
         {
             case 0:                         //Tamagochi
+                JumpHeight *= 2;
 
                 break;
 
@@ -255,10 +256,10 @@ public class Player : MonoBehaviour
                 break;
 
             case 2:                         //Presilha
-
+                //tem que ver ainda
                 break;
             case 3:                         //cinto
-
+                limitSpeed += 10;
                 break;
 
         }
