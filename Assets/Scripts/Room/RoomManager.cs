@@ -28,6 +28,7 @@ public class RoomManager : MonoBehaviour
     public GameObject Radio;
     public GameObject Calendar;
     public GameObject Wardrobe;
+    public GameObject exclamacao;
 
     [Header("Chibi Reference")]
     public Transform player;
@@ -50,13 +51,16 @@ public class RoomManager : MonoBehaviour
         playerRb.freezeRotation = true;
 
         if (dialoguePanel != null)
-        {
-            dialoguePanel.gameObject.SetActive(false);
-        }
+            dialoguePanel.SetActive(false);
         else
-        {
             Debug.LogWarning("dialoguePanel não atribuido");
-        }
+
+        if (exclamacao != null)
+            exclamacao.SetActive(false);
+        else
+            Debug.LogWarning("exclamacao não atribuido");
+
+        ShowExclamacao();
 
         Invoke(nameof(ShowDialogue), delayBeforeShow);
     }
@@ -73,6 +77,12 @@ public class RoomManager : MonoBehaviour
         timer = duration;
     }
 
+    void ShowExclamacao()
+    {
+        if (exclamacao != null)
+            exclamacao.SetActive(true);
+    }
+
     void Update()
     {
         if (isShowing)
@@ -81,8 +91,16 @@ public class RoomManager : MonoBehaviour
 
             if (timer <= 0f)
             {
-                dialoguePanel.gameObject.SetActive(false);
+                dialoguePanel.SetActive(false);
                 isShowing = false;
+            }
+        }
+
+        if (calendarPanel != null && exclamacao != null)
+        {
+            if (calendarPanel.activeSelf && exclamacao.activeSelf)
+            {
+                exclamacao.SetActive(false);
             }
         }
 
@@ -180,6 +198,7 @@ public class RoomManager : MonoBehaviour
         else if (targetObject == Calendar)
         {
             calendarPanel.SetActive(true);
+            pausePanel.SetActive(false);
             Time.timeScale = 0f;
         }
         else if (targetObject == PhotoAlbum)
