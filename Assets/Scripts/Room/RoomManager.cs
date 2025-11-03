@@ -24,7 +24,7 @@ public class RoomManager : MonoBehaviour
     public GameObject Door;
     public GameObject PhotoAlbum;
     public GameObject Radio;
-    public GameObject Calendar;
+    public GameObject CalendarIcon;
     public GameObject Wardrobe;
 
     [Header("Chibi Reference")]
@@ -175,11 +175,11 @@ public class RoomManager : MonoBehaviour
             textUI.SetActive(true);
             time = timeCounter;
         }
-        else if (targetObject == Calendar)
+        /*else if (targetObject == Calendar)
         {
             calendarPanel.SetActive(true);
             Time.timeScale = 0f;
-        }
+        }*/
         else if (targetObject == PhotoAlbum)
         {
             albumPanel.SetActive(true);
@@ -228,11 +228,19 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    public void CalendarButton()
+    {
+        Time.timeScale = 0f;
+        calendarPanel.SetActive(true);
+        CalendarIcon.SetActive(false);
+    }
+
     public void BackButton()
     {
         playPanel.SetActive(false);
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
+        CalendarIcon.SetActive(true);
         Time.timeScale = 1f;
     }
 
