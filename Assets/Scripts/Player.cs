@@ -49,8 +49,13 @@ public class Player : MonoBehaviour
     public float hitDuration = 3f;
     private bool isHit = false;
 
-    [Header("Hit")]
-    public int upgrade;
+    [Header("Maze")]
+    public int positionX = 0;
+    public int positionY = 0;
+    public int limitX = 15
+    public int limitY = 15
+        
+    int upgrade;
     //Outros
     int cameraState = 0;
     Rigidbody rb;
@@ -97,11 +102,18 @@ public class Player : MonoBehaviour
     {
         GetInputs();
         CheckCameraState();
-        Slide();
-        FrontalMovement();
-        SideDash();
-        Delay();
-        Jump();
+        if (cameraState > 1)
+        {
+            Slide();
+            FrontalMovement();
+            SideDash();
+            Delay();
+            Jump();
+        }
+        else
+        {
+            MazeMovement();
+        }
     }
 
     void FixedUpdate()
@@ -238,10 +250,29 @@ public class Player : MonoBehaviour
 
     void CheckCameraState()
     {
-        if (cameraHolder.GetComponent<CameraHolder>().cameraState == 1) cameraState = 1;
-        else cameraState = 0;
+        cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
+        if (cameraState > 0 && cameraHolder.GetComponent<CameraHolder>().onTransition) 
+        {
+            route = 0;
+            tranform.position = transform.position * (Vector3.up + Vector3.forward)
+            positionX = cameraHolder.GetComponent<CameraHolder>().InitialPositionX;
+            positionY = cameraHolder.GetComponent<CameraHolder>().InitialPositionY;
+            limitX = cameraHolder.GetComponent<CameraHolder>().limitX;
+            limitY = cameraHolder.GetComponent<CameraHolder>().limitY;
+            centerY = cameraHolder.GetComponent<CameraHolder>().centerY;
+        }
     }
 
+    void MazeMovement()
+    {
+        //fazer uma movimentação que funcione, talvez que nem helltaker
+        positionX = Mathf.Clamp(positionX, -limitX, limitxX;
+        positionY = Mathf.Clamp(positionY, -limitY, limitxY;
+        
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+        transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+    }
+    
     void SetUpgrade()
     {
         switch (upgrade)
@@ -267,30 +298,39 @@ public class Player : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
+        if (cameraState < 2)
         {
-            ContactPoint contact = collision.contacts[0];
-            Vector3 normal = contact.normal;
-            if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+            if (collision.gameObject.CompareTag("Obstacle"))
             {
-                onMaxSpeed = false;
-                rb.linearVelocity = -orientation.forward * delayForce;
+                ContactPoint contact = collision.contacts[0];
+                Vector3 normal = contact.normal;
+                if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+                {
+                    onMaxSpeed = false;
+                    rb.linearVelocity = -orientation.forward * delayForce;
+                }
+                else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
+                {
+                    if (transform.position.x < collision.transform.position.x) route--;
+                    else route++;
+                    onMaxSpeed = false;
+                    isDelayed = true;
+                }
+    
+                if (isJumping) down *= 2;
+    
+                if (!isHit)
+                {
+                    StartCoroutine(FlashMaterial());
+                }
             }
-            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
+        }
+        else
+        {
+            if (collision.gameObject.CompareTag("Obstacle"))
             {
-                if (transform.position.x < collision.transform.position.x) route--;
-                else route++;
-                onMaxSpeed = false;
-                isDelayed = true;
+                //Descobrir como fazer o retorno sem bugar com a velocidade
             }
-
-            if (isJumping) down *= 2;
-
-            if (!isHit)
-            {
-                StartCoroutine(FlashMaterial());
-            }
-
         }
     }
     void OnTriggerEnter(Collider other)
