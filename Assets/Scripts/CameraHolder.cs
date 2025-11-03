@@ -39,7 +39,7 @@ public class CameraHolder : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    public void TurningLeft(int state)
+    public void Turning(int state)
     {
         cameraState = state;
     }
