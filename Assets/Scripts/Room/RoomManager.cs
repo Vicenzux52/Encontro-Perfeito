@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +16,7 @@ public class RoomManager : MonoBehaviour
 
     [Header("Chibi's Opening Speech")]
     public GameObject dialoguePanel;
-    public float duration = 3f;
+    public float duration = 2f;
     public float delayBeforeShow = 0.5f;
     private float timer;
     private bool isShowing;
@@ -40,6 +41,7 @@ public class RoomManager : MonoBehaviour
     private GameObject targetObject;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private bool returning = false;
 
     [Header("Upgrades")]
     public GameObject ChibiBelt;
@@ -168,14 +170,37 @@ public class RoomManager : MonoBehaviour
         else
         {
             moving = false;
-            if (targetObject != null)
+
+            if (returning)
+            {
+                returning = false;
+                StartCoroutine(RotateToOriginal());
+            }
+            else if (targetObject != null)
                 OnReachTarget();
         }
+    }
+
+    IEnumerator RotateToOriginal()
+    {
+        Quaternion startRotation = player.rotation;
+        float elapsed = 0f;
+        float duration = 0.5f;
+
+        while (elapsed < duration)
+        {
+            player.rotation = Quaternion.Slerp(startRotation, originalRotation, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        player.rotation = originalRotation;
     }
 
     void RotatePlayer()
     {
         if (!moving) return;
+        if (returning) return;
 
         Quaternion targetRotation;
 
@@ -289,7 +314,17 @@ public class RoomManager : MonoBehaviour
 
         targetPosition = originalPosition;
         moving = true;
+        returning = true;
         targetObject = null;
+
+        Vector3 direction = (targetPosition - player.position);
+        direction.y = 0;
+
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            player.rotation = lookRotation;
+        }
     }
 
     public void BackButtonWardrobe()
