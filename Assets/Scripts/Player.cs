@@ -186,6 +186,17 @@ public class Player : MonoBehaviour
             onMaxSpeed = true;
         }
         if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay;
+
+        public int velocity;
+        public int acceleration;
+        velocity += acceleration/100;
+        if (velocity > limitSpeed) velocity = limitSpeed/100;
+        transform.position += Vector3.forward * velocity/100;
+        
+        
+        /*
+        
+        */
     }
 
     void SideDash()
@@ -202,6 +213,10 @@ public class Player : MonoBehaviour
             {
                 onMaxSpeed = false;
                 rb.linearVelocity = -orientation.forward * backDash;
+                
+                /*
+                velocity = backDash/100
+                */
             }
             route = 0;
         }
@@ -324,6 +339,28 @@ public class Player : MonoBehaviour
                 {
                     StartCoroutine(FlashMaterial());
                 }
+
+                /*
+                ContactPoint contact = collision.contacts[0];
+                Vector3 normal = contact.normal;
+                if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+                {
+                    velocity = -limitSpeed * 2;
+                }
+                else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
+                {
+                    if (transform.position.x < collision.transform.position.x) route--;
+                    else route++;
+                    isDelayed = true;
+                }
+    
+                if (isJumping) down *= 2;
+    
+                if (!isHit)
+                {
+                    StartCoroutine(FlashMaterial());
+                }
+                */
             }
         /*}
         else
