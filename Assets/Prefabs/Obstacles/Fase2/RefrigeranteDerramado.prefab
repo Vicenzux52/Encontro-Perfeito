@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RefrigeranteDerramado
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27f6dfcd9c2860e47ac77771fd543da4, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -71,6 +75,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 27f6dfcd9c2860e47ac77771fd543da4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7138542554111180126}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 27f6dfcd9c2860e47ac77771fd543da4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6681225924254818919}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 27f6dfcd9c2860e47ac77771fd543da4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4797574279549618730}
   m_SourcePrefab: {fileID: 100100000, guid: 27f6dfcd9c2860e47ac77771fd543da4, type: 3}
 --- !u!1 &7827411620870248218 stripped
 GameObject:
@@ -98,3 +108,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1894791, y: 0.25567433, z: 0.7913182}
   m_Center: {x: -0.30459943, y: 0.12761639, z: 0.026731491}
+--- !u!114 &-6681225924254818919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7827411620870248218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bdfa189022ea847aa22b6dc9ffc910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4797574279549618730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7827411620870248218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9556819bc80b7194082838fdedb7e3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 1
+  delaySpeed: 0.5
+  delayForce: 10

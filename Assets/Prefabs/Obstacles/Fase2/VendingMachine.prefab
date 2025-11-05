@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VendingMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8e7352469dd7aa941ab346c522a149dc, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -71,6 +75,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e7352469dd7aa941ab346c522a149dc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4353207804920568780}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e7352469dd7aa941ab346c522a149dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3141066112146372626}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e7352469dd7aa941ab346c522a149dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2029667460746757933}
   m_SourcePrefab: {fileID: 100100000, guid: 8e7352469dd7aa941ab346c522a149dc, type: 3}
 --- !u!1 &7238072339819868867 stripped
 GameObject:
@@ -98,3 +108,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1665708, y: 1.5935913, z: 0.75870657}
   m_Center: {x: -0.12823343, y: 0.79221827, z: 0.016190365}
+--- !u!114 &3141066112146372626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7238072339819868867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bdfa189022ea847aa22b6dc9ffc910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2029667460746757933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7238072339819868867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9556819bc80b7194082838fdedb7e3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 1
+  delaySpeed: 0.5
+  delayForce: 10
