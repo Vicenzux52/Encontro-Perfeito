@@ -103,18 +103,18 @@ public class Player : MonoBehaviour
     {
         GetInputs();
         CheckCameraState();
-        if (cameraState > 1)
-        {
+        /*if (cameraState > 1)
+        {*/
             Slide();
             FrontalMovement();
             SideDash();
             Delay();
             Jump();
-        }
+        /*}
         else
         {
             MazeMovement();
-        }
+        }*/
     }
 
     void FixedUpdate()
@@ -252,7 +252,7 @@ public class Player : MonoBehaviour
     void CheckCameraState()
     {
         cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
-        if (cameraState > 0 && cameraHolder.GetComponent<CameraHolder>().onTransition) 
+        /*if (cameraState > 0 && cameraHolder.GetComponent<CameraHolder>().onTransition) 
         {
             route = 0;
             transform.position = transform.position - (Vector3.right * transform.position.x);
@@ -261,10 +261,10 @@ public class Player : MonoBehaviour
             limitX = cameraHolder.GetComponent<CameraHolder>().limitX;
             limitY = cameraHolder.GetComponent<CameraHolder>().limitY;
             centerY = cameraHolder.GetComponent<CameraHolder>().centerY;
-        }
+        }*/
     }
 
-    void MazeMovement()
+    /*void MazeMovement()
     {
         //fazer uma movimentação que funcione, talvez que nem helltaker
         positionX = Mathf.Clamp(positionX, -limitX, limitX);
@@ -272,7 +272,7 @@ public class Player : MonoBehaviour
         
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
         transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
-    }
+    }*/
     
     void SetUpgrade()
     {
@@ -299,8 +299,8 @@ public class Player : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        if (cameraState < 2)
-        {
+        /*if (cameraState < 2)
+        {*/
             if (collision.gameObject.CompareTag("Obstacle"))
             {
                 ContactPoint contact = collision.contacts[0];
@@ -325,14 +325,14 @@ public class Player : MonoBehaviour
                     StartCoroutine(FlashMaterial());
                 }
             }
-        }
+        /*}
         else
         {
             if (collision.gameObject.CompareTag("Obstacle"))
             {
                 //Descobrir como fazer o retorno sem bugar com a velocidade
             }
-        }
+        }*/
     }
     void OnTriggerEnter(Collider other)
     {
