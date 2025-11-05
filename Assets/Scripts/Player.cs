@@ -50,10 +50,11 @@ public class Player : MonoBehaviour
     private bool isHit = false;
 
     [Header("Maze")]
-    public int positionX = 0;
-    public int positionY = 0;
-    public int limitX = 15
-    public int limitY = 15
+    public float positionX = 0;
+    public float positionY = 0;
+    public float limitX = 15;
+    public float limitY = 15;
+    public float centerY;
         
     int upgrade;
     //Outros
@@ -254,7 +255,7 @@ public class Player : MonoBehaviour
         if (cameraState > 0 && cameraHolder.GetComponent<CameraHolder>().onTransition) 
         {
             route = 0;
-            tranform.position = transform.position * (Vector3.up + Vector3.forward)
+            transform.position = transform.position - (Vector3.right * transform.position.x);
             positionX = cameraHolder.GetComponent<CameraHolder>().InitialPositionX;
             positionY = cameraHolder.GetComponent<CameraHolder>().InitialPositionY;
             limitX = cameraHolder.GetComponent<CameraHolder>().limitX;
@@ -266,8 +267,8 @@ public class Player : MonoBehaviour
     void MazeMovement()
     {
         //fazer uma movimentação que funcione, talvez que nem helltaker
-        positionX = Mathf.Clamp(positionX, -limitX, limitxX;
-        positionY = Mathf.Clamp(positionY, -limitY, limitxY;
+        positionX = Mathf.Clamp(positionX, -limitX, limitX);
+        positionY = Mathf.Clamp(positionY, -limitY, limitY);
         
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
         transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
