@@ -34,18 +34,44 @@ public class RoomManager : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
     public LayerMask collisionLayer;
-
-    private int faseSelecionada = 0;
-
     private Rigidbody playerRb;
     private Vector3 targetPosition;
     private bool moving = false;
     private GameObject targetObject;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
+
+    [Header("Upgrades")]
+    public GameObject ChibiBelt;
+    public GameObject ChibiClock;
+    public GameObject ChibiHairClip;
+    public GameObject ChibiTamagotchi;
+
+    private int faseSelecionada = 0;
 
     void Start()
     {
         playerRb = player.GetComponent<Rigidbody>();
+        originalPosition = playerRb.position;
+        originalRotation = playerRb.rotation;
         playerRb.freezeRotation = true;
+
+        ChibiBelt.SetActive(false);
+        ChibiClock.SetActive(false);
+        ChibiHairClip.SetActive(false);
+        ChibiTamagotchi.SetActive(false);
+
+        int id = PlayerPrefs.GetInt("UpgradeID", -1);
+        Debug.Log($"[ChibiManager] Aplicando upgrade ID: {id}");
+
+        switch (id)
+        {
+            case 0: ChibiTamagotchi.SetActive(true); break;
+            case 1: ChibiClock.SetActive(true); break;
+            case 2: ChibiHairClip.SetActive(true); break;
+            case 3: ChibiBelt.SetActive(true); break;
+            default: Debug.Log("Nenhum upgrade equipado na Chibi"); break;
+        }
 
         if (dialoguePanel != null)
         {
@@ -111,8 +137,11 @@ public class RoomManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, collisionLayer))
             {
+                originalPosition = playerRb.position;
+                originalRotation = playerRb.rotation;
+
                 targetPosition = hit.point;
                 moving = true;
                 targetObject = hit.collider.gameObject;
@@ -148,15 +177,29 @@ public class RoomManager : MonoBehaviour
     {
         if (!moving) return;
 
-        Vector3 direction = targetPosition - playerRb.position;
-        direction.y = 0;
+        Quaternion targetRotation;
 
-        if (direction.sqrMagnitude > 0.001f)
+        if (targetObject != null)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            player.rotation = Quaternion.Slerp(player.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            Vector3 direction = targetPosition - playerRb.position;
+            direction.y = 0;
+
+            if (direction.sqrMagnitude > 0.001f)
+            {
+                targetRotation = Quaternion.LookRotation(direction);
+            }
+            else
+            {
+                return; 
+            }
         }
+        else
+        {
+            targetRotation = originalRotation;
+        }
+        player.rotation = Quaternion.Slerp(player.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
     }
+    
 
     void OnReachTarget()
     {
@@ -183,6 +226,7 @@ public class RoomManager : MonoBehaviour
         else if (targetObject == PhotoAlbum)
         {
             albumPanel.SetActive(true);
+            CalendarIcon.SetActive(false);
             Time.timeScale = 0f;
         }
         else if (targetObject == Wardrobe)
@@ -242,6 +286,10 @@ public class RoomManager : MonoBehaviour
         albumPanel.SetActive(false);
         CalendarIcon.SetActive(true);
         Time.timeScale = 1f;
+
+        targetPosition = originalPosition;
+        moving = true;
+        targetObject = null;
     }
 
     public void BackButtonWardrobe()
