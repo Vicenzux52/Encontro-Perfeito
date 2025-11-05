@@ -193,8 +193,8 @@ public class Player : MonoBehaviour
         
         velocity += acceleration;
         if (velocity > limitSpeed) velocity = limitSpeed;
-        transform.position += Vector3.forward * velocity;
         if (isDelayed) velocity =  limitSpeed * lateralSpeedDelay;
+        transform.position += Vector3.forward * velocity/100;
        
     }
 
