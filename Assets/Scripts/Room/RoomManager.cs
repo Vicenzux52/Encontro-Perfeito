@@ -1,4 +1,4 @@
-using UnityEditor;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,7 +9,6 @@ public class RoomManager : MonoBehaviour
     public GameObject playPanel;
     public GameObject calendarPanel;
     public GameObject albumPanel;
-    public GameObject pausePanel;
 
     [Header("Ui Timer")]
     public float timeCounter = 10f;
@@ -17,7 +16,7 @@ public class RoomManager : MonoBehaviour
 
     [Header("Chibi's Opening Speech")]
     public GameObject dialoguePanel;
-    public float duration = 3f;
+    public float duration = 2f;
     public float delayBeforeShow = 0.5f;
     private float timer;
     private bool isShowing;
@@ -26,7 +25,7 @@ public class RoomManager : MonoBehaviour
     public GameObject Door;
     public GameObject PhotoAlbum;
     public GameObject Radio;
-    public GameObject Calendar;
+    public GameObject CalendarIcon;
     public GameObject Wardrobe;
 
     [Header("Chibi Reference")]
@@ -36,18 +35,45 @@ public class RoomManager : MonoBehaviour
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
     public LayerMask collisionLayer;
-
-    private int faseSelecionada = 0;
-
     private Rigidbody playerRb;
     private Vector3 targetPosition;
     private bool moving = false;
     private GameObject targetObject;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
+    private bool returning = false;
+
+    [Header("Upgrades")]
+    public GameObject ChibiBelt;
+    public GameObject ChibiClock;
+    public GameObject ChibiHairClip;
+    public GameObject ChibiTamagotchi;
+
+    private int faseSelecionada = 0;
 
     void Start()
     {
         playerRb = player.GetComponent<Rigidbody>();
+        originalPosition = playerRb.position;
+        originalRotation = playerRb.rotation;
         playerRb.freezeRotation = true;
+
+        ChibiBelt.SetActive(false);
+        ChibiClock.SetActive(false);
+        ChibiHairClip.SetActive(false);
+        ChibiTamagotchi.SetActive(false);
+
+        int id = PlayerPrefs.GetInt("UpgradeID", -1);
+        Debug.Log($"[ChibiManager] Aplicando upgrade ID: {id}");
+
+        switch (id)
+        {
+            case 0: ChibiTamagotchi.SetActive(true); break;
+            case 1: ChibiClock.SetActive(true); break;
+            case 2: ChibiHairClip.SetActive(true); break;
+            case 3: ChibiBelt.SetActive(true); break;
+            default: Debug.Log("Nenhum upgrade equipado na Chibi"); break;
+        }
 
         if (dialoguePanel != null)
         {
@@ -113,8 +139,11 @@ public class RoomManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, collisionLayer))
             {
+                originalPosition = playerRb.position;
+                originalRotation = playerRb.rotation;
+
                 targetPosition = hit.point;
                 moving = true;
                 targetObject = hit.collider.gameObject;
@@ -141,24 +170,61 @@ public class RoomManager : MonoBehaviour
         else
         {
             moving = false;
-            if (targetObject != null)
+
+            if (returning)
+            {
+                returning = false;
+                StartCoroutine(RotateToOriginal());
+            }
+            else if (targetObject != null)
                 OnReachTarget();
         }
+    }
+
+    IEnumerator RotateToOriginal()
+    {
+        Quaternion startRotation = player.rotation;
+        float elapsed = 0f;
+        float duration = 0.5f;
+
+        while (elapsed < duration)
+        {
+            player.rotation = Quaternion.Slerp(startRotation, originalRotation, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        player.rotation = originalRotation;
     }
 
     void RotatePlayer()
     {
         if (!moving) return;
+        if (returning) return;
 
-        Vector3 direction = targetPosition - playerRb.position;
-        direction.y = 0;
+        Quaternion targetRotation;
 
-        if (direction.sqrMagnitude > 0.001f)
+        if (targetObject != null)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            player.rotation = Quaternion.Slerp(player.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            Vector3 direction = targetPosition - playerRb.position;
+            direction.y = 0;
+
+            if (direction.sqrMagnitude > 0.001f)
+            {
+                targetRotation = Quaternion.LookRotation(direction);
+            }
+            else
+            {
+                return; 
+            }
         }
+        else
+        {
+            targetRotation = originalRotation;
+        }
+        player.rotation = Quaternion.Slerp(player.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
     }
+    
 
     void OnReachTarget()
     {
@@ -177,14 +243,15 @@ public class RoomManager : MonoBehaviour
             textUI.SetActive(true);
             time = timeCounter;
         }
-        else if (targetObject == Calendar)
+        /*else if (targetObject == Calendar)
         {
             calendarPanel.SetActive(true);
             Time.timeScale = 0f;
-        }
+        }*/
         else if (targetObject == PhotoAlbum)
         {
             albumPanel.SetActive(true);
+            CalendarIcon.SetActive(false);
             Time.timeScale = 0f;
         }
         else if (targetObject == Wardrobe)
@@ -218,17 +285,6 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void BackToMenu()
-    {
-        SceneManager.LoadScene("Menu");
-    }
-
-    public static void PauseButton(GameObject pauseUI)
-    {
-        Time.timeScale = 0;
-        pauseUI.SetActive(true);
-    }
-
     private string ObterNomeCenaPorFase(int indiceFase)
     {
         switch (indiceFase)
@@ -241,13 +297,34 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    public void CalendarButton()
+    {
+        Time.timeScale = 0f;
+        calendarPanel.SetActive(true);
+        CalendarIcon.SetActive(false);
+    }
+
     public void BackButton()
     {
         playPanel.SetActive(false);
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
-        pausePanel.SetActive(false);
+        CalendarIcon.SetActive(true);
         Time.timeScale = 1f;
+
+        targetPosition = originalPosition;
+        moving = true;
+        returning = true;
+        targetObject = null;
+
+        Vector3 direction = (targetPosition - player.position);
+        direction.y = 0;
+
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            player.rotation = lookRotation;
+        }
     }
 
     public void BackButtonWardrobe()

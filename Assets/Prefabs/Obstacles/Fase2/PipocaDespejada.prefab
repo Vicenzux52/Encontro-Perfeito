@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PipocaDespejada
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 799a9253ee2ad4d46a79c0acde736428, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -71,6 +75,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 799a9253ee2ad4d46a79c0acde736428, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1617048893196622702}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 799a9253ee2ad4d46a79c0acde736428, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8979311952336813813}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 799a9253ee2ad4d46a79c0acde736428, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6261519050044391262}
   m_SourcePrefab: {fileID: 100100000, guid: 799a9253ee2ad4d46a79c0acde736428, type: 3}
 --- !u!1 &6077844961454085648 stripped
 GameObject:
@@ -98,3 +108,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.1874971, y: 0.6439204, z: 0.9802888}
   m_Center: {x: -0.44304797, y: 0.067836724, z: -0.00908777}
+--- !u!114 &8979311952336813813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077844961454085648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bdfa189022ea847aa22b6dc9ffc910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6261519050044391262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077844961454085648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9556819bc80b7194082838fdedb7e3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayTime: 1
+  delaySpeed: 0.5
+  delayForce: 10
