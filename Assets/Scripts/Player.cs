@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] float routeDistance = 1f;
     [SerializeField] int routeQuantity = 1;
     [HideInInspector] public int route = 0;
+    
 
     [Header("Movimento")]
     public float frontSpeed = 0.1f;
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     public float backDash = 20f;
     public float limitSpeed = 100;
     bool onMaxSpeed = false;
+    public float velocity = 0.05f;
+    public float acceleration = 0.01f;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -178,25 +181,21 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
-        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
+        /* if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
         else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
         if (rb.linearVelocity.z > limitSpeed)
         {
             rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
             onMaxSpeed = true;
         }
-        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay;
+        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay; */
 
-        public int velocity;
-        public int acceleration;
+        
         velocity += acceleration/100;
-        if (velocity > limitSpeed) velocity = limitSpeed/100;
+        if (velocity > limitSpeed) velocity = limitSpeed;
         transform.position += Vector3.forward * velocity/100;
-        
-        
-        /*
-        
-        */
+        if (isDelayed) velocity =  limitSpeed/100 * lateralSpeedDelay;
+       
     }
 
     void SideDash()
@@ -318,7 +317,7 @@ public class Player : MonoBehaviour
         {*/
             if (collision.gameObject.CompareTag("Obstacle"))
             {
-                ContactPoint contact = collision.contacts[0];
+                /* ContactPoint contact = collision.contacts[0];
                 Vector3 normal = contact.normal;
                 if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
                 {
@@ -338,9 +337,9 @@ public class Player : MonoBehaviour
                 if (!isHit)
                 {
                     StartCoroutine(FlashMaterial());
-                }
+                } */
 
-                /*
+                
                 ContactPoint contact = collision.contacts[0];
                 Vector3 normal = contact.normal;
                 if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
@@ -360,7 +359,7 @@ public class Player : MonoBehaviour
                 {
                     StartCoroutine(FlashMaterial());
                 }
-                */
+               
             }
         /*}
         else
