@@ -1,9 +1,5 @@
 using System;
-<<<<<<< HEAD
-using System.Diagnostics;
 using Unity.Mathematics;
-=======
->>>>>>> parent of 54caebd (Adicionado a virada de camera)
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -13,20 +9,25 @@ public class Player : MonoBehaviour
     [SerializeField] float routeDistance = 1f;
     [SerializeField] int routeQuantity = 1;
     [HideInInspector] public int route = 0;
+    
 
     [Header("Movimento")]
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
+    public float backDash = 20f;
     public float limitSpeed = 100;
     bool onMaxSpeed = false;
+    public float velocity = 0.05f;
+    public float acceleration = 0.01f;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
     public float jumpDuration = 2f;
-    public float gravity = 10;
+    float gravity = 10;
     float initialYJump = 0;
     float timeX = 0;
     bool isJumping = false;
+    float down = 1;
 
     [Header("Delay")]
     public float delayForce = 30f;
@@ -37,13 +38,12 @@ public class Player : MonoBehaviour
 
     [Header("Slide")]
     [SerializeField] float slideAngle = 75f;
-    [SerializeField] float slideSpeed = 5f;
+    [SerializeField] float slideRotationSpeed = 75f;
     [SerializeField] float slideTime = 1f;
+    Quaternion targetRotation;
     bool isSliding = false;
-    bool returnSlide = false;
     float slideTimer = 0f; //deve tirar
-    [SerializeField] float slideShakeForce = 3f;
-    [SerializeField] float slideShakeSpeed = 100f;
+    float up = 1;
 
     [Header("Hit")]
     public Material hitMaterial;
@@ -52,10 +52,18 @@ public class Player : MonoBehaviour
     public float hitDuration = 3f;
     private bool isHit = false;
 
-    [Header("Hit")]
-    public int upgrade;
+    [Header("Maze")]
+    public float positionX = 0;
+    public float positionY = 0;
+    public float limitX = 15;
+    public float limitY = 15;
+    public float centerY;
+        
+    int upgrade;
     //Outros
+    int cameraState = 0;
     Rigidbody rb;
+    GameObject cameraHolder;
     Transform orientation;
 
     [Header("Audio")]
@@ -77,7 +85,7 @@ public class Player : MonoBehaviour
         }
         collectibleSound = transform.Find("CollectibleAudio").GetComponent<AudioSource>();
 
-        //upgrade = upgrade selecionado
+        upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
 
         rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
@@ -91,16 +99,25 @@ public class Player : MonoBehaviour
             }
         }
         
+        cameraHolder = Camera.main.transform.parent.gameObject;
     }
 
     void Update()
     {
         GetInputs();
-        Slide();
-        FrontalMovement();
-        SideDash();
-        Delay();
-        Jump();
+        CheckCameraState();
+        /*if (cameraState > 1)
+        {*/
+            Slide();
+            FrontalMovement();
+            SideDash();
+            Delay();
+            Jump();
+        /*}
+        else
+        {
+            MazeMovement();
+        }*/
     }
 
     void FixedUpdate()
@@ -112,7 +129,8 @@ public class Player : MonoBehaviour
     {
         bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
         bool rightInputs = (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity;
-        bool upInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
+        bool jumpInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
+        bool upInputs = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)) && !isSliding && !isJumping;
         bool slideInputs = (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping;
         slideInputs |= (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) && !isSliding && !isJumping;
         bool downInputs = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && isJumping;
@@ -135,7 +153,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (upInputs)
+        if (jumpInputs)
         {
             initialYJump = transform.position.y;
             isJumping = true;
@@ -143,7 +161,11 @@ public class Player : MonoBehaviour
             {
                 audioSource.Play();
             }
+        }
 
+        if (upInputs)
+        {
+            up += 0.05f;
         }
 
         if (slideInputs)
@@ -153,27 +175,51 @@ public class Player : MonoBehaviour
 
         if (downInputs)
         {
-            Jump();
+            down += 0.05f;
         }
     }
 
     void FrontalMovement()
     {
-        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
+        /* if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
         else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
         if (rb.linearVelocity.z > limitSpeed)
         {
             rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
             onMaxSpeed = true;
         }
-        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay;
+        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay; */
+
+        
+        velocity += acceleration * Time.deltaTime;
+        if (velocity < 0) velocity += acceleration * Time.deltaTime;
+        if (velocity > limitSpeed) velocity = limitSpeed;
+        if (isDelayed) velocity =  limitSpeed * lateralSpeedDelay;
+        transform.position += Vector3.forward * velocity * Time.deltaTime;
+       
     }
 
     void SideDash()
     {
-        route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
-        transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+        if (cameraState == 0)
+        {
+            route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+            transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (route == -1)
+            {
+                /* onMaxSpeed = false;
+                rb.linearVelocity = -orientation.forward * backDash; */
+                
+                
+                velocity = -backDash;
+               
+            }
+            route = 0;
+        }
     }
 
     void Jump()
@@ -182,9 +228,10 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, initialYJump + JumpHeight * Mathf.Pow(Mathf.Sin(timeX / jumpDuration), 1f / 2f),
             transform.position.z);
-            timeX += Time.deltaTime;
+            timeX += down * Time.deltaTime;
             if (Mathf.Sin(timeX / jumpDuration) < 0)
             {
+                down = 1;
                 isJumping = false;
                 timeX = 0;
             }
@@ -193,30 +240,22 @@ public class Player : MonoBehaviour
 
     void Slide()
     {
-        if (!returnSlide && isSliding)
+        if (isSliding)
         {
-            if (slideTimer == 0f) transform.RotateAround(transform.position, Vector3.right, -slideAngle * slideSpeed * Time.deltaTime);
-            if ((transform.eulerAngles.x <= 361 - slideAngle && transform.eulerAngles.x >= 359 - slideAngle) || slideTimer != 0f)
+            targetRotation = Quaternion.Euler(-slideAngle, 0, 0);
+            slideTimer += up * Time.deltaTime;
+            if (slideTimer > slideTime)
             {
-                slideTimer += Time.deltaTime;
-                if (slideTimer > slideTime)
-                {
-                    slideTimer = 0f;
-                    returnSlide = true;
-                }
-                transform.localRotation = Quaternion.Euler(new Vector3(-75 + Mathf.Sin(Time.time * slideShakeSpeed) * slideShakeForce, 0, 0));
-            }
-        }
-        if (returnSlide && isSliding)
-        {
-            transform.RotateAround(transform.position, Vector3.right, slideAngle * 0.75f * slideSpeed * Time.deltaTime);
-            if (transform.eulerAngles.x > 0 && transform.eulerAngles.x < 5)
-            {
-                returnSlide = false;
+                slideTimer = 0f;
+                up = 1f;
                 isSliding = false;
-                transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
             }
         }
+        if (!isSliding)
+        {
+            targetRotation = Quaternion.Euler(0, 0, 0);
+        }
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, slideRotationSpeed * Time.deltaTime);
     }
 
     void Delay()
@@ -225,62 +264,111 @@ public class Player : MonoBehaviour
         else isDelayed = false;
     }
 
-<<<<<<< HEAD
     void CheckCameraState()
     {
-        if (cameraHolder.GetComponent<CameraHolder>().cameraState == 1) cameraState = 1;
-        else cameraState = 0;
+        cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
+        /*if (cameraState > 0 && cameraHolder.GetComponent<CameraHolder>().onTransition) 
+        {
+            route = 0;
+            transform.position = transform.position - (Vector3.right * transform.position.x);
+            positionX = cameraHolder.GetComponent<CameraHolder>().InitialPositionX;
+            positionY = cameraHolder.GetComponent<CameraHolder>().InitialPositionY;
+            limitX = cameraHolder.GetComponent<CameraHolder>().limitX;
+            limitY = cameraHolder.GetComponent<CameraHolder>().limitY;
+            centerY = cameraHolder.GetComponent<CameraHolder>().centerY;
+        }*/
     }
 
+    /*void MazeMovement()
+    {
+        //fazer uma movimentação que funcione, talvez que nem helltaker
+        positionX = Mathf.Clamp(positionX, -limitX, limitX);
+        positionY = Mathf.Clamp(positionY, -limitY, limitY);
+        
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+        transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+    }*/
+    
     void SetUpgrade()
     {
         switch (upgrade)
         {
             case 0:                         //Tamagochi
-
+                /* JumpHeight *= 2;
+                limitSpeed *= 0.75f; */
                 break;
 
-            case 1:                         //Presilha
-
+            case 1:                         //Relogio
+                lateralSpeed -= 5;
                 break;
 
-            case 2:                         //Relogio
-
+            case 2:                         //Presilha
+                //tem que ver ainda
                 break;
             case 3:                         //cinto
-
+                limitSpeed *= 1.2f;
                 break;
 
         }
     }
     
-=======
->>>>>>> parent of 54caebd (Adicionado a virada de camera)
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
+        /*if (cameraState < 2)
+        {*/
+            if (collision.gameObject.CompareTag("Obstacle"))
+            {
+                /* ContactPoint contact = collision.contacts[0];
+                Vector3 normal = contact.normal;
+                if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+                {
+                    onMaxSpeed = false;
+                    rb.linearVelocity = -orientation.forward * delayForce;
+                }
+                else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
+                {
+                    if (transform.position.x < collision.transform.position.x) route--;
+                    else route++;
+                    onMaxSpeed = false;
+                    isDelayed = true;
+                }
+
+                if (isJumping) down *= 2;
+
+                if (!isHit)
+                {
+                    StartCoroutine(FlashMaterial());
+                } */
+                
+                ContactPoint contact = collision.contacts[0];
+                Vector3 normal = contact.normal;
+                if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+                {
+                    velocity = -limitSpeed;
+                }
+                else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
+                {
+                    if (transform.position.x < collision.transform.position.x) route--;
+                    else route++;
+                    isDelayed = true;
+                }
+    
+                if (isJumping) down *= 2;
+    
+                if (!isHit)
+                {
+                    StartCoroutine(FlashMaterial());
+                }
+               
+            }
+        /*}
+        else
         {
-            ContactPoint contact = collision.contacts[0];
-            Vector3 normal = contact.normal;
-            if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+            if (collision.gameObject.CompareTag("Obstacle"))
             {
-                onMaxSpeed = false;
-                rb.linearVelocity = -orientation.forward * delayForce;
+                //Descobrir como fazer o retorno sem bugar com a velocidade
             }
-            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
-            {
-                if (transform.position.x < collision.transform.position.x) route--;
-                else route++;
-                onMaxSpeed = false;
-                isDelayed = true;
-            }
-
-            if (!isHit)
-            {
-                StartCoroutine(FlashMaterial());
-            }
-
-        }
+        }*/
     }
     void OnTriggerEnter(Collider other)
     {

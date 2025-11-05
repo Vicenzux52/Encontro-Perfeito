@@ -4,7 +4,7 @@ using UnityEngine;
 public class TurningArea : MonoBehaviour
 {
     GameObject cameraHolder;
-    public int state = 1;
+    public int state;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,7 +17,7 @@ public class TurningArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log(other.name);
-            cameraHolder.GetComponent<CameraHolder>().TurningLeft(state);
+            cameraHolder.GetComponent<CameraHolder>().Turning(state);
         }
     }
 }
