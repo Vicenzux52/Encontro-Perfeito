@@ -1,95 +1,90 @@
-/*using UnityEngine;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class CalendarioManager : MonoBehaviour
 {
-    [Header("Ui Buttons")]
-    public GameObject fasesButtons;
-    public GameObject Fase1;
-    public GameObject Fase2;
-    public GameObject Fase3;
-    public GameObject Fase4;
+    public GameObject[] fases;
 
-    [HideInInspector] public bool fase1;
-    [HideInInspector] public bool fase2;
-    [HideInInspector] public bool fase3;
-    [HideInInspector] public bool fase4;
+    private FaseManager progressManager;
 
     void Start()
     {
-        if (fasesButtons != null)
+        progressManager = FaseManager.Instance;
+        AtualizarBotoesFases();
+        ConfigurarBotoesFases();
+        AtualizarTextosFases();
+    }
+
+    void AtualizarBotoesFases()
+    {
+        for (int i = 0; i < fases.Length; i++)
         {
-            fasesButtons.gameObject.SetActive(false);
+            if (fases[i] != null)
+            {
+                bool faseLiberada = progressManager.FaseLiberada(i);
+                fases[i].SetActive(faseLiberada);
+            }
         }
     }
 
-    void Update()
+    void AtualizarTextosFases()
     {
-        if (Input.GetMouseButtonDown(0) && fase1 == true)
-        Fase1Button();
-        Fase2Button();
-        Fase3Button();
-        Fase4Button();
-    }
-
-    void Fase1Button()
-    {
-        fase1 = true;
-        fase2 = false;
-        fase3 = false;
-        fase4 = false;
-
-        if (Input.GetMouseButtonDown(0))
+        for (int i = 0; i < fases.Length; i++)
         {
-            Fase1.SetActive(true);
-            Fase2.SetActive(false);
-            Fase3.SetActive(false);
-            Fase4.SetActive(false);
+            if (fases[i] != null)
+            {
+                TextMeshProUGUI textF = fases[i].GetComponentInChildren<TextMeshProUGUI>();
+
+                if (textF != null)
+                {
+                    bool faseCompletada = progressManager.FaseCompletada(i);
+
+                    if (faseCompletada)
+                    {
+                        textF.text = "X";
+                    }
+                    else
+                    {
+                        textF.text = "O";
+                    }
+                }
+            }
         }
     }
-    void Fase2Button()
-    {
-        fase1 = false;
-        fase2 = true;
-        fase3 = false;
-        fase4 = false;
 
-        if (Input.GetMouseButtonDown(0))
+    void ConfigurarBotoesFases()
+    {
+        for (int i = 0; i < fases.Length; i++)
         {
-            Fase1.SetActive(false);
-            Fase2.SetActive(true);
-            Fase3.SetActive(false);
-            Fase4.SetActive(false);
+            if (fases[i] != null)
+            {
+                Button botao = fases[i].GetComponent<Button>();
+                if (botao != null)
+                {
+                    int indice = i;
+                    botao.onClick.AddListener(() => SelecionarFase(indice));
+                }
+            }
         }
     }
-    void Fase3Button()
-    {
-        fase1 = false;
-        fase2 = false;
-        fase3 = true;
-        fase4 = false;
 
-        if (Input.GetMouseButtonDown(0))
+    public void SelecionarFase(int indiceFase)
+    {
+        RoomManager roomManager = FindFirstObjectByType<RoomManager>();
+        if (roomManager != null)
         {
-            Fase1.SetActive(false);
-            Fase2.SetActive(false);
-            Fase3.SetActive(true);
-            Fase4.SetActive(false);
+            roomManager.SelecionarFase(indiceFase);
+        }
+        else
+        {
+            Debug.LogError("RoomManager não encontrado na cena!");
         }
     }
-    void Fase4Button()
-    {
-        fase1 = false;
-        fase2 = false;
-        fase3 = false;
-        fase4 = true;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Fase1.SetActive(false);
-            Fase2.SetActive(false);
-            Fase3.SetActive(false);
-            Fase4.SetActive(true);
-        }
+    public void RefreshFases()
+    {
+        AtualizarBotoesFases();
+        AtualizarTextosFases();
     }
 }
-*/

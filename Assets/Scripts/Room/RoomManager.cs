@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,7 @@ public class RoomManager : MonoBehaviour
     public GameObject playPanel;
     public GameObject calendarPanel;
     public GameObject albumPanel;
+    public GameObject pausePanel;
 
     [Header("Ui Timer")]
     public float timeCounter = 10f;
@@ -26,6 +28,7 @@ public class RoomManager : MonoBehaviour
     public GameObject Radio;
     public GameObject Calendar;
     public GameObject Wardrobe;
+    public GameObject exclamacao;
 
     [Header("Chibi Reference")]
     public Transform player;
@@ -35,8 +38,7 @@ public class RoomManager : MonoBehaviour
     public float rotationSpeed = 10f;
     public LayerMask collisionLayer;
 
-    //[Header("Calendario Script")]
-    //public CalendarioManager calendarioScript;
+    private int faseSelecionada = 0;
 
     private Rigidbody playerRb;
     private Vector3 targetPosition;
@@ -49,13 +51,16 @@ public class RoomManager : MonoBehaviour
         playerRb.freezeRotation = true;
 
         if (dialoguePanel != null)
-        {
-            dialoguePanel.gameObject.SetActive(false);
-        }
+            dialoguePanel.SetActive(false);
         else
-        {
             Debug.LogWarning("dialoguePanel não atribuido");
-        }
+
+        if (exclamacao != null)
+            exclamacao.SetActive(false);
+        else
+            Debug.LogWarning("exclamacao não atribuido");
+
+        ShowExclamacao();
 
         Invoke(nameof(ShowDialogue), delayBeforeShow);
     }
@@ -72,6 +77,12 @@ public class RoomManager : MonoBehaviour
         timer = duration;
     }
 
+    void ShowExclamacao()
+    {
+        if (exclamacao != null)
+            exclamacao.SetActive(true);
+    }
+
     void Update()
     {
         if (isShowing)
@@ -80,8 +91,16 @@ public class RoomManager : MonoBehaviour
 
             if (timer <= 0f)
             {
-                dialoguePanel.gameObject.SetActive(false);
+                dialoguePanel.SetActive(false);
                 isShowing = false;
+            }
+        }
+
+        if (calendarPanel != null && exclamacao != null)
+        {
+            if (calendarPanel.activeSelf && exclamacao.activeSelf)
+            {
+                exclamacao.SetActive(false);
             }
         }
 
@@ -179,6 +198,7 @@ public class RoomManager : MonoBehaviour
         else if (targetObject == Calendar)
         {
             calendarPanel.SetActive(true);
+            pausePanel.SetActive(false);
             Time.timeScale = 0f;
         }
         else if (targetObject == PhotoAlbum)
@@ -194,10 +214,50 @@ public class RoomManager : MonoBehaviour
         targetObject = null;
     }
 
+    public void SelecionarFase(int indiceFase)
+    {
+        if (FaseManager.Instance != null && FaseManager.Instance.FaseLiberada(indiceFase))
+        {
+            faseSelecionada = indiceFase;
+            Debug.Log($"Fase {indiceFase + 1} selecionada!");
+        }
+        else
+        {
+            Debug.LogWarning($"Fase {indiceFase + 1} não está liberada!");
+        }
+    }
+
     public void StartButton()
     {
-        SceneManager.LoadScene("Fase1");
-        Time.timeScale = 1f;
+        if (FaseManager.Instance != null && FaseManager.Instance.FaseLiberada(faseSelecionada))
+        {
+            string nomeCena = ObterNomeCenaPorFase(faseSelecionada);
+            SceneManager.LoadScene(nomeCena);
+            Time.timeScale = 1f;
+        }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    public static void PauseButton(GameObject pauseUI)
+    {
+        Time.timeScale = 0;
+        pauseUI.SetActive(true);
+    }
+
+    private string ObterNomeCenaPorFase(int indiceFase)
+    {
+        switch (indiceFase)
+        {
+            case 0: return "Fase1";
+            case 1: return "Fase2";
+            case 2: return "Fase3";
+            case 3: return "Fase4";
+            default: return "Fase1";
+        }
     }
 
     public void BackButton()
@@ -205,6 +265,7 @@ public class RoomManager : MonoBehaviour
         playPanel.SetActive(false);
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
+        pausePanel.SetActive(false);
         Time.timeScale = 1f;
     }
 

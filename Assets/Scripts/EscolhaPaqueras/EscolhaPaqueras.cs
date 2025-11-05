@@ -10,6 +10,10 @@ public class EscolhaPaqueras : MonoBehaviour
     public GameObject Cat;
     public GameObject Tortoise;
 
+    [Header("Text UI")]
+    public GameObject Text;
+    public GameObject TextPet;
+
     [Header("Camera")]
     public Camera mainCamera;
 
@@ -17,10 +21,12 @@ public class EscolhaPaqueras : MonoBehaviour
     private bool escolheuPet = false;
 
     void Start()
-    {
+    {        
         Rabbit.SetActive(false);
         Cat.SetActive(false);
         Tortoise.SetActive(false);
+
+        TextPet.SetActive(false);
     }
     void Update()
     {
@@ -72,6 +78,9 @@ public class EscolhaPaqueras : MonoBehaviour
         Cat.SetActive(true);
         Tortoise.SetActive(true);
 
+        TextPet.SetActive(true);
+        Text.SetActive(false);
+
         escolheuPaquera = true;
         Debug.Log("Paquera escolhido: " + paqueraGender);
     }
@@ -83,7 +92,7 @@ public class EscolhaPaqueras : MonoBehaviour
 
         escolheuPet = true;
         Debug.Log("Pet escolhido: " + pet);
-
+        PlayerPrefs.DeleteKey("Upgrade");
         SceneManager.LoadScene("Room");
     }
 }
