@@ -113,6 +113,8 @@ MonoBehaviour:
   lateralSpeed: 15
   backDash: 80
   limitSpeed: 15
+  velocity: 10
+  acceleration: 1
   JumpHeight: 3
   jumpDuration: 0.3
   delayForce: 50
@@ -123,7 +125,11 @@ MonoBehaviour:
   slideTime: 1
   hitMaterial: {fileID: 2100000, guid: cac13b611c2fa484b8240689d94ab24c, type: 2}
   hitDuration: 0.5
-  upgrade: 0
+  positionX: 0
+  positionY: 0
+  limitX: 15
+  limitY: 15
+  centerY: 0
   audioSource: {fileID: 8055538250748518227}
   collectibleSound: {fileID: 5363013460493175401}
 --- !u!114 &3395108804472191768

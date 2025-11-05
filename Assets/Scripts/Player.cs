@@ -191,10 +191,10 @@ public class Player : MonoBehaviour
         if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay; */
 
         
-        velocity += acceleration/100;
+        velocity += acceleration;
         if (velocity > limitSpeed) velocity = limitSpeed;
-        transform.position += Vector3.forward * velocity/100;
-        if (isDelayed) velocity =  limitSpeed/100 * lateralSpeedDelay;
+        transform.position += Vector3.forward * velocity;
+        if (isDelayed) velocity =  limitSpeed * lateralSpeedDelay;
        
     }
 
