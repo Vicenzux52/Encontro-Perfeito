@@ -191,10 +191,11 @@ public class Player : MonoBehaviour
         if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay; */
 
         
-        velocity += acceleration;
+        velocity += acceleration * Time.deltaTime;
+        if (velocity < 0) velocity += acceleration * Time.deltaTime;
         if (velocity > limitSpeed) velocity = limitSpeed;
         if (isDelayed) velocity =  limitSpeed * lateralSpeedDelay;
-        transform.position += Vector3.forward * velocity/100;
+        transform.position += Vector3.forward * velocity * Time.deltaTime;
        
     }
 
@@ -210,12 +211,12 @@ public class Player : MonoBehaviour
         {
             if (route == -1)
             {
-                onMaxSpeed = false;
-                rb.linearVelocity = -orientation.forward * backDash;
+                /* onMaxSpeed = false;
+                rb.linearVelocity = -orientation.forward * backDash; */
                 
-                /*
-                velocity = backDash/100
-                */
+                
+                velocity = -backDash;
+               
             }
             route = 0;
         }
@@ -293,8 +294,8 @@ public class Player : MonoBehaviour
         switch (upgrade)
         {
             case 0:                         //Tamagochi
-                JumpHeight *= 2;
-                limitSpeed /= 2;
+                /* JumpHeight *= 2;
+                limitSpeed *= 0.75f; */
                 break;
 
             case 1:                         //Relogio
@@ -305,7 +306,7 @@ public class Player : MonoBehaviour
                 //tem que ver ainda
                 break;
             case 3:                         //cinto
-                limitSpeed += 10;
+                limitSpeed *= 1.2f;
                 break;
 
         }
@@ -331,20 +332,19 @@ public class Player : MonoBehaviour
                     onMaxSpeed = false;
                     isDelayed = true;
                 }
-    
+
                 if (isJumping) down *= 2;
-    
+
                 if (!isHit)
                 {
                     StartCoroutine(FlashMaterial());
                 } */
-
                 
                 ContactPoint contact = collision.contacts[0];
                 Vector3 normal = contact.normal;
                 if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
                 {
-                    velocity = -limitSpeed * 2;
+                    velocity = -limitSpeed;
                 }
                 else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
                 {

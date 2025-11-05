@@ -25,7 +25,7 @@ public class CarSpawnerController : MonoBehaviour
 
         if (i == turning.cameraState) 
         {
-            Debug.Log("State " + turning.cameraState);
+//            Debug.Log("State " + turning.cameraState);
             Spawner();
             Movement();
             Clear();
