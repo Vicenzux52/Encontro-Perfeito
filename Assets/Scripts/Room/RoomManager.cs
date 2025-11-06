@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 public class RoomManager : MonoBehaviour
 {
     [Header("Ui Panels")]
-    public GameObject textUI;
+    //public GameObject textUI;
     public GameObject playPanel;
     public GameObject calendarPanel;
     public GameObject albumPanel;
     public GameObject pausePanel;
+    public GameObject paqueraTextPanel;
 
     [Header("Ui Timer")]
     public float timeCounter = 10f;
@@ -19,8 +20,14 @@ public class RoomManager : MonoBehaviour
     public GameObject dialoguePanel;
     public float duration = 2f;
     public float delayBeforeShow = 0.5f;
-    private float timer;
+    private float dialoguetimer;
+    private float textTimer;
     private bool isShowing;
+    private bool isShowingText;
+
+    [Header("Audio Source")]
+    public AudioSource audioSource;
+    public AudioClip mensageNotification;
 
     [Header("Interactable Objects")]
     public GameObject Door;
@@ -52,6 +59,8 @@ public class RoomManager : MonoBehaviour
 
     private int faseSelecionada = 0;
 
+    [HideInInspector] public WardrobeManager WardrobeManager;
+
     void Start()
     {
         playerRb = player.GetComponent<Rigidbody>();
@@ -63,6 +72,9 @@ public class RoomManager : MonoBehaviour
         ChibiClock.SetActive(false);
         ChibiHairClip.SetActive(false);
         ChibiTamagotchi.SetActive(false);
+
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
 
         int id = PlayerPrefs.GetInt("UpgradeID", -1);
         Debug.Log($"[ChibiManager] Aplicando upgrade ID: {id}");
@@ -85,7 +97,29 @@ public class RoomManager : MonoBehaviour
             Debug.LogWarning("dialoguePanel não atribuido");
         }
 
-        Invoke(nameof(ShowDialogue), delayBeforeShow);
+        if (paqueraTextPanel != null)
+        {
+            paqueraTextPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("paqueraTextPanel não atribuido");
+        }
+
+        Invoke(nameof(ShowPaqueraTextPanel), delayBeforeShow);
+    }
+
+    void ShowPaqueraTextPanel()
+    {
+        if (paqueraTextPanel == null)
+        {
+            return;
+        }
+
+        paqueraTextPanel.SetActive(true);
+        audioSource.PlayOneShot(mensageNotification);
+        isShowingText = true;
+        textTimer = duration;
     }
 
     void ShowDialogue()
@@ -97,19 +131,32 @@ public class RoomManager : MonoBehaviour
 
         dialoguePanel.SetActive(true);
         isShowing = true;
-        timer = duration;
+        dialoguetimer = duration;
     }
 
     void Update()
     {
         if (isShowing)
         {
-            timer -= Time.deltaTime;
+            dialoguetimer -= Time.deltaTime;
 
-            if (timer <= 0f)
+            if (dialoguetimer <= 0f)
             {
                 dialoguePanel.gameObject.SetActive(false);
                 isShowing = false;
+            }
+        }
+
+        if (isShowingText)
+        {
+            textTimer -= Time.deltaTime;
+
+            if (textTimer <= 0f)
+            {
+                paqueraTextPanel.gameObject.SetActive(false);
+                isShowingText = false;
+                paqueraTextPanel.SetActive(false);
+                Invoke(nameof(ShowDialogue), delayBeforeShow);
             }
         }
 
@@ -121,11 +168,17 @@ public class RoomManager : MonoBehaviour
             }
             else
             {
-                Pause(pausePanel);
+                Pause(pausePanel, dialoguePanel);
             }
         }
 
-        HandleTimer();
+        if (WardrobeManager.backToRoomWardrobe == true)
+        {
+            dialoguePanel.SetActive(false);
+            paqueraTextPanel.SetActive(false);
+        }
+
+        //HandleTimer();
         HandleClick();
     }
 
@@ -135,10 +188,11 @@ public class RoomManager : MonoBehaviour
         pausePanel.SetActive(false);
     }
 
-    public static void Pause(GameObject pausePanel)
+    public static void Pause(GameObject pausePanel, GameObject dialoguePanel)
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
+        dialoguePanel.SetActive(false);
     }
 
     public static void BackToMenu()
@@ -153,7 +207,7 @@ public class RoomManager : MonoBehaviour
         RotatePlayer();
     }
 
-    void HandleTimer()
+    /*void HandleTimer()
     {
         if (time > 0)
         {
@@ -161,7 +215,7 @@ public class RoomManager : MonoBehaviour
             if (time <= 0)
                 textUI.SetActive(false);
         }
-    }
+    }*/
 
     void HandleClick()
     {
@@ -255,7 +309,7 @@ public class RoomManager : MonoBehaviour
         }
         player.rotation = Quaternion.Slerp(player.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
     }
-    
+
 
     void OnReachTarget()
     {
@@ -267,12 +321,13 @@ public class RoomManager : MonoBehaviour
         if (targetObject == Door)
         {
             playPanel.SetActive(true);
+            dialoguePanel.SetActive(false);
             Time.timeScale = 0f;
         }
         else if (targetObject == Radio)
         {
-            textUI.SetActive(true);
-            time = timeCounter;
+            dialoguePanel.SetActive(false);
+            StartCoroutine(ReturnToRadioRoutine());
         }
         /*else if (targetObject == Calendar)
         {
@@ -283,6 +338,7 @@ public class RoomManager : MonoBehaviour
         {
             albumPanel.SetActive(true);
             CalendarIcon.SetActive(false);
+            dialoguePanel.SetActive(false);
             Time.timeScale = 0f;
         }
         else if (targetObject == Wardrobe)
@@ -292,6 +348,20 @@ public class RoomManager : MonoBehaviour
 
         targetObject = null;
     }
+    
+    IEnumerator ReturnToRadioRoutine()
+    {
+        moving = false;
+
+        yield return new WaitForSeconds(1.5f);
+        yield return StartCoroutine(RotateToOriginal());
+        yield return new WaitForSeconds(0.3f);
+
+        returning = true;
+        targetPosition = originalPosition;
+        moving = true;
+    }
+
 
     public void SelecionarFase(int indiceFase)
     {
