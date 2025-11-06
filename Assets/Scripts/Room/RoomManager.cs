@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
     public GameObject playPanel;
     public GameObject calendarPanel;
     public GameObject albumPanel;
+    public GameObject pausePanel;
 
     [Header("Ui Timer")]
     public float timeCounter = 10f;
@@ -112,8 +113,38 @@ public class RoomManager : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pausePanel.activeSelf)
+            {
+                Resume(pausePanel);
+            }
+            else
+            {
+                Pause(pausePanel);
+            }
+        }
+
         HandleTimer();
         HandleClick();
+    }
+
+    public static void Resume(GameObject pausePanel)
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
+    }
+
+    public static void Pause(GameObject pausePanel)
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+
+    public static void BackToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+        Time.timeScale = 1;
     }
 
     void FixedUpdate()
