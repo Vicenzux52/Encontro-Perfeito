@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.63
+      value: -24.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -68.73
+      value: -67.48
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 593.79
+      value: 770.45184
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -164,3 +164,7 @@ MonoBehaviour:
   collectibleImage: {fileID: -36575474, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -532032328, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
   photoIndex: 0
+  paqueraText: {fileID: 0}
+  paqueraTextDuration: 2
+  audioSource: {fileID: 0}
+  mensageNotification: {fileID: 8300000, guid: db7759c18d853ff43a418ee0d664e9c3, type: 3}

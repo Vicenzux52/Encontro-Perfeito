@@ -163,4 +163,11 @@ MonoBehaviour:
   index: 0
   collectibleImage: {fileID: -418793719, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -2138769606, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  collectibleArea: {fileID: 0}
   photoIndex: 0
+  paqueraText: {fileID: 0}
+  paqueraTextDuration: 2
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
+  audioSource: {fileID: 0}
+  mensageNotification: {fileID: 8300000, guid: db7759c18d853ff43a418ee0d664e9c3, type: 3}

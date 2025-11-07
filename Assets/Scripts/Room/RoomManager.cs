@@ -61,6 +61,11 @@ public class RoomManager : MonoBehaviour
 
     [HideInInspector] public WardrobeManager WardrobeManager;
 
+    [Header("Paqueras")]
+    private CarregarEscolhaPaqueras carregarEscolhaPaqueras;
+    public GameObject PaqueraMText;
+    public GameObject PaqueraFText;
+
     void Start()
     {
         playerRb = player.GetComponent<Rigidbody>();
@@ -106,6 +111,11 @@ public class RoomManager : MonoBehaviour
             Debug.LogWarning("paqueraTextPanel não atribuido");
         }
 
+
+        carregarEscolhaPaqueras = FindFirstObjectByType<CarregarEscolhaPaqueras>();
+        if (carregarEscolhaPaqueras == null)
+        Debug.LogWarning("CarregarEscolhaPaqueras não encontrada na cena. Considere arrastar no Inspector.");
+
         Invoke(nameof(ShowPaqueraTextPanel), delayBeforeShow);
     }
 
@@ -120,6 +130,24 @@ public class RoomManager : MonoBehaviour
         audioSource.PlayOneShot(mensageNotification);
         isShowingText = true;
         textTimer = duration;
+
+        if (paqueraTextPanel == null)
+        {
+            Debug.LogWarning("paqueraTextPanel não atribuído");
+            return;
+        }
+
+        if (PaqueraFText == null || PaqueraMText == null)
+        {
+            Debug.LogWarning("PaqueraFText ou PaqueraMText não atribuídos");
+        }
+
+        string paqueraSelecionada = (carregarEscolhaPaqueras != null)
+            ? carregarEscolhaPaqueras.paquera
+            : PlayerPrefs.GetString("paqueraSelect", "Feminino");
+
+        PaqueraFText.SetActive(paqueraSelecionada == "Feminino");
+        PaqueraMText.SetActive(paqueraSelecionada == "Masculino");
     }
 
     void ShowDialogue()
