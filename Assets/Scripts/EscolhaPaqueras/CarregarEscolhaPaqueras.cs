@@ -9,11 +9,13 @@ public class CarregarEscolhaPaqueras : MonoBehaviour
     public GameObject Rabbit;
     public GameObject Cat;
     public GameObject Tortoise;
+    [HideInInspector] public string paquera;
+    [HideInInspector] public string pet;
 
     void Start()
     {
-        string paquera = PlayerPrefs.GetString("paqueraSelect", "Feminino");
-        string pet = PlayerPrefs.GetString("petSelect", "Gato");
+        paquera = PlayerPrefs.GetString("paqueraSelect", "Feminino");
+        pet = PlayerPrefs.GetString("petSelect", "Gato");
 
         PaqueraF.SetActive(paquera == "Feminino");
         PaqueraM.SetActive(paquera == "Masculino");
