@@ -35,20 +35,6 @@ public class CalendarioManager : MonoBehaviour
             if (fases[i] != null)
             {
                 TextMeshProUGUI textF = fases[i].GetComponentInChildren<TextMeshProUGUI>();
-
-                if (textF != null)
-                {
-                    bool faseCompletada = progressManager.FaseCompletada(i);
-
-                    if (faseCompletada)
-                    {
-                        textF.text = "X";
-                    }
-                    else
-                    {
-                        textF.text = "O";
-                    }
-                }
             }
         }
     }

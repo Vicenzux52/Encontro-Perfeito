@@ -57,6 +57,7 @@ public class RoomManager : MonoBehaviour
     public GameObject ChibiHairClip;
     public GameObject ChibiTamagotchi;
 
+    [Header("Fases")]
     private int faseSelecionada = 0;
 
     [HideInInspector] public WardrobeManager WardrobeManager;
@@ -421,7 +422,6 @@ public class RoomManager : MonoBehaviour
             case 0: return "Fase1";
             case 1: return "Fase2";
             case 2: return "Fase3";
-            case 3: return "Fase4";
             default: return "Fase1";
         }
     }

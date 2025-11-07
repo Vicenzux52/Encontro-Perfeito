@@ -5,7 +5,7 @@ public class FaseManager : MonoBehaviour
     public static FaseManager Instance;
 
     public bool[] fasesCompletas;
-    public int totalFases = 4;
+    public int totalFases = 3;
 
     void Awake()
     {

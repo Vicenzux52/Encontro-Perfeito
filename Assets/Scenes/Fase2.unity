@@ -6060,15 +6060,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 103873b05d28d0b428648cf0b604f624, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.019
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 103873b05d28d0b428648cf0b604f624, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.316
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 103873b05d28d0b428648cf0b604f624, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -432.56
+      value: -432.499
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 103873b05d28d0b428648cf0b604f624, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6102,6 +6102,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 5531af37ab4fb9e4db71bc01736fca98, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 103873b05d28d0b428648cf0b604f624, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7470107889428227314, guid: 2c8fcf5d6f660db4abe0286ec6957df4, type: 3}
     - target: {fileID: 919132149155446097, guid: 103873b05d28d0b428648cf0b604f624, type: 3}
       propertyPath: m_Name
       value: Alley
@@ -14725,7 +14729,14 @@ MonoBehaviour:
   index: 2
   collectibleImage: {fileID: 322842044, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: 1334273225, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  collectibleArea: {fileID: 0}
   photoIndex: 0
+  paqueraText: {fileID: 0}
+  paqueraTextDuration: 2
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
+  audioSource: {fileID: 0}
+  mensageNotification: {fileID: 0}
 --- !u!1001 &1382438032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16846,7 +16857,14 @@ MonoBehaviour:
   index: 0
   collectibleImage: {fileID: -966922364, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -1372378291, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  collectibleArea: {fileID: 0}
   photoIndex: 0
+  paqueraText: {fileID: 0}
+  paqueraTextDuration: 2
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
+  audioSource: {fileID: 0}
+  mensageNotification: {fileID: 0}
 --- !u!1001 &1591604826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18217,7 +18235,14 @@ MonoBehaviour:
   index: 1
   collectibleImage: {fileID: 1472989262, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: 269477016, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  collectibleArea: {fileID: 0}
   photoIndex: 0
+  paqueraText: {fileID: 0}
+  paqueraTextDuration: 2
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
+  audioSource: {fileID: 0}
+  mensageNotification: {fileID: 0}
 --- !u!1001 &1697896107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18536,7 +18561,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: a4c825c5b360e25489a32ea8e23d2d4e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 3517196080736921625, guid: 11d7a5891d27f484d8285f78dec1b763, type: 3}
+      objectReference: {fileID: 3517196080736921625, guid: fcc672be40dfd27458048ac1f1dcf6dd, type: 3}
     - target: {fileID: 919132149155446097, guid: a4c825c5b360e25489a32ea8e23d2d4e, type: 3}
       propertyPath: m_Name
       value: Intersection (5)
