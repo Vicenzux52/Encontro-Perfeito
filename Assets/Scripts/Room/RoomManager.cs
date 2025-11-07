@@ -433,6 +433,13 @@ public class RoomManager : MonoBehaviour
         CalendarIcon.SetActive(false);
     }
 
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+        pausePanel.SetActive(true);
+        CalendarIcon.SetActive(false);
+    }
+
     public void BackButton()
     {
         playPanel.SetActive(false);
