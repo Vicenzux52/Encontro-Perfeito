@@ -89,9 +89,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 21b63f8a2004c3544bf5aac98a38a773, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7934150814088675897}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 21b63f8a2004c3544bf5aac98a38a773, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6566033575470528658}
   m_SourcePrefab: {fileID: 100100000, guid: 21b63f8a2004c3544bf5aac98a38a773, type: 3}
 --- !u!1 &8534405743766940294 stripped
 GameObject:
@@ -147,27 +144,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
---- !u!114 &6566033575470528658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8534405743766940294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daf4cb607017b6a4cab2cf741017e916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiIcon: {fileID: 0}
-  index: 0
-  collectibleImage: {fileID: -418793719, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
-  collectibleSilhouetteImage: {fileID: -2138769606, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
-  collectibleArea: {fileID: 0}
-  photoIndex: 0
-  paqueraText: {fileID: 0}
-  paqueraTextDuration: 2
-  PaqueraFText: {fileID: 0}
-  PaqueraMText: {fileID: 0}
-  audioSource: {fileID: 0}
-  mensageNotification: {fileID: 8300000, guid: db7759c18d853ff43a418ee0d664e9c3, type: 3}
