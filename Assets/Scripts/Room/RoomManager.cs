@@ -14,7 +14,7 @@ public class RoomManager : MonoBehaviour
 
     [Header("Ui Timer")]
     public float timeCounter = 10f;
-    private float time = 0f;
+    //private float time = 0f;
 
     [Header("Chibi's Opening Speech")]
     public GameObject dialoguePanel;

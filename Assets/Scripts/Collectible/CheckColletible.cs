@@ -11,7 +11,7 @@ public class CheckColletible : MonoBehaviour
     public Sprite collectibleSilhouetteImage;
 
     [Header("Collectible Area")]
-    public GameObject collectible;
+    public Collider collectibleArea;
 
     [Header("PhotoAlbum")]
     public int photoIndex;
@@ -19,6 +19,7 @@ public class CheckColletible : MonoBehaviour
     [Header("Text Paquera")]
     public GameObject paqueraText;
     public float paqueraTextDuration = 2f;
+    private CarregarEscolhaPaqueras carregarEscolhaPaqueras;
     public GameObject PaqueraFText;
     public GameObject PaqueraMText;
 
@@ -27,9 +28,8 @@ public class CheckColletible : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip mensageNotification;
 
-    private CarregarEscolhaPaqueras carregarEscolhaPaqueras;
-    private bool playerInsideArea = false;
-    private bool collected = false;
+    private bool addedToProgress = false;
+    private bool playerInsideTrigger = false;
 
     void Start()
     {
@@ -40,72 +40,62 @@ public class CheckColletible : MonoBehaviour
 
         if (paqueraText != null)
             paqueraText.SetActive(false);
-
     }
 
     public void Collect()
     {
-        if (collected) return;
+        if (!addedToProgress)
+        {
+            CollectibleProgress.collectedItems[index] = true;
 
-        collected = true;
+            if (photoIndex >= 0 && photoIndex < CollectibleProgress.photoPartsCollected.Length)
+                CollectibleProgress.photoPartsCollected[photoIndex] = Mathf.Min(
+                    CollectibleProgress.photoPartsCollected[photoIndex] + 1, 3
+                );
 
-        CollectibleProgress.collectedItems[index] = true;
+            if (uiIcon != null)
+                uiIcon.sprite = collectibleImage;
 
-        if (photoIndex >= 0 && photoIndex < CollectibleProgress.photoPartsCollected.Length)
-            CollectibleProgress.photoPartsCollected[photoIndex] = Mathf.Min(
-                CollectibleProgress.photoPartsCollected[photoIndex] + 1, 3
-            );
-
-        if (uiIcon != null)
-            uiIcon.sprite = collectibleImage;
-
-        collectible.SetActive(false);
+            addedToProgress = true;
+            playerInsideTrigger = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
-
-        if (other.gameObject.CompareTag("CollectibleArea"))
+        if (other.CompareTag("Player"))
         {
-            playerInsideArea = true;
-        }
-        else if (other.gameObject == collectible && !collected)
-        {
+            playerInsideTrigger = true;
             Collect();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
-
-        if (other.gameObject.CompareTag("CollectibleArea") && playerInsideArea)
+        if (other.CompareTag("Player") && playerInsideTrigger && !addedToProgress)
         {
-            if (!collected)
-                StartCoroutine(ShowTextPaquera());
-
-            playerInsideArea = false;
+            StartCoroutine(ShowTextPaquera());
         }
     }
 
 
     IEnumerator ShowTextPaquera()
     {
-        string paqueraSelecionada = (carregarEscolhaPaqueras != null)
-            ? carregarEscolhaPaqueras.paquera
-            : PlayerPrefs.GetString("paqueraSelect", "Feminino");
+        if (paqueraText != null)
+        {
+            string paqueraSelecionada = (carregarEscolhaPaqueras != null)
+                ? carregarEscolhaPaqueras.paquera
+                : PlayerPrefs.GetString("paqueraSelect", "Feminino");
 
-        PaqueraFText.SetActive(paqueraSelecionada == "Feminino");
-        PaqueraMText.SetActive(paqueraSelecionada == "Masculino");
+            PaqueraFText.SetActive(paqueraSelecionada == "Feminino");
+            PaqueraMText.SetActive(paqueraSelecionada == "Masculino");
 
-        paqueraText.SetActive(true);
-        audioSource.PlayOneShot(mensageNotification);
+            paqueraText.SetActive(true);
+            audioSource.PlayOneShot(mensageNotification);
 
-        yield return new WaitForSeconds(paqueraTextDuration);
+            yield return new WaitForSeconds(paqueraTextDuration);
 
-        paqueraText.SetActive(false);
-        PaqueraFText.SetActive(false);
-        PaqueraMText.SetActive(false);
+            paqueraText.SetActive(false);
+        }
     }
 }
