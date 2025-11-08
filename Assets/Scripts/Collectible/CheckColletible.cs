@@ -10,9 +10,6 @@ public class CheckColletible : MonoBehaviour
     public Sprite collectibleImage;
     public Sprite collectibleSilhouetteImage;
 
-    [Header("Collectible Area")]
-    public Collider collectibleArea;
-
     [Header("PhotoAlbum")]
     public int photoIndex;
 
