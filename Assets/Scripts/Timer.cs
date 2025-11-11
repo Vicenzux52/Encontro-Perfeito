@@ -35,30 +35,29 @@ public class Timer : MonoBehaviour
 
     string TimeFormat(float seconds)
     {
-        seconds = (int)seconds;
         if (seconds <= 0)
         {
             return "00:00";
         }
         else if (seconds < 10)
         {
-            return "00:0" + seconds;
+            return "00:0" + (int)seconds;
         }
         else if (seconds < 60)
         {
-            return "00:" + seconds;
+            return "00:" + (int)seconds;
         }
-        else if (seconds / 60 < 10)
+        else if ((int)seconds / 60 < 10)
         {
-            return "0" + seconds / 60 + ":" + (seconds % 60);
+            return "0" + (int)seconds / 60 + ":" + (int)(seconds % 60);
         }
         else if (seconds / 60 < 60)
         {
-            return seconds / 60 + ":" + (seconds % 60);
+            return (int)seconds / 60 + ":" + (int)(seconds % 60);
         }
         else
         {
-            return seconds / 3600 + ":" + seconds % 3600 / 60 + ":" + (seconds % 60);
+            return (int)seconds / 3600 + ":" + (int)(seconds % 3600) / 60 + ":" + (int)(seconds % 60);
         }
     }
 
