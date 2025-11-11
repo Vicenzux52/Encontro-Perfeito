@@ -41776,16 +41776,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6915209337319476207, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
-      propertyPath: JumpHeight
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6915209337319476207, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
-      propertyPath: limitSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6915209337319476207, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
-      propertyPath: acceleration
-      value: 5
+      propertyPath: knockbackMultiplier
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7024801644697959058, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
       propertyPath: m_IsKinematic

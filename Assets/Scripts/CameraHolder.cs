@@ -39,11 +39,9 @@ public class CameraHolder : MonoBehaviour
         transform.position = player.transform.position;
         if (cameraState == 0 && transform.eulerAngles.y != 0) onTransition = true;
         else if (cameraState == 1 && transform.eulerAngles.y != -90) onTransition = true;
-        else if (cameraState == 2 && transform.eulerAngles.y != 90) onTransition = true;
         else onTransition = false;
         if (cameraState == 0) targetRotation = Quaternion.Euler(transform.eulerAngles.x, 0, transform.eulerAngles.z);
         if (cameraState == 1) targetRotation = Quaternion.Euler(transform.eulerAngles.x, -90, transform.eulerAngles.z);
-        if (cameraState == 2) targetRotation = Quaternion.Euler(90, 0, transform.eulerAngles.z);
         
         if (cameraState < 2) transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         else transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * rotationSpeedMultiplier * Time.deltaTime);

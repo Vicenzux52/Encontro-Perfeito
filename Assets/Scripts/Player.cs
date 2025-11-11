@@ -9,16 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] float routeDistance = 1f;
     [SerializeField] int routeQuantity = 1;
     [HideInInspector] public int route = 0;
-    
 
     [Header("Movimento")]
     public float frontSpeed = 0.1f;
     public float lateralSpeed = 1;
     public float backDash = 20f;
     public float limitSpeed = 100;
-    bool onMaxSpeed = false;
-    public float velocity = 0.05f;
     public float acceleration = 0.01f;
+    public float knockbackMultiplier = 2;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -51,13 +49,6 @@ public class Player : MonoBehaviour
     private Renderer rend;
     public float hitDuration = 3f;
     private bool isHit = false;
-
-    [Header("Maze")]
-    public float positionX = 0;
-    public float positionY = 0;
-    public float limitX = 15;
-    public float limitY = 15;
-    public float centerY;
         
     int upgrade;
     //Outros
@@ -88,8 +79,6 @@ public class Player : MonoBehaviour
         upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
 
-        rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.CompareTag("PlayerModel"))
@@ -106,25 +95,18 @@ public class Player : MonoBehaviour
     {
         GetInputs();
         CheckCameraState();
-        /*if (cameraState > 1)
-        {*/
-            Slide();
-            FrontalMovement();
-            SideDash();
-            Delay();
-            Jump();
-        /*}
-        else
-        {
-            MazeMovement();
-        }*/
+        Slide();
+        FrontalMovement();
+        SideDash();
+        Delay();
+        Jump();
     }
 
     void FixedUpdate()
     {
         if (!isJumping) rb.AddForce(-orientation.up * gravity, ForceMode.Acceleration);
     }
-    
+
     void GetInputs()
     {
         bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
@@ -132,35 +114,25 @@ public class Player : MonoBehaviour
         bool jumpInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
         bool upInputs = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)) && !isSliding && !isJumping;
         bool slideInputs = (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping;
-        slideInputs |= (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) && !isSliding && !isJumping;
         bool downInputs = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && isJumping;
 
         if (leftInputs)
         {
             route--;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DashSound();
         }
 
         if (rightInputs)
         {
             route++;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DashSound();
         }
 
         if (jumpInputs)
         {
             initialYJump = transform.position.y;
             isJumping = true;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DashSound();
         }
 
         if (upInputs)
@@ -179,24 +151,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    void DashSound()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+    }
+
     void FrontalMovement()
     {
-        /* if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
-        else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-        if (rb.linearVelocity.z > limitSpeed)
-        {
-            rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-            onMaxSpeed = true;
-        }
-        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay; */
-
-        
-        velocity += acceleration * Time.deltaTime;
-        if (velocity < 0) velocity += acceleration * Time.deltaTime;
-        if (velocity > limitSpeed) velocity = limitSpeed;
-        if (isDelayed) velocity =  limitSpeed * lateralSpeedDelay;
-        transform.position += Vector3.forward * velocity * Time.deltaTime;
-       
+        frontSpeed += acceleration * Time.deltaTime;
+        if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
+        if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
+        if (isDelayed) frontSpeed =  limitSpeed * lateralSpeedDelay;
+        transform.position += Vector3.forward * frontSpeed * Time.deltaTime;
     }
 
     void SideDash()
@@ -209,15 +178,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (route == -1)
-            {
-                /* onMaxSpeed = false;
-                rb.linearVelocity = -orientation.forward * backDash; */
-                
-                
-                velocity = -backDash;
-               
-            }
+            if (route == -1) frontSpeed = -backDash;
             route = 0;
         }
     }
@@ -267,27 +228,7 @@ public class Player : MonoBehaviour
     void CheckCameraState()
     {
         cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
-        /*if (cameraState > 0 && cameraHolder.GetComponent<CameraHolder>().onTransition) 
-        {
-            route = 0;
-            transform.position = transform.position - (Vector3.right * transform.position.x);
-            positionX = cameraHolder.GetComponent<CameraHolder>().InitialPositionX;
-            positionY = cameraHolder.GetComponent<CameraHolder>().InitialPositionY;
-            limitX = cameraHolder.GetComponent<CameraHolder>().limitX;
-            limitY = cameraHolder.GetComponent<CameraHolder>().limitY;
-            centerY = cameraHolder.GetComponent<CameraHolder>().centerY;
-        }*/
     }
-
-    /*void MazeMovement()
-    {
-        //fazer uma movimentação que funcione, talvez que nem helltaker
-        positionX = Mathf.Clamp(positionX, -limitX, limitX);
-        positionY = Mathf.Clamp(positionY, -limitY, limitY);
-        
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
-        transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
-    }*/
     
     void SetUpgrade()
     {
@@ -314,61 +255,30 @@ public class Player : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        /*if (cameraState < 2)
-        {*/
-            if (collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {                
+            ContactPoint contact = collision.contacts[0];
+            Vector3 normal = contact.normal;
+            if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) //bateu de frente, pulando ou deslizando
             {
-                /* ContactPoint contact = collision.contacts[0];
-                Vector3 normal = contact.normal;
-                if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
-                {
-                    onMaxSpeed = false;
-                    rb.linearVelocity = -orientation.forward * delayForce;
-                }
-                else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
-                {
-                    if (transform.position.x < collision.transform.position.x) route--;
-                    else route++;
-                    onMaxSpeed = false;
-                    isDelayed = true;
-                }
-
-                if (isJumping) down *= 2;
-
-                if (!isHit)
-                {
-                    StartCoroutine(FlashMaterial());
-                } */
-                
-                ContactPoint contact = collision.contacts[0];
-                Vector3 normal = contact.normal;
-                if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
-                {
-                    velocity = -limitSpeed;
-                }
-                else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
-                {
-                    if (transform.position.x < collision.transform.position.x) route--;
-                    else route++;
-                    isDelayed = true;
-                }
-    
-                if (isJumping) down *= 2;
-    
-                if (!isHit)
-                {
-                    StartCoroutine(FlashMaterial());
-                }
-               
+                frontSpeed = -limitSpeed * knockbackMultiplier;
             }
-        /*}
-        else
-        {
-            if (collision.gameObject.CompareTag("Obstacle"))
+            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado voltar pro return dash
             {
-                //Descobrir como fazer o retorno sem bugar com a velocidade
+                if (transform.position.x < collision.transform.position.x) route--;
+                else route++;
+                isDelayed = true;
             }
-        }*/
+
+            if (isJumping) down *= 2;
+
+            if (!isHit)
+            {
+                StartCoroutine(FlashMaterial());
+            }
+
+            Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
+        }
     }
     void OnTriggerEnter(Collider other)
     {

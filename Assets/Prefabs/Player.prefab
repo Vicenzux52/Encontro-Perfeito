@@ -112,10 +112,9 @@ MonoBehaviour:
   frontSpeed: 100
   lateralSpeed: 15
   backDash: 80
-  limitSpeed: 15
-  velocity: 10
-  acceleration: 1
-  JumpHeight: 3
+  limitSpeed: 20
+  acceleration: 100
+  JumpHeight: 2
   jumpDuration: 0.3
   delayForce: 50
   lateralSpeedDelay: 0.5
