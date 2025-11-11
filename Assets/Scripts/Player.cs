@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     public float lateralSpeed = 1;
     public float backDash = 20f;
     public float limitSpeed = 100;
-    bool onMaxSpeed = false;
+    public float acceleration = 0.01f;
+    public float knockbackMultiplier = 2;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -48,9 +49,8 @@ public class Player : MonoBehaviour
     private Renderer rend;
     public float hitDuration = 3f;
     private bool isHit = false;
-
-    [Header("Hit")]
-    public int upgrade;
+        
+    int upgrade;
     //Outros
     int cameraState = 0;
     Rigidbody rb;
@@ -79,8 +79,6 @@ public class Player : MonoBehaviour
         upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
 
-        rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).gameObject.CompareTag("PlayerModel"))
@@ -108,7 +106,7 @@ public class Player : MonoBehaviour
     {
         if (!isJumping) rb.AddForce(-orientation.up * gravity, ForceMode.Acceleration);
     }
-    
+
     void GetInputs()
     {
         bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
@@ -116,35 +114,25 @@ public class Player : MonoBehaviour
         bool jumpInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
         bool upInputs = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)) && !isSliding && !isJumping;
         bool slideInputs = (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping;
-        slideInputs |= (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) && !isSliding && !isJumping;
         bool downInputs = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && isJumping;
 
         if (leftInputs)
         {
             route--;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DashSound();
         }
 
         if (rightInputs)
         {
             route++;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DashSound();
         }
 
         if (jumpInputs)
         {
             initialYJump = transform.position.y;
             isJumping = true;
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            DashSound();
         }
 
         if (upInputs)
@@ -163,16 +151,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    void DashSound()
+    {
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+    }
+
     void FrontalMovement()
     {
-        if (!onMaxSpeed) rb.AddForce(orientation.forward * 0.01f * frontSpeed, ForceMode.VelocityChange);
-        else rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-        if (rb.linearVelocity.z > limitSpeed)
-        {
-            rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed;
-            onMaxSpeed = true;
-        }
-        if (isDelayed) rb.linearVelocity = Vector3.up * rb.linearVelocity.y + Vector3.forward * limitSpeed * lateralSpeedDelay;
+        frontSpeed += acceleration * Time.deltaTime;
+        if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
+        if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
+        if (isDelayed) frontSpeed =  limitSpeed * lateralSpeedDelay;
+        transform.position += Vector3.forward * frontSpeed * Time.deltaTime;
     }
 
     void SideDash()
@@ -185,11 +178,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (route == -1)
-            {
-                onMaxSpeed = false;
-                rb.linearVelocity = -orientation.forward * backDash;
-            }
+            if (route == -1) frontSpeed = -backDash;
             route = 0;
         }
     }
@@ -238,17 +227,16 @@ public class Player : MonoBehaviour
 
     void CheckCameraState()
     {
-        if (cameraHolder.GetComponent<CameraHolder>().cameraState == 1) cameraState = 1;
-        else cameraState = 0;
+        cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
     }
-
+    
     void SetUpgrade()
     {
         switch (upgrade)
         {
             case 0:                         //Tamagochi
-                JumpHeight *= 2;
-                limitSpeed /= 2;
+                /* JumpHeight *= 2;
+                limitSpeed *= 0.75f; */
                 break;
 
             case 1:                         //Relogio
@@ -259,7 +247,7 @@ public class Player : MonoBehaviour
                 //tem que ver ainda
                 break;
             case 3:                         //cinto
-                limitSpeed += 10;
+                limitSpeed *= 1.2f;
                 break;
 
         }
@@ -268,19 +256,17 @@ public class Player : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
-        {
+        {                
             ContactPoint contact = collision.contacts[0];
             Vector3 normal = contact.normal;
-            if ((Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) && Vector3.Dot(-transform.up, -normal) < 0.7f) //bateu de frente ou deslizando
+            if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) //bateu de frente, pulando ou deslizando
             {
-                onMaxSpeed = false;
-                rb.linearVelocity = -orientation.forward * delayForce;
+                frontSpeed = -limitSpeed * knockbackMultiplier;
             }
-            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado
+            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado voltar pro return dash
             {
                 if (transform.position.x < collision.transform.position.x) route--;
                 else route++;
-                onMaxSpeed = false;
                 isDelayed = true;
             }
 
@@ -291,6 +277,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(FlashMaterial());
             }
 
+            Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
     }
     void OnTriggerEnter(Collider other)

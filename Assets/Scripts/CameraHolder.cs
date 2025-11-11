@@ -12,8 +12,14 @@ public class CameraHolder : MonoBehaviour
     public float xRotation = 15;
     public float yRotation = 0;
     public float rotationSpeed = 60;
+    public float rotationSpeedMultiplier = 1.5f;
     public int cameraState = 0; //0 - Normal | 1 - Lateral
     public bool onTransition = false;
+    public float InitialPositionX;
+    public float InitialPositionY;
+    public float limitX;
+    public float limitY;
+    public float centerY;
     Quaternion targetRotation;
     GameObject mainCamera;
     GameObject player;
@@ -36,10 +42,12 @@ public class CameraHolder : MonoBehaviour
         else onTransition = false;
         if (cameraState == 0) targetRotation = Quaternion.Euler(transform.eulerAngles.x, 0, transform.eulerAngles.z);
         if (cameraState == 1) targetRotation = Quaternion.Euler(transform.eulerAngles.x, -90, transform.eulerAngles.z);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        
+        if (cameraState < 2) transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        else transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * rotationSpeedMultiplier * Time.deltaTime);
     }
 
-    public void TurningLeft(int state)
+    public void Turning(int state)
     {
         cameraState = state;
     }

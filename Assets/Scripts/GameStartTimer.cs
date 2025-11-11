@@ -7,19 +7,18 @@ public class GameStartTimer : MonoBehaviour
     public TextMeshProUGUI timerText;
     private float endTime;
     private bool gameStarted = false;
-    public GameObject player; 
-    private Rigidbody playerRb;
+    public GameObject player;
+    Vector3 initialPosition;
 
     void Start()
     {
-        playerRb = player.GetComponent<Rigidbody>();
-        playerRb.isKinematic = true;
+        initialPosition = player.transform.position;
 
         endTime = Time.realtimeSinceStartup + startTime;
         UpdateTimerText();
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (gameStarted) return;
 
@@ -27,14 +26,13 @@ public class GameStartTimer : MonoBehaviour
 
         if (remaining > 0f)
         {
+            player.transform.position = initialPosition;
             timerText.text = Mathf.CeilToInt(remaining).ToString();
         }
         else
         {
             timerText.text = "Já!";
             gameStarted = true;
-            playerRb.isKinematic = false;
-             playerRb.linearVelocity = Vector3.forward * player.GetComponent<Player>().limitSpeed;
             Invoke(nameof(HideTimer), 0.5f);
         }
     }

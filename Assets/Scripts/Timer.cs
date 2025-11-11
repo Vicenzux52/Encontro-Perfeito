@@ -35,7 +35,7 @@ public class Timer : MonoBehaviour
 
     string TimeFormat(float seconds)
     {
-        if (seconds < 0)
+        if (seconds <= 0)
         {
             return "00:00";
         }
@@ -51,7 +51,7 @@ public class Timer : MonoBehaviour
         {
             return "0" + (int)seconds / 60 + ":" + (int)(seconds % 60);
         }
-        else if ((int)seconds / 60 < 60)
+        else if (seconds / 60 < 60)
         {
             return (int)seconds / 60 + ":" + (int)(seconds % 60);
         }
