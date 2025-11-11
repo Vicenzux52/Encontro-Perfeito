@@ -80,9 +80,7 @@ public class CheckColletible : MonoBehaviour
     {
         if (paqueraText != null)
         {
-            string paqueraSelecionada = (carregarEscolhaPaqueras != null)
-                ? carregarEscolhaPaqueras.paquera
-                : PlayerPrefs.GetString("paqueraSelect", "Feminino");
+            string paqueraSelecionada = (carregarEscolhaPaqueras != null) ? carregarEscolhaPaqueras.paquera : PlayerPrefs.GetString("paqueraSelect", "Feminino");
 
             PaqueraFText.SetActive(paqueraSelecionada == "Feminino");
             PaqueraMText.SetActive(paqueraSelecionada == "Masculino");
