@@ -6,6 +6,8 @@ public class Timer : MonoBehaviour
     public float initialTime = 60.0f;
     public float timeLeft;
     public Text timerText;
+    int seconds;
+    int minutes;
     int upgrade;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,31 +35,24 @@ public class Timer : MonoBehaviour
 
     }
 
-    string TimeFormat(float seconds)
+    string TimeFormat(float time)
     {
-        if (seconds <= 0)
+        seconds = (int)time % 60;
+        minutes = (int)time / 60;
+        if (minutes >= 10)
         {
-            return "00:00";
+            if (seconds >= 10) return minutes + ":" + seconds;
+            else return minutes + ":0" + seconds;
         }
-        else if (seconds < 10)
+        else if (minutes >= 1)
         {
-            return "00:0" + (int)seconds;
-        }
-        else if (seconds < 60)
-        {
-            return "00:" + (int)seconds;
-        }
-        else if ((int)seconds / 60 < 10)
-        {
-            return "0" + (int)seconds / 60 + ":" + (int)(seconds % 60);
-        }
-        else if (seconds / 60 < 60)
-        {
-            return (int)seconds / 60 + ":" + (int)(seconds % 60);
+            if (seconds >= 10) return "0" + minutes + ":" + seconds;
+            else return "0" + minutes + ":0" + seconds;
         }
         else
         {
-            return (int)seconds / 3600 + ":" + (int)(seconds % 3600) / 60 + ":" + (int)(seconds % 60);
+            if (seconds >= 10) return "00:" + seconds;
+            else return "00:0" + seconds;
         }
     }
 
