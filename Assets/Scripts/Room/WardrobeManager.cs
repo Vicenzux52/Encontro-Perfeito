@@ -27,6 +27,8 @@ public class WardrobeManager : MonoBehaviour
     private float timer = 0f;
     private bool isShowing = false;
 
+    static public bool backToRoomWardrobe;
+
     void Update()
     {
         if (isShowing)
@@ -100,5 +102,6 @@ public class WardrobeManager : MonoBehaviour
         Debug.Log("Acessorio salvo (ID): " + PlayerPrefs.GetInt("UpgradeID"));
 
         SceneManager.LoadScene("Room");
+        backToRoomWardrobe = true;
     }
 }

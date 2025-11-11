@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,11 +19,18 @@ public class UIController : MonoBehaviour
     [Header("Photo Win")]
     public int photoIndex;
     static public GameObject winUI;
-    public Image victoryPhoto;
-    public Sprite[] victoryMasks;
+    public Image MaskImage;
+    public Sprite[] maskSprites;
+    public Image PhotoBaseF;
+    public Image PhotoBaseM;
+
+    [Header("Photo Flash")]
+    public Image flashImage;
+    public float flashDuration = 0.3f;
+    public AudioSource cameraSound;
 
     [Header("Fase Configuration")]
-    public int indiceFaseAtual = 0; // Define qual fase esta cena representa
+    public int indiceFaseAtual = 0;
 
     void Start()
     {
@@ -74,29 +82,61 @@ public class UIController : MonoBehaviour
 
     public void Win()
     {
+        string paqueraEscolhida = PlayerPrefs.GetString("paqueraSelect", "Feminino");
+
         Time.timeScale = 0;
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverUI.SetActive(false);
         winUI.SetActive(true);
 
-        int collectedParts = CollectibleProgress.photoPartsCollected[photoIndex];
+        if (cameraSound != null)
+            cameraSound.Play();
+        
+        StartCoroutine(CameraFlashEffect());
 
-        if (collectedParts >= 3)
+        if (paqueraEscolhida == "Feminino")
         {
-            victoryPhoto.enabled = false;
+            PhotoBaseF.gameObject.SetActive(true);
+            PhotoBaseM.gameObject.SetActive(false);
         }
         else
         {
-            victoryPhoto.enabled = true;
+            PhotoBaseF.gameObject.SetActive(false);
+            PhotoBaseM.gameObject.SetActive(true);
+        }
 
-            int maskIndex = Mathf.Clamp(collectedParts, 0, victoryMasks.Length - 1);
-            victoryPhoto.sprite = victoryMasks[maskIndex];
+        int collectedParts = CollectibleProgress.photoPartsCollected[photoIndex];
+
+        if (collectedParts >= maskSprites.Length)
+        {
+            MaskImage.enabled = false;
+        }
+        else
+        {
+            MaskImage.enabled = true;
+            int maskIndex = Mathf.Clamp(collectedParts, 0, maskSprites.Length - 1);
+            MaskImage.sprite = maskSprites[maskIndex];
         }
 
         CompletarFaseAtual();
     }
 
+    IEnumerator CameraFlashEffect()
+    {
+        flashImage.color = new Color(1, 1, 1, 1);
+        flashImage.enabled = true;
+
+        for (float t = 0; t < flashDuration; t += Time.unscaledDeltaTime)
+        {
+            float alpha = Mathf.Lerp(1, 0, t / flashDuration);
+            flashImage.color = new Color(1, 1, 1, alpha);
+            yield return null;
+        }
+
+        flashImage.color = new Color(1, 1, 1, 0);
+        flashImage.enabled = false;
+    }
     private void CompletarFaseAtual()
     {
         if (FaseManager.Instance != null)

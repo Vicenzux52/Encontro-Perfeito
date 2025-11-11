@@ -4,9 +4,10 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PhotoData
 {
-    public Image photoImage;
+    public Image photoF;
+    public Image photoM;
+    public Image maskImage;
     public Sprite[] photoParts;
-    //[HideInInspector] public int collectedParts = 0;
 }
 
 public class PhotoAlbumManager : MonoBehaviour
@@ -21,19 +22,25 @@ public class PhotoAlbumManager : MonoBehaviour
 
     public void UpdatePhotos()
     {
+        string paqueraEscolhida = PlayerPrefs.GetString("paqueraSelect", "Feminino");
+
         for (int i = 0; i < photos.Length; i++)
         {
             int collectedParts = CollectibleProgress.photoPartsCollected[i];
 
-            if (collectedParts >= 3)
+            bool isFeminino = paqueraEscolhida == "Feminino";
+            photos[i].photoF.gameObject.SetActive(isFeminino);
+            photos[i].photoM.gameObject.SetActive(!isFeminino);
+
+            if (collectedParts < 3)
             {
-                photos[i].photoImage.enabled = false;
+                int partIndex = Mathf.Clamp(collectedParts, 0, photos[i].photoParts.Length - 1);
+                photos[i].maskImage.sprite = photos[i].photoParts[partIndex];
+                photos[i].maskImage.enabled = true;
             }
             else
             {
-                photos[i].photoImage.enabled = true;
-                int partIndex = Mathf.Clamp(collectedParts, 0, photos[i].photoParts.Length - 1);
-                photos[i].photoImage.sprite = photos[i].photoParts[partIndex];
+                photos[i].maskImage.enabled = false;
             }
         }
     }
