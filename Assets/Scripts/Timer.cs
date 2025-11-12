@@ -9,10 +9,12 @@ public class Timer : MonoBehaviour
     int seconds;
     int minutes;
     int upgrade;
+    Player player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Player>();
         timeLeft = initialTime;
         timerText = gameObject.GetComponent<Text>();
         
@@ -25,7 +27,7 @@ public class Timer : MonoBehaviour
     {
         if (timeLeft > 0)
         {
-            timeLeft -= Time.deltaTime;
+            if (player.canMove)timeLeft -= Time.deltaTime;
             timerText.text = TimeFormat(timeLeft);
         }
         else

@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     public float limitSpeed = 100;
     public float acceleration = 0.01f;
     public float knockbackMultiplier = 2;
+    [HideInInspector] public bool canMove = false;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -93,13 +95,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        GetInputs();
-        CheckCameraState();
-        Slide();
-        FrontalMovement();
-        SideDash();
-        Delay();
-        Jump();
+        if (canMove)
+        {
+            GetInputs();
+            CheckCameraState();
+            Slide();
+            FrontalMovement();
+            SideDash();
+            Delay();
+            Jump();
+        }
     }
 
     void FixedUpdate()
@@ -178,7 +183,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (route == -1) frontSpeed = -backDash;
+            if (route == -1 && !cameraHolder.GetComponent<CameraHolder>().onTransition) frontSpeed = -backDash;
             route = 0;
         }
     }

@@ -26,7 +26,6 @@ public class GameStartTimer : MonoBehaviour
 
         if (remaining > 0f)
         {
-            player.transform.position = initialPosition;
             timerText.text = Mathf.CeilToInt(remaining).ToString();
         }
         else
@@ -34,6 +33,7 @@ public class GameStartTimer : MonoBehaviour
             timerText.text = "Já!";
             gameStarted = true;
             Invoke(nameof(HideTimer), 0.5f);
+            player.GetComponent<Player>().canMove = true;
         }
     }
 
