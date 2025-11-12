@@ -14716,11 +14716,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1dcf108aac44ad24684ea4155df68603, type: 3}
   m_PrefabInstance: {fileID: 1165015801}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &800886295 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7596994705619149289, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
-  m_PrefabInstance: {fileID: 5397797393839403488}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &801040314
 GameObject:
   m_ObjectHideFlags: 0
@@ -17916,11 +17911,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 58b0bc01aaad0fd4db2607714b1622a5, type: 3}
   m_PrefabInstance: {fileID: 1117326950}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &971329614 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2905182620202092844, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
-  m_PrefabInstance: {fileID: 5397797393839403488}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &971801681 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9bbd4cbc0162fa541ae056613fbbd692, type: 3}
@@ -19289,10 +19279,10 @@ MonoBehaviour:
   collectibleImage: {fileID: 162625938, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -1611341151, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
   photoIndex: 0
-  paqueraText: {fileID: 1805778681}
+  paqueraText: {fileID: 0}
   paqueraTextDuration: 2
-  PaqueraFText: {fileID: 1445139737}
-  PaqueraMText: {fileID: 1147819178}
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
   audioSource: {fileID: 2031041104}
   mensageNotification: {fileID: 8300000, guid: 6f6d66e78385c8247a6ce8d630c8114f, type: 3}
 --- !u!1001 &1035276062
@@ -22302,11 +22292,6 @@ MonoBehaviour:
   carInstantiateL: []
   carDestroyer: {fileID: 463422069}
   i: 0
---- !u!1 &1147819178 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4788674562853359784, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
-  m_PrefabInstance: {fileID: 5397797393839403488}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1149213919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25459,10 +25444,10 @@ MonoBehaviour:
   collectibleImage: {fileID: -418793719, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -2138769606, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
   photoIndex: 0
-  paqueraText: {fileID: 971329614}
+  paqueraText: {fileID: 0}
   paqueraTextDuration: 2
-  PaqueraFText: {fileID: 1445139737}
-  PaqueraMText: {fileID: 1147819178}
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
   audioSource: {fileID: 2031041104}
   mensageNotification: {fileID: 8300000, guid: 6f6d66e78385c8247a6ce8d630c8114f, type: 3}
 --- !u!1001 &1358631691
@@ -26559,11 +26544,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67d7cdf0529f5a84cbad28dc3033b198, type: 3}
---- !u!1 &1445139737 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1635106205773767996, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
-  m_PrefabInstance: {fileID: 5397797393839403488}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1446125836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34079,11 +34059,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 252fe67b97d3e814589b515b5b43882a, type: 3}
---- !u!1 &1805778681 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 185247897025799142, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
-  m_PrefabInstance: {fileID: 5397797393839403488}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1805834421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39399,10 +39374,10 @@ MonoBehaviour:
   collectibleImage: {fileID: -36575474, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -532032328, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
   photoIndex: 0
-  paqueraText: {fileID: 800886295}
+  paqueraText: {fileID: 0}
   paqueraTextDuration: 2
-  PaqueraFText: {fileID: 1445139737}
-  PaqueraMText: {fileID: 1147819178}
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
   audioSource: {fileID: 2031041104}
   mensageNotification: {fileID: 8300000, guid: 6f6d66e78385c8247a6ce8d630c8114f, type: 3}
 --- !u!1001 &2070324505
@@ -42027,10 +42002,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1752250444167922490, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1959855064963128777, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2297202386107691086, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
