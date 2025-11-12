@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public float limitSpeed = 100;
     public float acceleration = 0.01f;
     public float knockbackMultiplier = 2;
-    [HideInInspector] public bool canMove = false;
+    public bool canMove = false;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -166,6 +166,7 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
+        Debug.Log("Andando");
         frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
