@@ -4795,6 +4795,7 @@ MonoBehaviour:
   - {fileID: 9277861}
   - {fileID: 1362775554}
   - {fileID: 413446364}
+  skipButton: {fileID: 972807577}
   finishTutorial: 0
 --- !u!1 &1161871137
 GameObject:

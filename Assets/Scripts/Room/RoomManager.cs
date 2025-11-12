@@ -94,7 +94,6 @@ public class RoomManager : MonoBehaviour
         ShowDialogue();
     }
 
-
     void IniciarJogo()
     {
         Debug.Log("[RoomManager] Tutorial finalizado, iniciando jogo...");
@@ -246,7 +245,9 @@ public class RoomManager : MonoBehaviour
             return;
 
         dialoguePanel.SetActive(true);
+        Time.timeScale = 1;
         StartCoroutine(HideDialogueAfterDelay(duration));
+        HandleClick();
     }
 
     private IEnumerator HideDialogueAfterDelay(float delay)
@@ -409,7 +410,7 @@ public class RoomManager : MonoBehaviour
             }
             else
             {
-                return; 
+                return;
             }
         }
         else
@@ -457,7 +458,7 @@ public class RoomManager : MonoBehaviour
 
         targetObject = null;
     }
-    
+
     IEnumerator ReturnToRadioRoutine()
     {
         moving = false;
@@ -470,7 +471,6 @@ public class RoomManager : MonoBehaviour
         targetPosition = originalPosition;
         moving = true;
     }
-
 
     public void SelecionarFase(int indiceFase)
     {
