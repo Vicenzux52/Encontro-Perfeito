@@ -2,22 +2,33 @@ using UnityEngine;
 
 public class TutorialRoom : MonoBehaviour
 {
+    [Header("Painéis do Tutorial")]
     public GameObject[] panels;
-    private int currentPanelIndex = 0;
 
+    [Header("Botão Skip (opcional)")]
+    public GameObject skipButton;
+
+    private int currentPanelIndex = 0;
     [HideInInspector] public bool finishTutorial = false;
 
     void Start()
     {
+        foreach (var p in panels)
+            if (p != null)
+                p.SetActive(false);
+
         if (PlayerPrefs.GetInt("TutorialVisto", 0) == 1)
         {
             finishTutorial = true;
-            foreach (var p in panels)
-                p.SetActive(false);
+            if (skipButton != null)
+                skipButton.SetActive(false);
             return;
         }
 
         ShowCurrentPanel();
+
+        if (skipButton != null)
+            skipButton.SetActive(true);
     }
 
     public void SkipPanel()
@@ -33,33 +44,37 @@ public class TutorialRoom : MonoBehaviour
         }
         else
         {
-            finishTutorial = true;
-            Debug.Log("Tutorial finalizado!");
+            FinalizarTutorial();
+        }
+    }
 
-            foreach (var p in panels)
+    private void FinalizarTutorial()
+    {
+        finishTutorial = true;
+
+        foreach (var p in panels)
+            if (p != null)
                 p.SetActive(false);
 
-            PlayerPrefs.SetInt("TutorialVisto", 1);
-            PlayerPrefs.Save();
+        if (skipButton != null)
+            skipButton.SetActive(false);
 
-            GameObject skipButton = GameObject.Find("SkipButton");
-            if (skipButton != null)
-                skipButton.SetActive(false);
-        }
+        PlayerPrefs.SetInt("TutorialVisto", 1);
+        PlayerPrefs.Save();
 
-        if (finishTutorial)
-        {
-            RoomManager roomManager = FindFirstObjectByType<RoomManager>();
-            if (roomManager != null)
-            {
-                Debug.Log("Tutorial finalizado");
-            }
-        }
+        Debug.Log("[TutorialRoom] Tutorial finalizado e salvo!");
+
+        RoomManager roomManager = FindFirstObjectByType<RoomManager>();
+        if (roomManager != null)
+            Debug.Log("[TutorialRoom] RoomManager notificado do fim do tutorial.");
     }
 
     private void ShowCurrentPanel()
     {
         for (int i = 0; i < panels.Length; i++)
-            panels[i].SetActive(i == currentPanelIndex);
+        {
+            if (panels[i] != null)
+                panels[i].SetActive(i == currentPanelIndex);
+        }
     }
 }
