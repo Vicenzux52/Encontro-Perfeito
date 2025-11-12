@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioPanel: {fileID: 1781723342}
-  controlsPanel: {fileID: 0}
-  creditsPanel: {fileID: 0}
+  controlsPanel: {fileID: 131399421}
+  creditsPanel: {fileID: 632296038}
 --- !u!114 &113053386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1682,7 +1682,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 711634256}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 113053385}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: Credits
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &711634256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6612,7 +6624,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1932787901}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 113053385}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: Controls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1932787901
 MonoBehaviour:
   m_ObjectHideFlags: 0
