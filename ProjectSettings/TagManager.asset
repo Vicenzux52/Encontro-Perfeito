@@ -15,6 +15,7 @@ TagManager:
   - ClockPowerUp
   - PlayerModel
   - CollectibleArea
+  - KeyOut
   layers:
   - Default
   - TransparentFX
