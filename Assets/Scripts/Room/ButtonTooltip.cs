@@ -16,7 +16,6 @@ public class ButtonTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     void Start()
     {
-        // Garante que o objeto tenha um CanvasGroup
         canvasGroup = tooltipBox.GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = tooltipBox.AddComponent<CanvasGroup>();
