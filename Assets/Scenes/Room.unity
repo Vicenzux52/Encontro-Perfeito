@@ -889,7 +889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e06b54e100b0fac4791b6616970c3cc0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2576,7 +2576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &661816803
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3438,7 +3438,7 @@ MonoBehaviour:
   pausePanel: {fileID: 1378469562}
   paqueraTextPanel: {fileID: 1155613175}
   dialoguePanel: {fileID: 1875272182}
-  duration: 3
+  duration: 3.5
   delayBeforeShow: 0.5
   audioSource: {fileID: 1155613177}
   mensageNotification: {fileID: 8300000, guid: db7759c18d853ff43a418ee0d664e9c3, type: 3}
@@ -5853,7 +5853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c60718fe415461b4698764bcfa484a39, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
