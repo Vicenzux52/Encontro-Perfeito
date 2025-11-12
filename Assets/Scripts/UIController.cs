@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
 
     [Header("Fase Configuration")]
     public int indiceFaseAtual = 0;
+    public bool[] faseCompletada = new bool[3];
 
     void Start()
     {
@@ -139,11 +140,36 @@ public class UIController : MonoBehaviour
     }
     private void CompletarFaseAtual()
     {
-        if (FaseManager.Instance != null)
+        if (indiceFaseAtual >= 0 && indiceFaseAtual < 3)
         {
-            FaseManager.Instance.CompletarFase(indiceFaseAtual);
+            if (FaseManager.Instance != null)
+            {
+                FaseManager.Instance.CompletarFase(indiceFaseAtual);
+            }
+            else
+            {
+                Debug.LogWarning("FaseManager.Instance é nulo — progresso não foi salvo.");
+            }
+
+            PlayerPrefs.SetInt($"Fase{indiceFaseAtual}", 1);
+            PlayerPrefs.SetInt("AtualizarMensagens", 1);
+            PlayerPrefs.Save();
+
+            Debug.Log($"✅ Fase {indiceFaseAtual + 1} completada!");
+        }
+        else
+        {
+            Debug.LogWarning("Índice de fase inválido!");
+        }
+
+        var roomManager = FindFirstObjectByType<RoomManager>();
+        if (roomManager != null)
+        {
+            roomManager.MostrarMensagemPorFase();
+            Debug.Log("Mensagens de fase atualizadas pelo RoomManager.");
         }
     }
+
 
     public static void Pause()
     {

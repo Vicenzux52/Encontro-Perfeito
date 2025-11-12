@@ -18167,6 +18167,7 @@ MonoBehaviour:
   flashDuration: 0.3
   cameraSound: {fileID: 7664544201568712402}
   indiceFaseAtual: 1
+  faseCompletada: 000000
 --- !u!224 &6773958324357104711
 RectTransform:
   m_ObjectHideFlags: 0

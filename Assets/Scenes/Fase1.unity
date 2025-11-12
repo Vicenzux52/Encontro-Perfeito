@@ -42114,6 +42114,14 @@ PrefabInstance:
       propertyPath: cameraSound
       value: 
       objectReference: {fileID: 1096806367}
+    - target: {fileID: 6758559560756156536, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: indiceFaseAtual
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758559560756156536, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: 'faseCompletada.Array.data[0]'
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7090824072134666720, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
       propertyPath: m_Color.b
       value: 1

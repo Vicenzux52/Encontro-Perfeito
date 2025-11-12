@@ -10,6 +10,7 @@ public class CalendarioManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 0f;
         progressManager = FaseManager.Instance;
         AtualizarBotoesFases();
         ConfigurarBotoesFases();
@@ -64,7 +65,7 @@ public class CalendarioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("RoomManager não encontrado na cena!");
+            Debug.LogError("RoomManager nï¿½o encontrado na cena!");
         }
     }
 
