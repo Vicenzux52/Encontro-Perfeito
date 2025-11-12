@@ -10430,6 +10430,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1824281577}
     m_Modifications:
+    - target: {fileID: 314207536809141022, guid: 5c999adcf68021d4c85bef5302a5e3e4, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
     - target: {fileID: 1447738830061672561, guid: 5c999adcf68021d4c85bef5302a5e3e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.04
@@ -40991,6 +40995,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Buque
       objectReference: {fileID: 0}
+    - target: {fileID: 8446712273106599257, guid: e56997a609c651d489b2933cae8cf6a1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41173,6 +41181,10 @@ PrefabInstance:
       propertyPath: uiIcon
       value: 
       objectReference: {fileID: 797554582}
+    - target: {fileID: 7885997280583977811, guid: a26da4452136a78479cde1c5bea13272, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
     - target: {fileID: 8534405743766940294, guid: a26da4452136a78479cde1c5bea13272, type: 3}
       propertyPath: m_Name
       value: Coffe
