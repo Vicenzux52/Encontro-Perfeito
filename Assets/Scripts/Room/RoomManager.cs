@@ -193,11 +193,12 @@ public class RoomManager : MonoBehaviour
         {
             if (pausePanel.activeSelf)
             {
-                Resume(pausePanel);
+                Pause();
+                Time.timeScale = 0;
             }
             else
             {
-                Pause(pausePanel, dialoguePanel);
+                BackButton();
             }
         }
 
@@ -211,17 +212,16 @@ public class RoomManager : MonoBehaviour
         HandleClick();
     }
 
-    public static void Resume(GameObject pausePanel)
-    {
-        Time.timeScale = 1;
-        pausePanel.SetActive(false);
-    }
-
-    public static void Pause(GameObject pausePanel, GameObject dialoguePanel)
+    public void Pause()
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
-        dialoguePanel.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public static void BackToMenu()
@@ -439,6 +439,7 @@ public class RoomManager : MonoBehaviour
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
         CalendarIcon.SetActive(true);
+        pausePanel.SetActive(false);
         Time.timeScale = 1f;
 
         targetPosition = originalPosition;
