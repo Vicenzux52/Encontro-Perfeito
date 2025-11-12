@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public float limitSpeed = 100;
     public float acceleration = 0.01f;
     public float knockbackMultiplier = 2;
-    [HideInInspector] public bool canMove = false;
+    public bool canMove = false;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -166,6 +166,7 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
+        Debug.Log("Andando");
         frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
@@ -185,6 +186,8 @@ public class Player : MonoBehaviour
         {
             if (route == -1 && !cameraHolder.GetComponent<CameraHolder>().onTransition) frontSpeed = -backDash;
             route = 0;
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+            //adicionar frontdash e delay pra não poder spammar
         }
     }
 
@@ -240,8 +243,8 @@ public class Player : MonoBehaviour
         switch (upgrade)
         {
             case 0:                         //Tamagochi
-                /* JumpHeight *= 2;
-                limitSpeed *= 0.75f; */
+                JumpHeight *= 2;
+                limitSpeed *= 0.75f;
                 break;
 
             case 1:                         //Relogio

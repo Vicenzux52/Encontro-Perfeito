@@ -4795,6 +4795,7 @@ MonoBehaviour:
   - {fileID: 9277861}
   - {fileID: 1362775554}
   - {fileID: 413446364}
+  skipButton: {fileID: 972807577}
   finishTutorial: 0
 --- !u!1 &1161871137
 GameObject:
@@ -5353,19 +5354,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.71
+      value: 2.61
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.703
+      value: -0.114
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.019
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.48528138
+      value: -0.3927226
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5373,7 +5374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.87435806
+      value: 0.919657
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalRotation.z
@@ -5385,7 +5386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 121.938
+      value: 226.248
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5799,6 +5800,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1319794905
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1696449218}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9157497
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9157497
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9157497
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.755
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.291
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.757
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9605365
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.2781542
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -32.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+      propertyPath: m_Name
+      value: TeddyBear
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+--- !u!4 &1319794906 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 179dae2d36344ae409318ead6d74cd5c, type: 3}
+  m_PrefabInstance: {fileID: 1319794905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1320709729
 GameObject:
   m_ObjectHideFlags: 0
@@ -9594,6 +9669,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1265333941}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1319794906}
     - targetCorrespondingSourceObject: {fileID: 6812176026063566413, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2061980407}

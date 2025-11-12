@@ -4,7 +4,8 @@ using UnityEngine;
 public class CarSpawnerController : MonoBehaviour
 {
     public GameObject[] cars;
-    public float timer, speed, time;
+    public float timer, speed, time, timeVariation = 0.25f;
+    float randomTimeOffset;
     public List<GameObject> carInstantiateL;
     public Transform carDestroyer;
 
@@ -14,6 +15,7 @@ public class CarSpawnerController : MonoBehaviour
 
     void Start()
     {
+        randomTimeOffset = Random.Range(-time * timeVariation, time * timeVariation); 
         carInstantiateL = new List<GameObject>();
         turning = FindFirstObjectByType<CameraHolder>();
         timer = 0f;
@@ -34,7 +36,7 @@ public class CarSpawnerController : MonoBehaviour
 
     public void Spawner()
     {
-        if (timer >= time)
+        if (timer >= time + randomTimeOffset)
         {
             timer = 0;
 
@@ -43,6 +45,7 @@ public class CarSpawnerController : MonoBehaviour
 
             GameObject carInstantiate = Instantiate(randomCar, this.transform.position, this.transform.rotation);
             carInstantiateL.Add(carInstantiate);
+            randomTimeOffset = Random.Range(-time * timeVariation, time * timeVariation);
         }
     }
 
