@@ -185,6 +185,8 @@ public class Player : MonoBehaviour
         {
             if (route == -1 && !cameraHolder.GetComponent<CameraHolder>().onTransition) frontSpeed = -backDash;
             route = 0;
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+            //adicionar frontdash e delay pra não poder spammar
         }
     }
 
@@ -240,8 +242,8 @@ public class Player : MonoBehaviour
         switch (upgrade)
         {
             case 0:                         //Tamagochi
-                /* JumpHeight *= 2;
-                limitSpeed *= 0.75f; */
+                JumpHeight *= 2;
+                limitSpeed *= 0.75f;
                 break;
 
             case 1:                         //Relogio
