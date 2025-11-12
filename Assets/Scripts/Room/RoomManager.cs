@@ -73,8 +73,32 @@ public class RoomManager : MonoBehaviour
     public GameObject mensagemFase2;
     public GameObject mensagemFase3;
 
-    void Start()
+    public TutorialRoom tutorialRoom;
+
+    IEnumerator Start()
     {
+        TutorialRoom tutorialRoom = FindFirstObjectByType<TutorialRoom>();
+        if (tutorialRoom != null)
+            yield return new WaitUntil(() => tutorialRoom.finishTutorial);
+
+        IniciarJogo();
+
+        yield return new WaitForSecondsRealtime(delayBeforeShow);
+        ShowPaqueraTextPanel();
+
+        yield return new WaitForSecondsRealtime(duration);
+
+        if (paqueraTextPanel != null)
+            paqueraTextPanel.SetActive(false);
+
+        ShowDialogue();
+    }
+
+
+    void IniciarJogo()
+    {
+        Debug.Log("[RoomManager] Tutorial finalizado, iniciando jogo...");
+        Debug.Log("[RoomManager] Chamando Invoke para ShowPaqueraTextPanel...");
         playerRb = player.GetComponent<Rigidbody>();
         originalPosition = playerRb.position;
         originalRotation = playerRb.rotation;
@@ -122,8 +146,6 @@ public class RoomManager : MonoBehaviour
         if (carregarEscolhaPaqueras == null)
             Debug.LogWarning("CarregarEscolhaPaqueras não encontrada na cena");
 
-        Invoke(nameof(ShowPaqueraTextPanel), delayBeforeShow);
-
         if (FaseManager.Instance != null)
         {
             Invoke(nameof(MostrarMensagemPorFase), 0.3f);
@@ -144,6 +166,8 @@ public class RoomManager : MonoBehaviour
 
     void ShowPaqueraTextPanel()
     {
+        Debug.Log("[RoomManager] Entrou em ShowPaqueraTextPanel()");
+
         if (paqueraTextPanel == null)
         {
             return;
@@ -219,13 +243,17 @@ public class RoomManager : MonoBehaviour
     void ShowDialogue()
     {
         if (dialoguePanel == null)
-        {
             return;
-        }
 
         dialoguePanel.SetActive(true);
-        isShowing = true;
-        dialoguetimer = duration;
+        StartCoroutine(HideDialogueAfterDelay(duration));
+    }
+
+    private IEnumerator HideDialogueAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
     }
 
     void Update()
@@ -238,19 +266,6 @@ public class RoomManager : MonoBehaviour
             {
                 dialoguePanel.gameObject.SetActive(false);
                 isShowing = false;
-            }
-        }
-
-        if (isShowingText)
-        {
-            textTimer -= Time.deltaTime;
-
-            if (textTimer <= 0f)
-            {
-                paqueraTextPanel.gameObject.SetActive(false);
-                isShowingText = false;
-                paqueraTextPanel.SetActive(false);
-                Invoke(nameof(ShowDialogue), delayBeforeShow);
             }
         }
 

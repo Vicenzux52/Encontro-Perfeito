@@ -14762,6 +14762,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 121514574}
     m_Modifications:
+    - target: {fileID: 432366532509971572, guid: bc31c879aa555c147bf8cdaefc65af3d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
     - target: {fileID: 2371392909559186962, guid: bc31c879aa555c147bf8cdaefc65af3d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.443
@@ -16837,6 +16841,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1882091464434888878, guid: f6861fe17b04f3b458620dfd0cae2d32, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
     - target: {fileID: 3954326718512726200, guid: f6861fe17b04f3b458620dfd0cae2d32, type: 3}
       propertyPath: uiIcon
       value: 
@@ -18855,6 +18863,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soda
       objectReference: {fileID: 0}
+    - target: {fileID: 8302813908624035816, guid: 9948c74cba784bd4f860d66388b0fc72, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
