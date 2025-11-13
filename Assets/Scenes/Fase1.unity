@@ -41824,6 +41824,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3311160487309213979, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3311160487309213979, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.171
+      objectReference: {fileID: 0}
     - target: {fileID: 3395108804472191768, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
       propertyPath: timer
       value: 
