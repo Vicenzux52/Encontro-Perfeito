@@ -41868,6 +41868,14 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7848539930158353190, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.827
+      objectReference: {fileID: 0}
+    - target: {fileID: 7848539930158353190, guid: 4153cbfe587495142911f37eefc3efff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.274
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

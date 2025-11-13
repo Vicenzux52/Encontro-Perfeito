@@ -2800,7 +2800,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":0.0,"y":-9.8100004196167,"z":0.0}}'
+      m_SerializableObject: '{"vector":{"x":0.0,"y":-5.0,"z":0.0}}'
     m_Space: 1
   m_Property:
     name: Force
@@ -5405,7 +5405,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 104.2
+      m_SerializableObject: 60
     m_Space: -1
   m_Property:
     name: Intensity
@@ -5473,7 +5473,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 84.3
+      m_SerializableObject: 80
     m_Space: -1
   m_Property:
     name: frequency

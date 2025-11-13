@@ -136,11 +136,26 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.3
+        m_Name: SizeMin
+        m_Overridden: 1
+      - m_Value: 0.5
+        m_Name: SizeMax
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: -0.5, y: -0.5, z: 1}
+        m_Name: PositionParticleMax
+        m_Overridden: 1
+      - m_Value: {x: 0.5, y: 0, z: 0}
+        m_Name: PositionParticleMin
+        m_Overridden: 1
+      - m_Value: {x: 1, y: 1, z: 0}
+        m_Name: Position
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
@@ -156,7 +171,10 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: Constant
+        m_Overridden: 1
 --- !u!73398921 &6096859699884882785
 VFXRenderer:
   serializedVersion: 1
