@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fase3.unity
     guid: b61fbc419a291054ebe6075344c08bf4
+  - enabled: 1
+    path: Assets/Scenes/EsterEgg.unity
+    guid: 66ebcecedb3ce434d8da6ade90c50ce8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

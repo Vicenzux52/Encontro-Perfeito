@@ -192,37 +192,9 @@ public class Fantasma : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {                
-            ContactPoint contact = collision.contacts[0];
-            Vector3 normal = contact.normal;
-            if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f)
-            {
-                frontSpeed = -limitSpeed * knockbackMultiplier;
-            }
-            else if (Vector3.Dot(transform.forward, -normal) < 0.3f)
-            {
-                if (transform.position.x < collision.transform.position.x) route--;
-                else route++;
-                isDelayed = true;
-            }
-
-            if (isJumping) down *= 2;
-
-            if (!isHit)
-            {
-                StartCoroutine(FlashMaterial());
-            }
-
+            UIController.GameOver();
             Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
-    }
-
-    private System.Collections.IEnumerator FlashMaterial()
-    {
-        isHit = true;
-        rend.material = hitMaterial;
-        yield return new WaitForSeconds(hitDuration);
-        rend.material = originalMaterial;
-        isHit = false;
     }
 
     void LateUpdate()
