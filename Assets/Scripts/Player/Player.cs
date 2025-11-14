@@ -63,6 +63,11 @@ public class Player : MonoBehaviour
     public AudioSource audioSource;
     public AudioSource collectibleSound;
 
+    [Header("VFX")]
+    public Transform walkVFX;
+    public Transform walkVFXPosition;
+    public float timeVFX;
+    float timerVFX;
 
     void Start()
     {
@@ -104,6 +109,7 @@ public class Player : MonoBehaviour
             SideDash();
             Delay();
             Jump();
+            VFXInstance();
         }
     }
 
@@ -304,5 +310,16 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(hitDuration);
         rend.material = originalMaterial;
         isHit = false;
+    }
+
+    void VFXInstance() 
+    {
+        timerVFX += Time.deltaTime;
+        if(timerVFX >= timeVFX && (isJumping == false || isSliding == false)) 
+        {
+            Transform walkVFx = Instantiate(walkVFX, walkVFXPosition.position, Quaternion.identity);
+            timerVFX = 0f;
+            Destroy(walkVFx.gameObject, 1f);
+        }
     }
 }
