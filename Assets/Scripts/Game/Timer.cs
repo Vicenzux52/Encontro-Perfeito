@@ -22,7 +22,6 @@ public class Timer : MonoBehaviour
         SetUpgrade();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (timeLeft > 0)
