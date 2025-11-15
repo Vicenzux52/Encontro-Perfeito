@@ -17,7 +17,7 @@ public class TurningArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log(other.name);
-            cameraHolder.GetComponent<CameraHolder>().TurningLeft(state);
+            cameraHolder.GetComponent<CameraHolder>().Turning(state);
         }
     }
 }

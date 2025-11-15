@@ -12,8 +12,8 @@ public class RoomManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject paqueraTextPanel;
 
-    [Header("Ui Timer")]
-    public float timeCounter = 10f;
+    //[Header("Ui Timer")]
+    //public float timeCounter = 3f;
     //private float time = 0f;
 
     [Header("Chibi's Opening Speech")]
@@ -63,12 +63,41 @@ public class RoomManager : MonoBehaviour
     [HideInInspector] public WardrobeManager WardrobeManager;
 
     [Header("Paqueras")]
-    private CarregarEscolhaPaqueras carregarEscolhaPaqueras;
     public GameObject PaqueraMText;
     public GameObject PaqueraFText;
+    private CarregarEscolhaPaqueras carregarEscolhaPaqueras;
 
-    void Start()
+    [Header("Mensagens de Fase")]
+    public GameObject mensagemInicial;
+    public GameObject mensagemFase1;
+    public GameObject mensagemFase2;
+    public GameObject mensagemFase3;
+
+    public TutorialRoom tutorialRoom;
+
+    IEnumerator Start()
     {
+        TutorialRoom tutorialRoom = FindFirstObjectByType<TutorialRoom>();
+        if (tutorialRoom != null)
+            yield return new WaitUntil(() => tutorialRoom.finishTutorial);
+
+        IniciarJogo();
+
+        yield return new WaitForSecondsRealtime(delayBeforeShow);
+        ShowPaqueraTextPanel();
+
+        yield return new WaitForSecondsRealtime(duration);
+
+        if (paqueraTextPanel != null)
+            paqueraTextPanel.SetActive(false);
+
+        ShowDialogue();
+    }
+
+    void IniciarJogo()
+    {
+        Debug.Log("[RoomManager] Tutorial finalizado, iniciando jogo...");
+        Debug.Log("[RoomManager] Chamando Invoke para ShowPaqueraTextPanel...");
         playerRb = player.GetComponent<Rigidbody>();
         originalPosition = playerRb.position;
         originalRotation = playerRb.rotation;
@@ -112,16 +141,32 @@ public class RoomManager : MonoBehaviour
             Debug.LogWarning("paqueraTextPanel não atribuido");
         }
 
-
         carregarEscolhaPaqueras = FindFirstObjectByType<CarregarEscolhaPaqueras>();
         if (carregarEscolhaPaqueras == null)
-        Debug.LogWarning("CarregarEscolhaPaqueras não encontrada na cena. Considere arrastar no Inspector.");
+            Debug.LogWarning("CarregarEscolhaPaqueras não encontrada na cena");
 
-        Invoke(nameof(ShowPaqueraTextPanel), delayBeforeShow);
+        if (FaseManager.Instance != null)
+        {
+            Invoke(nameof(MostrarMensagemPorFase), 0.3f);
+        }
+        else
+        {
+            Debug.LogWarning("FaseManager não encontrado na cena");
+        }
+
+        if (PlayerPrefs.GetInt("AtualizarMensagens", 0) == 1)
+        {
+            MostrarMensagemPorFase();
+            PlayerPrefs.SetInt("AtualizarMensagens", 0);
+            PlayerPrefs.Save();
+            Debug.Log("Mensagens atualizadas após completar a fase");
+        }
     }
 
     void ShowPaqueraTextPanel()
     {
+        Debug.Log("[RoomManager] Entrou em ShowPaqueraTextPanel()");
+
         if (paqueraTextPanel == null)
         {
             return;
@@ -131,12 +176,6 @@ public class RoomManager : MonoBehaviour
         audioSource.PlayOneShot(mensageNotification);
         isShowingText = true;
         textTimer = duration;
-
-        if (paqueraTextPanel == null)
-        {
-            Debug.LogWarning("paqueraTextPanel não atribuído");
-            return;
-        }
 
         if (PaqueraFText == null || PaqueraMText == null)
         {
@@ -149,18 +188,73 @@ public class RoomManager : MonoBehaviour
 
         PaqueraFText.SetActive(paqueraSelecionada == "Feminino");
         PaqueraMText.SetActive(paqueraSelecionada == "Masculino");
+
+        MostrarMensagemPorFase();
+    }
+
+    private void CompletarFaseAtual()
+    {
+        if (faseSelecionada >= 0 && faseSelecionada < 3)
+        {
+            PlayerPrefs.SetInt($"Fase{faseSelecionada}", 1);
+            PlayerPrefs.Save();
+
+            Debug.Log($"Fase {faseSelecionada + 1} completada!");
+
+            PlayerPrefs.SetInt("AtualizarMensagens", 1);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Debug.LogWarning("Índice de fase inválido!");
+        }
+    }
+
+    public void MostrarMensagemPorFase()
+    {
+        if (FaseManager.Instance == null)
+        {
+            Debug.LogWarning("FaseManager não encontrado");
+            return;
+        }
+
+        mensagemInicial.SetActive(false);
+        mensagemFase1.SetActive(false);
+        mensagemFase2.SetActive(false);
+        mensagemFase3.SetActive(false);
+
+        bool fase1 = FaseManager.Instance.FaseCompletada(0);
+        bool fase2 = FaseManager.Instance.FaseCompletada(1);
+        bool fase3 = FaseManager.Instance.FaseCompletada(2);
+
+        Debug.Log($"[DEBUG] Fase1={fase1}, Fase2={fase2}, Fase3={fase3}");
+
+        if (fase3)
+            mensagemFase3.SetActive(true);
+        else if (fase2)
+            mensagemFase2.SetActive(true);
+        else if (fase1)
+            mensagemFase1.SetActive(true);
+        else
+            mensagemInicial.SetActive(true);
     }
 
     void ShowDialogue()
     {
         if (dialoguePanel == null)
-        {
             return;
-        }
 
         dialoguePanel.SetActive(true);
-        isShowing = true;
-        dialoguetimer = duration;
+        Time.timeScale = 1;
+        StartCoroutine(HideDialogueAfterDelay(duration));
+        HandleClick();
+    }
+
+    private IEnumerator HideDialogueAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
     }
 
     void Update()
@@ -176,28 +270,16 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        if (isShowingText)
-        {
-            textTimer -= Time.deltaTime;
-
-            if (textTimer <= 0f)
-            {
-                paqueraTextPanel.gameObject.SetActive(false);
-                isShowingText = false;
-                paqueraTextPanel.SetActive(false);
-                Invoke(nameof(ShowDialogue), delayBeforeShow);
-            }
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (pausePanel.activeSelf)
             {
-                Resume(pausePanel);
+                Pause();
+                Time.timeScale = 0;
             }
             else
             {
-                Pause(pausePanel, dialoguePanel);
+                BackButton();
             }
         }
 
@@ -211,17 +293,16 @@ public class RoomManager : MonoBehaviour
         HandleClick();
     }
 
-    public static void Resume(GameObject pausePanel)
-    {
-        Time.timeScale = 1;
-        pausePanel.SetActive(false);
-    }
-
-    public static void Pause(GameObject pausePanel, GameObject dialoguePanel)
+    public void Pause()
     {
         Time.timeScale = 0;
         pausePanel.SetActive(true);
-        dialoguePanel.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public static void BackToMenu()
@@ -329,7 +410,7 @@ public class RoomManager : MonoBehaviour
             }
             else
             {
-                return; 
+                return;
             }
         }
         else
@@ -377,7 +458,7 @@ public class RoomManager : MonoBehaviour
 
         targetObject = null;
     }
-    
+
     IEnumerator ReturnToRadioRoutine()
     {
         moving = false;
@@ -390,7 +471,6 @@ public class RoomManager : MonoBehaviour
         targetPosition = originalPosition;
         moving = true;
     }
-
 
     public void SelecionarFase(int indiceFase)
     {
@@ -439,6 +519,7 @@ public class RoomManager : MonoBehaviour
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
         CalendarIcon.SetActive(true);
+        pausePanel.SetActive(false);
         Time.timeScale = 1f;
 
         targetPosition = originalPosition;

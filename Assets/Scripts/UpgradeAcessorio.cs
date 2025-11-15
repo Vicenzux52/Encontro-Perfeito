@@ -15,7 +15,7 @@ public class UpgradeAcessorio : MonoBehaviour
         Belt.SetActive(false);
 
         int id = PlayerPrefs.GetInt("UpgradeID", -1);
-        Debug.Log($"[PlayerUpgrades] Aplicando upgrade ID: {id}");
+        //Debug.Log($"[PlayerUpgrades] Aplicando upgrade ID: {id}");
 
         switch (id)
         {
@@ -23,7 +23,7 @@ public class UpgradeAcessorio : MonoBehaviour
             case 1: Clock.SetActive(true); break;
             case 2: HairClip.SetActive(true); break;
             case 3: Belt.SetActive(true); break;
-            default: Debug.Log("Nenhum upgrade equipado"); break;
+            //default: Debug.Log("Nenhum upgrade equipado"); break;
         }
     }
 }

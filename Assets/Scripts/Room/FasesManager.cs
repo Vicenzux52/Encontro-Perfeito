@@ -37,13 +37,13 @@ public class FaseManager : MonoBehaviour
         if (indiceFase >= 0 && indiceFase < fasesCompletas.Length)
         {
             fasesCompletas[indiceFase] = true;
-
             PlayerPrefs.SetInt("FaseCompletada_" + indiceFase, 1);
 
             int proximaFase = indiceFase + 1;
             if (proximaFase < fasesCompletas.Length)
             {
                 fasesCompletas[proximaFase] = true;
+                PlayerPrefs.SetInt("FaseCompleta_" + proximaFase, 1);
             }
 
             SaveProgress();
@@ -57,19 +57,7 @@ public class FaseManager : MonoBehaviour
 
     public bool FaseCompletada(int indiceFase)
     {
-        return FaseCompletadaRealmente(indiceFase);
-    }
-
-    private bool FaseCompletadaRealmente(int indiceFase)
-    {
-        if (indiceFase == 0)
-        {
-            return PlayerPrefs.GetInt("FaseCompletada_" + indiceFase, 0) == 1;
-        }
-        else
-        {
-            return PlayerPrefs.GetInt("FaseCompletada_" + (indiceFase - 1), 0) == 1;
-        }
+        return PlayerPrefs.GetInt("FaseCompletada_" + indiceFase, 0) == 1;
     }
 
     void SaveProgress()
