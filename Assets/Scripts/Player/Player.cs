@@ -1,5 +1,6 @@
 using System;
 using JetBrains.Annotations;
+using NUnit.Framework;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     public float acceleration = 0.01f;
     public float knockbackMultiplier = 2;
     public bool canMove = false;
+    public int returnOperation = 0;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -31,9 +33,8 @@ public class Player : MonoBehaviour
     float down = 1;
 
     [Header("Delay")]
-    public float delayForce = 30f;
-    bool isDelayed = false;
-    public float lateralSpeedDelay = 0.5f;
+    public float speedDelay = 0.5f;
+    public bool isDelayed = false;
     public float delayTime = 1;
     float delayCounter = 0; //deve tirar
 
@@ -130,12 +131,14 @@ public class Player : MonoBehaviour
 
         if (leftInputs)
         {
+            returnOperation = 1;
             route--;
             DashSound();
         }
 
         if (rightInputs)
         {
+            returnOperation = -1;
             route++;
             DashSound();
         }
@@ -173,12 +176,11 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
-        Debug.Log("Andando");
         frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
-        if (isDelayed) frontSpeed =  limitSpeed * lateralSpeedDelay;
-        transform.position += Vector3.forward * frontSpeed * Time.deltaTime;
+        if (isDelayed) transform.position += Vector3.forward * frontSpeed * speedDelay * Time.deltaTime;
+        else transform.position += Vector3.forward * frontSpeed * Time.deltaTime;
     }
 
     void SideDash()
@@ -186,6 +188,10 @@ public class Player : MonoBehaviour
         if (cameraState == 0)
         {
             route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
+            if (isDelayed)
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+            transform.position.y, transform.position.z), lateralSpeed * speedDelay * Time.deltaTime);
+            else
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
             transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
         }
@@ -196,6 +202,11 @@ public class Player : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
             //adicionar frontdash e delay pra não poder spammar
         }
+    }
+    
+    public void ReturnDash()
+    {
+        route += returnOperation;
     }
 
     void Jump()
@@ -236,8 +247,15 @@ public class Player : MonoBehaviour
 
     void Delay()
     {
-        if (delayCounter < delayTime && isDelayed) delayCounter += Time.time;
-        else isDelayed = false;
+        if (isDelayed)
+        {
+            if (delayCounter < delayTime) delayCounter += Time.deltaTime;
+            else
+            {
+                isDelayed = false;
+                delayCounter = 0;
+            }
+        }
     }
 
     void CheckCameraState()
@@ -259,7 +277,7 @@ public class Player : MonoBehaviour
                 break;
 
             case 2:                         //Presilha
-                //tem que ver ainda
+                //Você fica mais bonitinha
                 break;
             case 3:                         //cinto
                 limitSpeed *= 1.2f;
@@ -280,9 +298,10 @@ public class Player : MonoBehaviour
             }
             else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado voltar pro return dash
             {
-                if (transform.position.x < collision.transform.position.x) route--;
+                ReturnDash();
+                /* if (transform.position.x < collision.transform.position.x) route--;
                 else route++;
-                isDelayed = true;
+                isDelayed = true; */
             }
 
             if (isJumping) down *= 2;
@@ -297,6 +316,11 @@ public class Player : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Delayer"))
+        {
+            isDelayed = true;
+            delayCounter = 0;
+        }
         if (other.CompareTag("Key"))
         {
             collectibleSound.Play();

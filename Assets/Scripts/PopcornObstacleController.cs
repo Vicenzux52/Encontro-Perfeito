@@ -3,7 +3,13 @@ using UnityEngine;
 public class PopcornObstacleController : MonoBehaviour
 {
     public Transform popcornPrefab;
+
     public float timeDestruction, spawX, timer, time;
+
+    void Start()
+    {
+        //player = transform.Find("player");
+    }
 
     void Update()
     {
@@ -15,16 +21,16 @@ public class PopcornObstacleController : MonoBehaviour
     {
         if (timer >= time)
         {
+            timer = 0f;
+
             float randomX = Random.Range(-spawX, spawX);
-            Vector3 spawnPosition = transform.position + new Vector3(randomX, 0, 0);
+            Vector3 spawnPosition = transform.position + new Vector3(0, 0, randomX);
 
             Transform popcorn = Instantiate(popcornPrefab, spawnPosition, Quaternion.identity);
 
-            SetupParabolic(popcorn, popcorn.forward);
+            SetupParabolic(popcorn, popcorn.right);
 
             Destroy(popcorn.gameObject, timeDestruction);
-
-            timer = 0f;
         }
     }
 

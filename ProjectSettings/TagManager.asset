@@ -16,7 +16,7 @@ TagManager:
   - PlayerModel
   - CollectibleArea
   - KeyOut
-  - Portal
+  - Delayer
   layers:
   - Default
   - TransparentFX
@@ -24,7 +24,7 @@ TagManager:
   - Interactible
   - Water
   - UI
-  - PortalRender
+  - 
   - 
   - 
   - 
