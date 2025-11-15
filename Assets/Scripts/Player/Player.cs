@@ -172,7 +172,6 @@ public class Player : MonoBehaviour
 
     void FrontalMovement()
     {
-        Debug.Log("Andando");
         frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
