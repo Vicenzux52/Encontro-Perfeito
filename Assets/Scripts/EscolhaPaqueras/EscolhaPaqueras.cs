@@ -20,6 +20,8 @@ public class EscolhaPaqueras : MonoBehaviour
     private bool escolheuPaquera = false;
     private bool escolheuPet = false;
 
+    public AudioSource audioSource;
+
     void Start()
     {        
         Rabbit.SetActive(false);
@@ -36,6 +38,7 @@ public class EscolhaPaqueras : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject objectSelect = hit.collider.gameObject;
+                audioSource.Play();
 
                 if (!escolheuPaquera)
                 {
