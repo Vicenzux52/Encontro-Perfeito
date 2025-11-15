@@ -31,7 +31,6 @@ public class PopcornThrower : MonoBehaviour
     void Update()
     {
         movieTime = movie.time;
-        Debug.Log(movieTime);
         if (movieTime >= movieTimeTrigger)
         {
             if (!popcornThrowed)

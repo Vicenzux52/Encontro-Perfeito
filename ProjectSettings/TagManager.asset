@@ -16,6 +16,7 @@ TagManager:
   - PlayerModel
   - CollectibleArea
   - KeyOut
+  - Delayer
   layers:
   - Default
   - TransparentFX
