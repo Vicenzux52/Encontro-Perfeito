@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class Fantasma : MonoBehaviour
 {
@@ -34,11 +35,11 @@ public class Fantasma : MonoBehaviour
     float delayCounter = 0;
 
     [Header("Hit")]
-    public Material hitMaterial;
-    private Material originalMaterial;
-    private Renderer rend;
-    public float hitDuration = 3f;
-    private bool isHit = false;
+    public int maxCollisions = 3; 
+    public int maxHearts = 3;
+    public int currentHearts;
+    private bool recentlyHit = false;
+    public float hitCooldown = 0.2f;
 
     [Header ("Game Start Time")]
     public float startTime = 3f;
@@ -61,6 +62,9 @@ public class Fantasma : MonoBehaviour
 
     void Start()
     {
+        currentHearts = maxHearts;
+        HeartsUI.Instance.UpdateHearts(currentHearts);
+
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         for (int i = 0; i < transform.childCount; i++)
@@ -70,15 +74,6 @@ public class Fantasma : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
-        }
-
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).gameObject.CompareTag("PlayerModel"))
-            {
-                rend = transform.GetChild(i).GetComponent<Renderer>();
-                originalMaterial = rend.material;
-            }
         }
         
         cameraHolder = Camera.main.transform.parent.gameObject;
@@ -100,7 +95,7 @@ public class Fantasma : MonoBehaviour
             Jump();
         }
     }
-
+    
     void FixedUpdate()
     {
         if (!isJumping) rb.AddForce(-orientation.up * gravity, ForceMode.Acceleration);
@@ -135,10 +130,8 @@ public class Fantasma : MonoBehaviour
 
     void DashSound()
     {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.Play();
-        }
+
+        audioSource.PlayOneShot(audioSource.clip);
     }
 
     void FrontalMovement()
@@ -189,11 +182,38 @@ public class Fantasma : MonoBehaviour
     }
     
     void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.CompareTag("Obstacle"))
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {                
+        if (!recentlyHit)
+        {
+            TakeDamage(1);
+            StartCoroutine(HitCooldown());
+        }
+    }
+}
+
+    IEnumerator HitCooldown()
+    {
+        recentlyHit = true;
+        yield return new WaitForSeconds(hitCooldown);
+        recentlyHit = false;
+    }
+
+    public void TakeDamage(int amount = 1)
+    {
+        Debug.Log("DANO: " + currentHearts);
+
+        currentHearts -= amount;
+
+        if (currentHearts < 0)
+            currentHearts = 0;
+
+        HeartsUI.Instance.UpdateHearts(currentHearts);
+
+        if (currentHearts <= 0)
+        {
             UIController.GameOver();
-            Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
     }
 

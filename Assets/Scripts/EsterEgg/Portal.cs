@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
-    public GameObject portal;
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Portal"))
-        {                
-            SceneManager.LoadScene("Fase1");
+        if (other.CompareTag("Player"))
+        {
+            DeathSaver.estereggConcluido = true;
+            SceneManager.LoadScene("VideoPortal");
         }
     }
 }

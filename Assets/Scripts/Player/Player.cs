@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -291,7 +292,7 @@ public class Player : MonoBehaviour
                 StartCoroutine(FlashMaterial());
             }
 
-            Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
+            //Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
     }
     void OnTriggerEnter(Collider other)
@@ -321,5 +322,18 @@ public class Player : MonoBehaviour
             timerVFX = 0f;
             Destroy(walkVFx.gameObject, 1f);
         }
+    }
+
+    void SaveDeathInfo()
+    {
+        Vector3 pos = transform.position;
+        string scene = SceneManager.GetActiveScene().name;
+
+        DeathSaver.deathPosition = pos;
+        DeathSaver.deathScene = scene;
+
+        DeathSaver.lastDeathPosition = pos;
+        DeathSaver.returnScene = scene;
+        DeathSaver.hasSavedPosition = true;
     }
 }
