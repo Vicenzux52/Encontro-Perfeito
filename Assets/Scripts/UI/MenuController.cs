@@ -5,6 +5,7 @@ public class MenuController : MonoBehaviour
     public GameObject audioPanel;
     public GameObject controlsPanel;
     public GameObject creditsPanel;
+    public GameObject creditsPanel2;
     public AudioSource audioSource;
 
     public void Play()
@@ -43,6 +44,14 @@ public class MenuController : MonoBehaviour
         audioPanel.SetActive(false);
         controlsPanel.SetActive(false);
         creditsPanel.SetActive(false);
+        creditsPanel2.SetActive(false);
+    }
+
+    public void SkipPanel()
+    {
+        audioSource.Play();
+        creditsPanel.SetActive(false);
+        creditsPanel2.SetActive(true);
     }
 
     void Start()
