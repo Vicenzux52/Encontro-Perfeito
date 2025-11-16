@@ -1,14 +1,18 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
+    public AudioSource gameOverAudio;
+    private HeartsUI heartsUI;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             DeathSaver.estereggConcluido = true;
-            SceneManager.LoadScene("VideoPortal");
+            gameOverAudio.Play();
+            PhotoAlbumManager.isGameOverEsterEgg = true;
+            heartsUI.Win();
         }
     }
 }

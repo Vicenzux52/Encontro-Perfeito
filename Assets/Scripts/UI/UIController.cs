@@ -75,7 +75,6 @@ public class UIController : MonoBehaviour
     public static void GameOver()
     {
         Time.timeScale = 0;
-        PhotoAlbumManager.isGameOver = true;
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverUI.SetActive(true);
@@ -139,6 +138,7 @@ public class UIController : MonoBehaviour
         flashImage.color = new Color(1, 1, 1, 0);
         flashImage.enabled = false;
     }
+    
     private void CompletarFaseAtual()
     {
         if (indiceFaseAtual >= 0 && indiceFaseAtual < 3)

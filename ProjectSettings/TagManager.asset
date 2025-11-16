@@ -17,6 +17,8 @@ TagManager:
   - CollectibleArea
   - KeyOut
   - Delayer
+  - Portal
+  - Vehicle
   layers:
   - Default
   - TransparentFX

@@ -16,9 +16,17 @@ public class PhotoAlbumManager : MonoBehaviour
     public PhotoData[] photos;
     public Image[] desenhos;
 
-    public static bool isGameOver = false;
-    public Image gameOverSprite;
-    public Image gameOverMask;
+    public static bool isGameOverTime = false;
+    public Image gameOverTimeSprite;
+    public Image gameOverTimeMask;
+
+    public static bool isGameOverDeath = false;
+    public Image gameOverDeathSprite;
+    public Image gameOverDeathMask;
+
+    public static bool isGameOverEsterEgg = false;
+    public Image gameOverEsterEggSprite;
+    public Image gameOverEsterEggMask;
 
     void Start()
     {
@@ -27,15 +35,37 @@ public class PhotoAlbumManager : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver)
+        if (isGameOverTime)
         {
-            gameOverSprite.enabled = true;
-            gameOverMask.enabled = false;
+            gameOverTimeSprite.enabled = true;
+            gameOverTimeMask.enabled = false;
         }
         else
         {
-            gameOverMask.enabled = true;
-            gameOverSprite.enabled = false;
+            gameOverTimeMask.enabled = true;
+            gameOverTimeSprite.enabled = false;
+        }
+
+        if (isGameOverDeath)
+        {
+            gameOverDeathSprite.enabled = true;
+            gameOverDeathMask.enabled = false;
+        }
+        else
+        {
+            gameOverDeathMask.enabled = true;
+            gameOverDeathSprite.enabled = false;
+        }
+
+        if (isGameOverEsterEgg)
+        {
+            gameOverEsterEggSprite.enabled = true;
+            gameOverEsterEggMask.enabled = false;
+        }
+        else
+        {
+            gameOverEsterEggMask.enabled = true;
+            gameOverEsterEggSprite.enabled = false;
         }
     }
 
