@@ -3,13 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class Cheats : MonoBehaviour
 {
-    GameObject player;
-    GameObject instructions;
+    public GameObject player;
+    public GameObject instructions;
     void Start()
     {
-        player = transform.Find("Player").gameObject;
-        instructions = transform.Find("Instructions").gameObject;
-        instructions.SetActive(true);
+        instructions.SetActive(false);
     }
     
     // Update is called once per frame
