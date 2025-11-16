@@ -14,10 +14,29 @@ public class PhotoAlbumManager : MonoBehaviour
 {
     [Header("Photos")]
     public PhotoData[] photos;
+    public Image[] desenhos;
+
+    public static bool isGameOver = false;
+    public Image gameOverSprite;
+    public Image gameOverMask;
 
     void Start()
     {
         UpdatePhotos();
+    }
+
+    void Update()
+    {
+        if (isGameOver)
+        {
+            gameOverSprite.enabled = true;
+            gameOverMask.enabled = false;
+        }
+        else
+        {
+            gameOverMask.enabled = true;
+            gameOverSprite.enabled = false;
+        }
     }
 
     public void UpdatePhotos()
@@ -41,6 +60,7 @@ public class PhotoAlbumManager : MonoBehaviour
             else
             {
                 photos[i].maskImage.enabled = false;
+                desenhos[i].gameObject.SetActive(true);
             }
         }
     }
