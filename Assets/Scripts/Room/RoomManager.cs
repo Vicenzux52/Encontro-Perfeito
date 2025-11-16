@@ -54,7 +54,8 @@ public class RoomManager : MonoBehaviour
     private bool moving = false;
     private GameObject targetObject;
     private Vector3 originalPosition;
-    private Quaternion originalRotation;
+    private Quaternion originalRotation = Quaternion.Euler(0, 180, 0);
+
     private bool returning = false;
 
     [Header("Upgrades")]
@@ -80,6 +81,7 @@ public class RoomManager : MonoBehaviour
     public GameObject mensagemFase3;
 
     public TutorialRoom tutorialRoom;
+    public AudioSource clickSound;
 
     IEnumerator Start()
     {
@@ -104,9 +106,10 @@ public class RoomManager : MonoBehaviour
     {
         Debug.Log("[RoomManager] Tutorial finalizado, iniciando jogo...");
         Debug.Log("[RoomManager] Chamando Invoke para ShowPaqueraTextPanel...");
+
         playerRb = player.GetComponent<Rigidbody>();
         originalPosition = playerRb.position;
-        originalRotation = playerRb.rotation;
+        originalRotation = Quaternion.Euler(0f, 180f, 0f);
         playerRb.freezeRotation = true;
 
         ChibiBelt.SetActive(false);
@@ -114,8 +117,7 @@ public class RoomManager : MonoBehaviour
         ChibiHairClip.SetActive(false);
         ChibiTamagotchi.SetActive(false);
 
-        originalPosition = transform.position;
-        originalRotation = transform.rotation;
+        originalPosition = new Vector3(0.05f, -1.6f, -1f);
 
         int id = PlayerPrefs.GetInt("UpgradeID", -1);
         Debug.Log($"[ChibiManager] Aplicando upgrade ID: {id}");
@@ -302,11 +304,13 @@ public class RoomManager : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0;
+        clickSound.Play();
         pausePanel.SetActive(true);
     }
 
     public void SkipAlbum()
     {
+        clickSound.Play();
         Debug.Log("Skipou");
         albumPanel2.SetActive(true);
     }
@@ -314,6 +318,7 @@ public class RoomManager : MonoBehaviour
 
     public void Resume()
     {
+        clickSound.Play();
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
     }
@@ -349,8 +354,7 @@ public class RoomManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, collisionLayer))
             {
-                originalPosition = playerRb.position;
-                originalRotation = playerRb.rotation;
+                originalPosition = new Vector3(0.05f, -1.6f, -1f);
 
                 targetPosition = hit.point;
                 moving = true;
@@ -511,6 +515,7 @@ public class RoomManager : MonoBehaviour
     {
         if (FaseManager.Instance != null && FaseManager.Instance.FaseLiberada(faseSelecionada))
         {
+            clickSound.Play();
             string nomeCena = ObterNomeCenaPorFase(faseSelecionada);
             SceneManager.LoadScene(nomeCena);
             Time.timeScale = 1f;
@@ -537,6 +542,7 @@ public class RoomManager : MonoBehaviour
 
     public void BackButton()
     {
+        clickSound.Play();
         playPanel.SetActive(false);
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
