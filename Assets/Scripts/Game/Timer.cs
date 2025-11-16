@@ -34,7 +34,7 @@ public class Timer : MonoBehaviour
         {
             gameOverAudio.Play();
             PhotoAlbumManager.isGameOverTime = true;
-            UIController.GameOver();
+            UIController.GameOverTimer();
         }
     }
 

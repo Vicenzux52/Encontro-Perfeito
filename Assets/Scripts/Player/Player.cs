@@ -315,11 +315,11 @@ public class Player : MonoBehaviour
             Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
 
-        if (collision.gameObject.CompareTag("Vehicle"))
+        if (collision.gameObject.CompareTag("Death"))
         {                
             gameOverAudio.Play();
             PhotoAlbumManager.isGameOverDeath = true;
-            UIController.GameOver();
+            UIController.GameOverDeath();
         }
     }
     void OnTriggerEnter(Collider other)
