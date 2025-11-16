@@ -17,6 +17,10 @@ public class VideoScene : MonoBehaviour
         {
             SceneManager.LoadScene(DeathSaver.returnScene);
         }
+        else if (DeathSaver.estereggNaoConcluido)
+        {
+            SceneManager.LoadScene("Room");
+        }
         else
         {
             SceneManager.LoadScene("EsterEgg");

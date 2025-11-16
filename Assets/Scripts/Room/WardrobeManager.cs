@@ -10,26 +10,20 @@ public class WardrobeManager : MonoBehaviour
     public GameObject ProtagonistHairClip;
     public GameObject ProtagonistTamagotchi;
 
-    [Header("AssetsChibi")]
-    public GameObject ChibiBelt;
-    public GameObject ChibiClock;
-    public GameObject ChibiHairClip;
-    public GameObject ChibiTamagotchi;
-
     [HideInInspector] public bool tamagotchi;
     [HideInInspector] public bool clock;
     [HideInInspector] public bool hairClip;
     [HideInInspector] public bool belt;
 
-    [Header("Upgrade Indisponivel")]
+    /*[Header("Upgrade Indisponivel")]
     public GameObject indisponivel;
     public float duration = 1f;
     private float timer = 0f;
-    private bool isShowing = false;
+    private bool isShowing = false;*/
 
     static public bool backToRoomWardrobe;
 
-    void Update()
+    /*void Update()
     {
         if (isShowing)
         {
@@ -40,7 +34,7 @@ public class WardrobeManager : MonoBehaviour
                 isShowing = false;
             }
         }
-    }
+    }*/
 
     private void DeactivateAll()
     {
@@ -61,11 +55,18 @@ public class WardrobeManager : MonoBehaviour
     }
     public void HairClipButton()
     {
-        indisponivel.SetActive(true);
+        DeactivateAll();
+        ProtagonistHairClip.SetActive(true);
+        tamagotchi = false;
+        clock = false;
+        hairClip = true;
+        belt = false;
+
+        /*indisponivel.SetActive(true);
         timer = duration;
         isShowing = true;
 
-        /*DeactivateAll();
+        DeactivateAll();
         ProtagonistHairClip.SetActive(true);
         tamagotchi = false;
         clock = false;
