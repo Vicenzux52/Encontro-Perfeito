@@ -64,10 +64,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Collider
       objectReference: {fileID: 0}
-    - target: {fileID: 7236973145315854210, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
-      propertyPath: m_TagString
-      value: Death
-      objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Size.x
       value: 11.227034
@@ -178,10 +174,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 58b0bc01aaad0fd4db2607714b1622a5, type: 3}
       propertyPath: m_Name
       value: SimpleCar
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 58b0bc01aaad0fd4db2607714b1622a5, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1808024211325461544, guid: 58b0bc01aaad0fd4db2607714b1622a5, type: 3}
       propertyPath: m_LocalPosition.x

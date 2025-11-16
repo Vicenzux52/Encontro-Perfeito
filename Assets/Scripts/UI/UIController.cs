@@ -14,8 +14,7 @@ public class UIController : MonoBehaviour
     //public GameObject[] collectibleObjects;
     static public GameObject inGameUI;
     static public GameObject pauseUI;
-    static public GameObject gameOverDeathUI;
-    static public GameObject gameOverTimerUI;
+    static public GameObject gameOverUI;
 
     [Header("Photo Win")]
     public int photoIndex;
@@ -39,20 +38,18 @@ public class UIController : MonoBehaviour
         THIS = this;
         inGameUI = OnlyOneTaggedObject("InGameUI");
         pauseUI = OnlyOneTaggedObject("PauseUI");
-        gameOverDeathUI = OnlyOneTaggedObject("GameOverDeathUI");
-        gameOverTimerUI = OnlyOneTaggedObject("GameOverTimerUI");
+        gameOverUI = OnlyOneTaggedObject("GameOverUI");
         winUI = OnlyOneTaggedObject("WinUI");
         inGameUI.SetActive(true);
-        gameOverTimerUI.SetActive(false);
         pauseUI.SetActive(false);
-        gameOverDeathUI.SetActive(false);
+        gameOverUI.SetActive(false);
         winUI.SetActive(false);
         //if (collectibleObjects.Length != 3) Debug.LogError("coletaveis na hud insuficientes");
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !gameOverDeathUI.activeSelf && !winUI.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameOverUI.activeSelf && !winUI.activeSelf)
         {
             if (pauseUI.activeSelf)
             {
@@ -75,24 +72,13 @@ public class UIController : MonoBehaviour
         }*/
     }
 
-    public static void GameOverDeath()
+    public static void GameOver()
     {
         Time.timeScale = 0;
         PhotoAlbumManager.isGameOver = true;
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
-        gameOverDeathUI.SetActive(true);
-        gameOverTimerUI.SetActive(false);
-        winUI.SetActive(false);
-    }
-
-    public static void GameOverTimer()
-    {
-        Time.timeScale = 0;
-        inGameUI.SetActive(false);
-        pauseUI.SetActive(false);
-        gameOverTimerUI.SetActive(true);
-        gameOverDeathUI.SetActive(false);
+        gameOverUI.SetActive(true);
         winUI.SetActive(false);
     }
 
@@ -103,8 +89,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = 0;
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
-        gameOverTimerUI.SetActive(false);
-        gameOverDeathUI.SetActive(false);
+        gameOverUI.SetActive(false);
         winUI.SetActive(true);
 
         if (cameraSound != null)
@@ -154,7 +139,6 @@ public class UIController : MonoBehaviour
         flashImage.color = new Color(1, 1, 1, 0);
         flashImage.enabled = false;
     }
-    
     private void CompletarFaseAtual()
     {
         if (indiceFaseAtual >= 0 && indiceFaseAtual < 3)
@@ -193,8 +177,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = 0;
         inGameUI.SetActive(true);
         pauseUI.SetActive(true);
-        gameOverDeathUI.SetActive(false);
-        gameOverTimerUI.SetActive(false);
+        gameOverUI.SetActive(false);
         winUI.SetActive(false);
     }
 
@@ -203,8 +186,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
         inGameUI.SetActive(true);
         pauseUI.SetActive(false);
-        gameOverDeathUI.SetActive(false);
-        gameOverTimerUI.SetActive(false);
+        gameOverUI.SetActive(false);
         winUI.SetActive(false);
     }
 
