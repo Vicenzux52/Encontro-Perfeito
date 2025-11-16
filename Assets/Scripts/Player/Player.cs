@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioSource collectibleSound;
+    public AudioSource gameOverAudio;
 
     [Header("VFX")]
     public Transform walkVFX;
@@ -311,7 +312,14 @@ public class Player : MonoBehaviour
                 StartCoroutine(FlashMaterial());
             }
 
-            //Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
+            Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
+        }
+
+        if (collision.gameObject.CompareTag("Death"))
+        {                
+            gameOverAudio.Play();
+            PhotoAlbumManager.isGameOverDeath = true;
+            UIController.GameOverDeath();
         }
     }
     void OnTriggerEnter(Collider other)

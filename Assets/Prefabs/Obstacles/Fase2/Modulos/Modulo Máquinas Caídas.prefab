@@ -1,0 +1,348 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6570214676877675475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7163032230979277039}
+  m_Layer: 0
+  m_Name: "Modulo M\xE1quinas Ca\xEDdas"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7163032230979277039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570214676877675475}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.08812928, y: 30.35537, z: 13.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7723084962115020276}
+  - {fileID: 900738353342782242}
+  - {fileID: 7902375773944964684}
+  - {fileID: 2376422915693437078}
+  - {fileID: 7135470276181892516}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2277318478727042516
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7163032230979277039}
+    m_Modifications:
+    - target: {fileID: 8635425590723941066, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_Name
+      value: PlantaCinema
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2681293
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.094631195
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.8599997
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+--- !u!4 &7135470276181892516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8979299688785856624, guid: fb732924a4f5c344db628d3fdc289803, type: 3}
+  m_PrefabInstance: {fileID: 2277318478727042516}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4284611827104112691
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7163032230979277039}
+    m_Modifications:
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.8116722
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 22.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.4723633
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.4723633
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5261871
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5261871
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.972
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 96.171
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562808673508056957, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_Name
+      value: MaquinaVendasCinema_Quebrada
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+--- !u!4 &7723084962115020276 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+  m_PrefabInstance: {fileID: 4284611827104112691}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4463902854936585099
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7163032230979277039}
+    m_Modifications:
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 64.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.38600308
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.38600308
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.59245396
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.59245396
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -113.829
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562808673508056957, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_Name
+      value: MaquinaVendasCinema_Quebrada (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+--- !u!4 &7902375773944964684 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+  m_PrefabInstance: {fileID: 4463902854936585099}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6690105877890703077
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7163032230979277039}
+    m_Modifications:
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.9879086
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 49.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.52843374
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.52843374
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.46984872
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.46984872
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 83.283
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562808673508056957, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_Name
+      value: MaquinaVendasCinema_Quebrada (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+--- !u!4 &900738353342782242 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+  m_PrefabInstance: {fileID: 6690105877890703077}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8116285968870139217
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7163032230979277039}
+    m_Modifications:
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 35.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.45711887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.45711887
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5394834
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5394834
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -99.449
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562808673508056957, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+      propertyPath: m_Name
+      value: MaquinaVendasCinema_Quebrada (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+--- !u!4 &2376422915693437078 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5789402726722733511, guid: d2f3d8507a8ed5741ad4d8ecb1fa6a3e, type: 3}
+  m_PrefabInstance: {fileID: 8116285968870139217}
+  m_PrefabAsset: {fileID: 0}
