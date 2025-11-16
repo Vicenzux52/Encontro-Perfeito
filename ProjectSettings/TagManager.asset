@@ -18,6 +18,9 @@ TagManager:
   - KeyOut
   - Delayer
   - Portal
+  - GameOverDeathUI
+  - GameOverTimerUI
+  - Death
   - Vehicle
   layers:
   - Default
