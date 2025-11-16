@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68cb12ef9c260d64db39464183c3931a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  esterEggChance: 0.5
+  esterEggChance: 1
 --- !u!4 &8672622953048888077 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3015979608326531524, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
