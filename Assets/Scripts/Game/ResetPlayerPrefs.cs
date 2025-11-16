@@ -4,8 +4,8 @@ public class ResetPlayerPrefs : MonoBehaviour
 {
     void Awake()
     {
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.Save();
+        Debug.Log("ResetPlayerPrefs rodou!");
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
-
 }
