@@ -75,6 +75,7 @@ public class UIController : MonoBehaviour
     public static void GameOver()
     {
         Time.timeScale = 0;
+        PhotoAlbumManager.isGameOver = true;
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverUI.SetActive(true);

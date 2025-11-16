@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
     public GameObject playPanel;
     public GameObject calendarPanel;
     public GameObject albumPanel;
+    public GameObject albumPanel2;
     public GameObject pausePanel;
     public GameObject paqueraTextPanel;
 
@@ -28,6 +29,11 @@ public class RoomManager : MonoBehaviour
     [Header("Audio Source")]
     public AudioSource audioSource;
     public AudioClip mensageNotification;
+
+    [Header("Radio Music")]
+    public AudioClip[] radioClips;
+    private int currentRadioIndex = 0;
+    public AudioSource radioAudioSource;
 
     [Header("Interactable Objects")]
     public GameObject Door;
@@ -93,7 +99,7 @@ public class RoomManager : MonoBehaviour
 
         ShowDialogue();
     }
-
+    
     void IniciarJogo()
     {
         Debug.Log("[RoomManager] Tutorial finalizado, iniciando jogo...");
@@ -299,6 +305,13 @@ public class RoomManager : MonoBehaviour
         pausePanel.SetActive(true);
     }
 
+    public void SkipAlbum()
+    {
+        Debug.Log("Skipou");
+        albumPanel2.SetActive(true);
+    }
+
+
     public void Resume()
     {
         pausePanel.SetActive(false);
@@ -437,7 +450,7 @@ public class RoomManager : MonoBehaviour
         else if (targetObject == Radio)
         {
             dialoguePanel.SetActive(false);
-            StartCoroutine(ReturnToRadioRoutine());
+            StartCoroutine(PlayRadioRoutine());
         }
         /*else if (targetObject == Calendar)
         {
@@ -459,17 +472,26 @@ public class RoomManager : MonoBehaviour
         targetObject = null;
     }
 
-    IEnumerator ReturnToRadioRoutine()
+    IEnumerator PlayRadioRoutine()
     {
         moving = false;
 
-        yield return new WaitForSeconds(1.5f);
-        yield return StartCoroutine(RotateToOriginal());
-        yield return new WaitForSeconds(0.3f);
+        if (radioClips.Length > 0 && radioAudioSource != null)
+        {
+            radioAudioSource.clip = radioClips[currentRadioIndex];
+            radioAudioSource.Play();
+
+            currentRadioIndex = (currentRadioIndex + 1) % radioClips.Length;
+        }
+
+        yield return new WaitForSeconds(2f);
 
         returning = true;
         targetPosition = originalPosition;
         moving = true;
+
+        PlayerPrefs.SetInt("RadioMusicIndex", currentRadioIndex - 1 < 0 ? radioClips.Length - 1 : currentRadioIndex - 1);
+        PlayerPrefs.Save();
     }
 
     public void SelecionarFase(int indiceFase)
@@ -518,6 +540,7 @@ public class RoomManager : MonoBehaviour
         playPanel.SetActive(false);
         calendarPanel.SetActive(false);
         albumPanel.SetActive(false);
+        albumPanel2.SetActive(false);
         CalendarIcon.SetActive(true);
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
