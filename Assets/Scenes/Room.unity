@@ -7932,6 +7932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 552827611191aab459700a23a3f39a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  instructions: {fileID: 0}
 --- !u!1 &1499035107
 GameObject:
   m_ObjectHideFlags: 0
@@ -12068,7 +12070,7 @@ PrefabInstance:
     - target: {fileID: -4847059604229723496, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
+      objectReference: {fileID: 2100000, guid: 2002e1d7c63a7b1489524a270f6485b9, type: 2}
     - target: {fileID: -4724774127471563701, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.451
@@ -12088,7 +12090,7 @@ PrefabInstance:
     - target: {fileID: -3570331366394398015, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
+      objectReference: {fileID: 2100000, guid: 2002e1d7c63a7b1489524a270f6485b9, type: 2}
     - target: {fileID: -2181629061774141429, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -12108,7 +12110,7 @@ PrefabInstance:
     - target: {fileID: -2050075876616254572, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
+      objectReference: {fileID: 2100000, guid: 2002e1d7c63a7b1489524a270f6485b9, type: 2}
     - target: {fileID: -2021549622077457846, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.697
@@ -12212,7 +12214,7 @@ PrefabInstance:
     - target: {fileID: 3247258850944600311, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: bb8a25a29f82814468ba99db19289289, type: 2}
+      objectReference: {fileID: 2100000, guid: 2002e1d7c63a7b1489524a270f6485b9, type: 2}
     - target: {fileID: 5006329546992060391, guid: 537973806e1b9514a8ef4ca59d2302e4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.257
