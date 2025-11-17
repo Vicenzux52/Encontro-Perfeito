@@ -76,6 +76,12 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        uIController = FindObjectOfType<UIController>();
+        if (uIController == null)
+        {
+            Debug.LogError("UIController não encontrado na cena!");
+        }
+
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         for (int i = 0; i < transform.childCount; i++)
@@ -321,11 +327,28 @@ public class Player : MonoBehaviour
             Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
 
-        if (collision.gameObject.CompareTag("Death"))
+        /*if (collision.gameObject.CompareTag("Death"))
         {                
             PhotoAlbumManager.isGameOverDeath = true;
-            uIController.GameOverDeath();
-        }
+            
+            if (uIController != null)
+            {
+                uIController.GameOverDeath();
+            }
+            else
+            {
+                Debug.LogError("UIController é null! Tentando encontrar novamente...");
+                uIController = FindObjectOfType<UIController>();
+                if (uIController != null)
+                {
+                    uIController.GameOverDeath();
+                }
+                else
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
+            }
+        }*/
     }
     void OnTriggerEnter(Collider other)
     {

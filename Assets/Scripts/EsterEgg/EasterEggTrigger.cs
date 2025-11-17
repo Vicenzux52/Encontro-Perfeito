@@ -5,9 +5,15 @@ public class EasterEggTrigger : MonoBehaviour
 {
     [Header("Probabilidade (0 a 1)")]
     [Range(0f, 1f)]
-    public float esterEggChance = 1f;
+    public float esterEggChance = 0.1f;
 
     private bool triggered = false;
+    private UIController uIController;
+
+    void Start()
+    {
+        uIController = FindObjectOfType<UIController>();
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -16,17 +22,29 @@ public class EasterEggTrigger : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
+            triggered = true;
             float r = Random.value;
 
             if (r <= esterEggChance)
             {
-                triggered = true;
-
                 DeathSaver.lastDeathPosition = collision.transform.position;
                 DeathSaver.hasSavedPosition = true;
                 DeathSaver.returnScene = SceneManager.GetActiveScene().name;
-
                 SceneManager.LoadScene("EsterEgg");
+            }
+            else
+            {
+                PhotoAlbumManager.isGameOverDeath = true;
+                
+                if (uIController != null)
+                {
+                    uIController.GameOverDeath();
+                }
+                else
+                {
+                    Debug.LogError("UIController não encontrado!");
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                }
             }
         }
     }

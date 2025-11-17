@@ -48,6 +48,19 @@ public class UIController : MonoBehaviour
         pauseUI.SetActive(false);
         gameOverDeathUI.SetActive(false);
         winUI.SetActive(false);
+
+        if (gameOverAudio == null)
+        {
+            gameOverAudio = GetComponent<AudioSource>();
+            if (gameOverAudio == null)
+            {
+                gameOverAudio = FindObjectOfType<AudioSource>();
+                if (gameOverAudio == null)
+                {
+                    Debug.LogWarning("AudioSource não encontrado para gameOverAudio");
+                }
+            }
+        }
         //if (collectibleObjects.Length != 3) Debug.LogError("coletaveis na hud insuficientes");
     }
 
@@ -79,8 +92,18 @@ public class UIController : MonoBehaviour
     public void GameOverDeath()
     {
         Time.timeScale = 0;
+
         if (THIS != null && THIS.gameOverAudio != null)
-            THIS.gameOverAudio.Play();
+        {
+            THIS.gameOverAudio.enabled = true;
+            THIS.gameOverAudio.gameObject.SetActive(true);
+            
+            if (!THIS.gameOverAudio.isPlaying)
+            {
+                THIS.gameOverAudio.Play();
+            }
+        }
+
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverDeathUI.SetActive(true);
@@ -91,8 +114,18 @@ public class UIController : MonoBehaviour
     public void GameOverTimer()
     {
         Time.timeScale = 0;
+        
         if (THIS != null && THIS.gameOverAudio != null)
-            THIS.gameOverAudio.Play();
+        {
+            THIS.gameOverAudio.enabled = true;
+            THIS.gameOverAudio.gameObject.SetActive(true);
+            
+            if (!THIS.gameOverAudio.isPlaying)
+            {
+                THIS.gameOverAudio.Play();
+            }
+        }
+
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverTimerUI.SetActive(true);

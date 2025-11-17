@@ -59,8 +59,6 @@ public class Fantasma : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
 
-    public UIController uIController;
-
     void Start()
     {
         currentHearts = maxHearts;

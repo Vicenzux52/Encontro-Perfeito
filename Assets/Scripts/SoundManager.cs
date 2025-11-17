@@ -33,8 +33,8 @@ public class SoundManager : MonoBehaviour
 
     void InitializeSliders()
     {
-        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
-        float savedSFXVolume = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
+        float savedMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.85f);
+        float savedSFXVolume = PlayerPrefs.GetFloat("SFXVolume", 0.85f);
         
         if (musicSlider != null)
         {

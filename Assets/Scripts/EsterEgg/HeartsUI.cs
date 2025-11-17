@@ -11,6 +11,7 @@ public class HeartsUI : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
     public GameObject winUI;
+    public GameObject gameOverUI;
     public GameObject pauseUI;
 
     [Header("Photo Flash")]
@@ -36,6 +37,7 @@ public class HeartsUI : MonoBehaviour
 
     public void Win()
     {
+        Time.timeScale = 0;
         winUI.SetActive(true);
         if (cameraSound != null)
             cameraSound.Play();
@@ -57,6 +59,11 @@ public class HeartsUI : MonoBehaviour
 
         flashImage.color = new Color(1, 1, 1, 0);
         flashImage.enabled = false;
+    }
+
+     public void BackToFaseButton()
+    {
+        BackToFase();
     }
 
     public void BackToFase()
@@ -90,4 +97,9 @@ public class HeartsUI : MonoBehaviour
         Time.timeScale = 1;
         pauseUI.SetActive(false);
     }
+
+    /*public void GameOver()
+    {
+        gameOverUI.SetActive(true);
+    }*/
 }

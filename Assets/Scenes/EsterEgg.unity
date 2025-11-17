@@ -7298,8 +7298,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+      - m_Target: {fileID: 1568848922}
+        m_TargetAssemblyTypeName: HeartsUI, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
         m_Arguments:
@@ -9053,7 +9053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &934328497
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14096,7 +14096,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1568848922}
         m_TargetAssemblyTypeName: HeartsUI, Assembly-CSharp
-        m_MethodName: BackToFase
+        m_MethodName: BackToFaseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

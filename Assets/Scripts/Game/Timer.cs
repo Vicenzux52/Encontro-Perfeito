@@ -20,6 +20,21 @@ public class Timer : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         timeLeft = initialTime;
         timerText = gameObject.GetComponent<Text>();
+
+        uIController = FindObjectOfType<UIController>();
+        if (uIController == null)
+        {
+            Debug.LogError("UIController não encontrado no Timer!");
+        }
+
+        if (gameOverAudio == null)
+        {
+            gameOverAudio = GetComponent<AudioSource>();
+            if (gameOverAudio == null)
+            {
+                Debug.LogWarning("AudioSource não encontrado para Timer!");
+            }
+        }
         
         upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
@@ -34,7 +49,14 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            gameOverAudio.Play();
+            if (gameOverAudio != null)
+            {
+                gameOverAudio.Play();
+            }
+            else
+            {
+                Debug.LogWarning("gameOverAudio não disponível!");
+            }
             PhotoAlbumManager.isGameOverTime = true;
             uIController.GameOverTimer();
         }
