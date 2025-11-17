@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 2587649666943587395, guid: fa004bee612f0fd4b8705deda4b6cf3f, type: 3}
     - target: {fileID: 919132149155446097, guid: d6e0d41884e88c44b80a1e1eef788bbe, type: 3}
       propertyPath: m_Name
-      value: Fita
+      value: Fita 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -160,8 +160,12 @@ PrefabInstance:
       value: Collider
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
+      propertyPath: m_Size.x
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 0.73
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Size.z
@@ -254,12 +258,16 @@ PrefabInstance:
       value: Collider (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
+      propertyPath: m_Size.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Size.z
-      value: 1
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Center.x
@@ -348,12 +356,16 @@ PrefabInstance:
       value: Collider (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
+      propertyPath: m_Size.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Size.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Size.z
-      value: 1
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 7442076065152229501, guid: 36a5d07b88a511b478ddadc41c2f96a8, type: 3}
       propertyPath: m_Center.x
