@@ -14,59 +14,10 @@ public class PhotoAlbumManager : MonoBehaviour
 {
     [Header("Photos")]
     public PhotoData[] photos;
-    public Image[] desenhos;
-
-    public static bool isGameOverTime = false;
-    public Image gameOverTimeSprite;
-    public Image gameOverTimeMask;
-
-    public static bool isGameOverDeath = false;
-    public Image gameOverDeathSprite;
-    public Image gameOverDeathMask;
-
-    public static bool isGameOverEsterEgg = false;
-    public Image gameOverEsterEggSprite;
-    public Image gameOverEsterEggMask;
 
     void Start()
     {
         UpdatePhotos();
-    }
-
-    void Update()
-    {
-        if (isGameOverTime)
-        {
-            gameOverTimeSprite.enabled = true;
-            gameOverTimeMask.enabled = false;
-        }
-        else
-        {
-            gameOverTimeMask.enabled = true;
-            gameOverTimeSprite.enabled = false;
-        }
-
-        if (isGameOverDeath)
-        {
-            gameOverDeathSprite.enabled = true;
-            gameOverDeathMask.enabled = false;
-        }
-        else
-        {
-            gameOverDeathMask.enabled = true;
-            gameOverDeathSprite.enabled = false;
-        }
-
-        if (isGameOverEsterEgg)
-        {
-            gameOverEsterEggSprite.enabled = true;
-            gameOverEsterEggMask.enabled = false;
-        }
-        else
-        {
-            gameOverEsterEggMask.enabled = true;
-            gameOverEsterEggSprite.enabled = false;
-        }
     }
 
     public void UpdatePhotos()
@@ -90,7 +41,6 @@ public class PhotoAlbumManager : MonoBehaviour
             else
             {
                 photos[i].maskImage.enabled = false;
-                desenhos[i].gameObject.SetActive(true);
             }
         }
     }

@@ -4,8 +4,10 @@ public class ResetPlayerPrefs : MonoBehaviour
 {
     void Awake()
     {
-        Debug.Log("ResetPlayerPrefs rodou!");
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
+        #if UNITY_EDITOR
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+        #endif
     }
+
 }

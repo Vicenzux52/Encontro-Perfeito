@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class Fantasma : MonoBehaviour
 {
@@ -214,8 +213,7 @@ public class Fantasma : MonoBehaviour
 
         if (currentHearts <= 0)
         {
-            DeathSaver.estereggNaoConcluido = true;
-            SceneManager.LoadScene("VideoPortal");
+            UIController.GameOver();
         }
     }
 
