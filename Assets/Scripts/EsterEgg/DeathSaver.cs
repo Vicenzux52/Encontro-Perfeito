@@ -9,5 +9,4 @@ public static class DeathSaver
     public static bool hasSavedPosition = false;
     public static string returnScene;
     public static bool estereggConcluido;
-    public static bool estereggNaoConcluido;
 }

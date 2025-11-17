@@ -10,7 +10,6 @@ public class Timer : MonoBehaviour
     int minutes;
     int upgrade;
     Player player;
-    public AudioSource gameOverAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,10 +31,9 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            gameOverAudio.Play();
-            PhotoAlbumManager.isGameOverTime = true;
-            UIController.GameOverTimer();
+            UIController.GameOver();
         }
+
     }
 
     string TimeFormat(float time)

@@ -14,12 +14,17 @@ public class FaseManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-            if (fasesCompletas == null || fasesCompletas.Length == 0)
-                fasesCompletas = new bool[totalFases];
-
             LoadProgress();
 
-            fasesCompletas[0] = true;
+            if (fasesCompletas == null || fasesCompletas.Length == 0)
+            {
+                fasesCompletas = new bool[totalFases];
+
+                if (fasesCompletas.Length > 0)
+                {
+                    fasesCompletas[0] = true;
+                }
+            }
         }
         else
         {
@@ -32,35 +37,43 @@ public class FaseManager : MonoBehaviour
         if (indiceFase >= 0 && indiceFase < fasesCompletas.Length)
         {
             fasesCompletas[indiceFase] = true;
-            PlayerPrefs.SetInt("Fase_" + indiceFase, 1);
+            PlayerPrefs.SetInt("FaseCompletada_" + indiceFase, 1);
 
-            if (indiceFase + 1 < fasesCompletas.Length)
+            int proximaFase = indiceFase + 1;
+            if (proximaFase < fasesCompletas.Length)
             {
-                fasesCompletas[indiceFase + 1] = true;
-                PlayerPrefs.SetInt("Fase_" + (indiceFase + 1), 1);
+                fasesCompletas[proximaFase] = true;
+                PlayerPrefs.SetInt("FaseCompleta_" + proximaFase, 1);
             }
 
-            PlayerPrefs.Save();
+            SaveProgress();
         }
     }
 
     public bool FaseLiberada(int indiceFase)
     {
-        return indiceFase >= 0 &&
-               indiceFase < fasesCompletas.Length &&
-               fasesCompletas[indiceFase];
+        return indiceFase >= 0 && indiceFase < fasesCompletas.Length && fasesCompletas[indiceFase];
     }
 
     public bool FaseCompletada(int indiceFase)
     {
-        return PlayerPrefs.GetInt("Fase_" + indiceFase, 0) == 1;
+        return PlayerPrefs.GetInt("FaseCompletada_" + indiceFase, 0) == 1;
+    }
+
+    void SaveProgress()
+    {
+        for (int i = 0; i < fasesCompletas.Length; i++)
+        {
+            PlayerPrefs.SetInt("FaseCompleta_" + i, fasesCompletas[i] ? 1 : 0);
+        }
+        PlayerPrefs.Save();
     }
 
     void LoadProgress()
     {
         for (int i = 0; i < fasesCompletas.Length; i++)
         {
-            fasesCompletas[i] = PlayerPrefs.GetInt("Fase_" + i, i == 0 ? 1 : 0) == 1;
+            fasesCompletas[i] = PlayerPrefs.GetInt("FaseCompleta_" + i, i == 0 ? 1 : 0) == 1;
         }
     }
 }
