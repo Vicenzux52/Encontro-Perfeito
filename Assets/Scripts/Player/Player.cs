@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public float knockbackMultiplier = 2;
     public bool canMove = false;
     public int returnOperation = 0;
+    float cameraMultiplier = 1;
 
     [Header("Pulos")]
     public float JumpHeight = 5f;
@@ -179,8 +180,8 @@ public class Player : MonoBehaviour
     {
         frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
-        if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
-        if (isDelayed) transform.position += Vector3.forward * frontSpeed * speedDelay * Time.deltaTime;
+        if (frontSpeed > limitSpeed * cameraMultiplier) frontSpeed = limitSpeed * cameraMultiplier;
+        if (isDelayed) transform.position += Vector3.forward * frontSpeed * speedDelay  * Time.deltaTime;
         else transform.position += Vector3.forward * frontSpeed * Time.deltaTime;
     }
 
@@ -262,6 +263,10 @@ public class Player : MonoBehaviour
     void CheckCameraState()
     {
         cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
+        if (cameraState == 1)
+        {
+            cameraMultiplier = 0.5f;
+        }
     }
     
     void SetUpgrade()
@@ -293,7 +298,7 @@ public class Player : MonoBehaviour
         {                
             ContactPoint contact = collision.contacts[0];
             Vector3 normal = contact.normal;
-            if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding) //bateu de frente, pulando ou deslizando
+            if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding || cameraState == 1) //bateu de frente, pulando ou deslizando
             {
                 frontSpeed = -limitSpeed * knockbackMultiplier;
             }
