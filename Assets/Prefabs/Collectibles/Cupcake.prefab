@@ -22,11 +22,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.84
+      value: -26.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -70.456856
+      value: -70.382
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -63,11 +63,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ea178b1c58b237049aa5b4fdcaf0a78e, type: 2}
+      objectReference: {fileID: 2100000, guid: 9b3f5aa933943a644af67beb63f87517, type: 2}
     - target: {fileID: -5754084199372789682, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 7320373469446664815, guid: 0dbf23e0b1a616c4299ffd4619c3990b, type: 3}
+      objectReference: {fileID: -5299466977252499691, guid: bbcd1ac57ef07f04d8bffe1b07357877, type: 3}
     - target: {fileID: 919132149155446097, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
       propertyPath: m_Name
       value: Cupcake
@@ -89,6 +89,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3767251694340783977}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3414278118169565755}
   m_SourcePrefab: {fileID: 100100000, guid: c192e1b7402499040acc6d93b46c458f, type: 3}
 --- !u!1 &7942164461054123148 stripped
 GameObject:
@@ -142,5 +145,28 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1286283, y: 1.6329336, z: 1.506159}
-  m_Center: {x: -0.005377769, y: 0.60247064, z: -0.19414239}
+  m_Size: {x: 1.5963999, y: 1.6329335, z: 1.506159}
+  m_Center: {x: -7.7674737, y: 0.60247064, z: -0.1941424}
+--- !u!114 &3414278118169565755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942164461054123148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf4cb607017b6a4cab2cf741017e916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiIcon: {fileID: 0}
+  index: 2
+  collectibleImage: {fileID: 162625938, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
+  collectibleSilhouetteImage: {fileID: -1611341151, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+  photoIndex: 0
+  paqueraText: {fileID: 0}
+  paqueraTextDuration: 2
+  PaqueraFText: {fileID: 0}
+  PaqueraMText: {fileID: 0}
+  audioSource: {fileID: 0}
+  mensageNotification: {fileID: 8300000, guid: 6f6d66e78385c8247a6ce8d630c8114f, type: 3}
