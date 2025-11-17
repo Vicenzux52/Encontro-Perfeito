@@ -63,11 +63,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ea178b1c58b237049aa5b4fdcaf0a78e, type: 2}
+      objectReference: {fileID: 6309461496214971571, guid: fe3e2bbc5f48d1c418ae8eacb16c8d90, type: 3}
     - target: {fileID: -5754084199372789682, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -6306635721125201088, guid: 3df31bd1736741b47b288a97edfb439a, type: 3}
+      objectReference: {fileID: -6306635721125201088, guid: 415bff44deae8cf4092158924551fd11, type: 3}
     - target: {fileID: 919132149155446097, guid: d9c5d819e2e7b484b9ba74521da4ca6e, type: 3}
       propertyPath: m_Name
       value: CherryPie
@@ -129,8 +129,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.748403, y: 0.53552336, z: 0.1604424}
-  m_Center: {x: -0.018123357, y: -0.016060783, z: 0.015150453}
+  m_Size: {x: 0.5467565, y: 0.41624197, z: 0.4564959}
+  m_Center: {x: 0.0020235414, y: 0.00044300544, z: -0.0013548639}
 --- !u!114 &1553315951205059535
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,6 +37,13 @@ public class CheckColletible : MonoBehaviour
 
         if (paqueraText != null)
             paqueraText.SetActive(false);
+
+        if (CollectibleProgress.collectedItems[index])
+        {
+            uiIcon.sprite = collectibleImage;
+            addedToProgress = true;
+        }
+
     }
 
     public void Collect()
