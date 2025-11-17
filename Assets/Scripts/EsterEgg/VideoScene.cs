@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 
@@ -26,4 +26,4 @@ public class VideoScene : MonoBehaviour
             SceneManager.LoadScene("EsterEgg");
         }
     }
-}
+}*/

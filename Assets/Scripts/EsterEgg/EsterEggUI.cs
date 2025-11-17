@@ -61,7 +61,19 @@ public class HeartsUI : MonoBehaviour
 
     public void BackToFase()
     {
-        SceneManager.LoadScene("VideoPortal");
+        if (DeathSaver.estereggConcluido)
+        {
+            SceneManager.LoadScene(DeathSaver.returnScene);
+        }
+        
+        if (DeathSaver.estereggNaoConcluido)
+        {
+            SceneManager.LoadScene("Room");
+        }
+        else
+        {
+            SceneManager.LoadScene("EsterEgg");
+        }
     }
     public void BackToRoom()
     {
