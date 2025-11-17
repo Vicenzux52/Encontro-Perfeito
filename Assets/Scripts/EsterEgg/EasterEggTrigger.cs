@@ -26,7 +26,7 @@ public class EasterEggTrigger : MonoBehaviour
                 DeathSaver.hasSavedPosition = true;
                 DeathSaver.returnScene = SceneManager.GetActiveScene().name;
 
-                SceneManager.LoadScene("VideoPortal");
+                SceneManager.LoadScene("EsterEgg");
             }
         }
     }

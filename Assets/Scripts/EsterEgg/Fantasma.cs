@@ -215,7 +215,7 @@ public class Fantasma : MonoBehaviour
         if (currentHearts <= 0)
         {
             DeathSaver.estereggNaoConcluido = true;
-            SceneManager.LoadScene("VideoPortal");
+            SceneManager.LoadScene("Room");
         }
     }
 

@@ -1160,8 +1160,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1403784761}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: MutedSFX
-        m_Mode: 6
+        m_MethodName: ToggleSFXMute
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1719,7 +1719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 251.71999, y: -73.18611}
+  m_AnchoredPosition: {x: 251.71999, y: -66}
   m_SizeDelta: {x: 129.6671, y: 129.6671}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &711634255
@@ -2048,7 +2048,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 251.72, y: 100.999985}
+  m_AnchoredPosition: {x: 101, y: 92}
   m_SizeDelta: {x: 129.6671, y: 129.6671}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &754421913
@@ -4603,7 +4603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -298, y: 101}
+  m_AnchoredPosition: {x: -148, y: 92.000015}
   m_SizeDelta: {x: 129.6671, y: 129.6671}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1335099540
@@ -4977,8 +4977,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: a85765e15a841a042bbbb958a98ef0e1, type: 2}
-  MusicSlide: {fileID: 1704415298}
-  SFXSlide: {fileID: 441888571}
+  musicSlider: {fileID: 1704415298}
+  sfxSlider: {fileID: 441888571}
+  musicVolumeParameter: MusicVolume
+  sfxVolumeParameter: SFXVolume
 --- !u!4 &1403784762
 Transform:
   m_ObjectHideFlags: 0
@@ -7120,8 +7122,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1403784761}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: MutedMusic
-        m_Mode: 6
+        m_MethodName: ToggleMusicMute
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7410,7 +7412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -298, y: -73.18611}
+  m_AnchoredPosition: {x: -298, y: -66.00001}
   m_SizeDelta: {x: 129.6671, y: 129.6671}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1932787900

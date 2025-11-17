@@ -6295,6 +6295,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736963024}
   m_Mesh: {fileID: 3968677040665067002, guid: ef1628f60e243ff4eb84cfb7130ab407, type: 3}
+--- !u!1 &737131836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 737131838}
+  - component: {fileID: 737131837}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &737131837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737131836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e01a622a55354e9a1e1ecec10590e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: a85765e15a841a042bbbb958a98ef0e1, type: 2}
+  musicSlider: {fileID: 1287830669979930419}
+  sfxSlider: {fileID: 3671914249313896418}
+  musicVolumeParameter: MusicVolume
+  sfxVolumeParameter: SFXVolume
+--- !u!4 &737131838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737131836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1024.4575, y: 544.2554, z: 240.80258}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &746365959
 GameObject:
   m_ObjectHideFlags: 0
@@ -9004,7 +9053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &934328497
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23410,9 +23459,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6641497428906777015}
+      - m_Target: {fileID: 737131837}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: SaveMusicSlider
+        m_MethodName: ToggleMusicMute
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23742,8 +23791,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: a85765e15a841a042bbbb958a98ef0e1, type: 2}
-  MusicSlide: {fileID: 1287830669979930419}
-  SFXSlide: {fileID: 3671914249313896418}
+  musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
+  musicVolumeParameter: MusicVolume
+  sfxVolumeParameter: SFXVolume
 --- !u!1 &6714597715156259721
 GameObject:
   m_ObjectHideFlags: 0
@@ -24309,10 +24360,10 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6641497428906777015}
+      - m_Target: {fileID: 737131837}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: MutedSFX
-        m_Mode: 6
+        m_MethodName: ToggleSFXMute
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -24617,6 +24668,7 @@ SceneRoots:
   - {fileID: 1020273890}
   - {fileID: 6394784114553329162}
   - {fileID: 1084071817}
+  - {fileID: 737131838}
   - {fileID: 1568848921}
   - {fileID: 2049927599}
   - {fileID: 728583904}

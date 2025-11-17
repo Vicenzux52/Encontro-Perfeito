@@ -65,13 +65,14 @@ public class Player : MonoBehaviour
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioSource collectibleSound;
-    public AudioSource gameOverAudio;
 
     [Header("VFX")]
     public Transform walkVFX;
     public Transform walkVFXPosition;
     public float timeVFX;
     float timerVFX;
+
+    private UIController uIController;
 
     void Start()
     {
@@ -322,9 +323,8 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Death"))
         {                
-            gameOverAudio.Play();
             PhotoAlbumManager.isGameOverDeath = true;
-            UIController.GameOverDeath();
+            uIController.GameOverDeath();
         }
     }
     void OnTriggerEnter(Collider other)

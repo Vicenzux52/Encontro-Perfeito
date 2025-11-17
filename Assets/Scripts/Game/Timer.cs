@@ -12,6 +12,8 @@ public class Timer : MonoBehaviour
     Player player;
     public AudioSource gameOverAudio;
 
+    private UIController uIController;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,7 +36,7 @@ public class Timer : MonoBehaviour
         {
             gameOverAudio.Play();
             PhotoAlbumManager.isGameOverTime = true;
-            UIController.GameOverTimer();
+            uIController.GameOverTimer();
         }
     }
 

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2253842728667703356}
   - component: {fileID: 3955376718135753452}
   - component: {fileID: 587370285219995417}
-  - component: {fileID: 488977549360114642}
   - component: {fileID: 3659605608669763134}
   - component: {fileID: 3304616009961273874}
   m_Layer: 0
@@ -68,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ea178b1c58b237049aa5b4fdcaf0a78e, type: 2}
+  - {fileID: 2100000, guid: 26fbc045548c4794cbaa4b3d873f1a65, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,21 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 1
---- !u!114 &488977549360114642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8176654849748111808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afd3bcf74baf23c4cb8a8385b758935f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 15
-  verticalAmplitude: 2
-  verticalSpeed: 1
 --- !u!65 &3659605608669763134
 BoxCollider:
   m_ObjectHideFlags: 0

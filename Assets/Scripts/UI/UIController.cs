@@ -29,6 +29,7 @@ public class UIController : MonoBehaviour
     public Image flashImage;
     public float flashDuration = 0.3f;
     public AudioSource cameraSound;
+    public AudioSource gameOverAudio;
 
     [Header("Fase Configuration")]
     public int indiceFaseAtual = 0;
@@ -75,9 +76,11 @@ public class UIController : MonoBehaviour
         }*/
     }
 
-    public static void GameOverDeath()
+    public void GameOverDeath()
     {
         Time.timeScale = 0;
+        if (THIS != null && THIS.gameOverAudio != null)
+            THIS.gameOverAudio.Play();
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverDeathUI.SetActive(true);
@@ -85,9 +88,11 @@ public class UIController : MonoBehaviour
         winUI.SetActive(false);
     }
 
-    public static void GameOverTimer()
+    public void GameOverTimer()
     {
         Time.timeScale = 0;
+        if (THIS != null && THIS.gameOverAudio != null)
+            THIS.gameOverAudio.Play();
         inGameUI.SetActive(false);
         pauseUI.SetActive(false);
         gameOverTimerUI.SetActive(true);
@@ -187,7 +192,7 @@ public class UIController : MonoBehaviour
     }
 
 
-    public static void Pause()
+    public void Pause()
     {
         Time.timeScale = 0;
         inGameUI.SetActive(true);
@@ -197,7 +202,7 @@ public class UIController : MonoBehaviour
         winUI.SetActive(false);
     }
 
-    public static void Resume()
+    public void Resume()
     {
         Time.timeScale = 1;
         inGameUI.SetActive(true);
@@ -207,13 +212,13 @@ public class UIController : MonoBehaviour
         winUI.SetActive(false);
     }
 
-    public static void Restart()
+    public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
     }
 
-    public static void BackToRoom()
+    public void BackToRoom()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Room");
@@ -245,4 +250,12 @@ public class UIController : MonoBehaviour
         collectibleCollected[index] = true;
         //Debug.Log("Check: " + collectibleCheck[0] + ", " + collectibleCheck[1] + ", " + collectibleCheck[2]);
     }
+
+    public void ResumeButton() { Resume(); }
+    public void PauseButton() { Pause(); }
+    public void RestartButton() { Restart(); }
+    public void BackToRoomButton() { BackToRoom(); }
+    public void GameOverDeathButton() { GameOverDeath(); }
+    public void GameOverTimerButton() { GameOverTimer(); }
+    public void WinButton() { Win(); }
 }
