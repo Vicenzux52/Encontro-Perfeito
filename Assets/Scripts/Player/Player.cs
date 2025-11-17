@@ -272,7 +272,11 @@ public class Player : MonoBehaviour
         cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
         if (cameraState == 1)
         {
-            cameraMultiplier = 0.5f;
+            cameraMultiplier = 0.75f;
+        }
+        else
+        {
+            cameraMultiplier = 1;
         }
     }
     
