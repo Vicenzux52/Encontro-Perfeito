@@ -86,6 +86,8 @@ MonoBehaviour:
   Rabbit: {fileID: 3724705058050509357}
   Cat: {fileID: 7103998616936047103}
   Tortoise: {fileID: 2696507529837766865}
+  paquera: 
+  pet: 
 --- !u!1001 &2878995617950993491
 PrefabInstance:
   m_ObjectHideFlags: 0

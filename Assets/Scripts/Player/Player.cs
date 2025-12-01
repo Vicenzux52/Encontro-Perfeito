@@ -74,6 +74,8 @@ public class Player : MonoBehaviour
 
     private UIController uIController;
 
+    
+
     void Start()
     {
         uIController = FindObjectOfType<UIController>();
