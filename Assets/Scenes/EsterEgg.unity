@@ -11302,7 +11302,7 @@ GameObject:
   - component: {fileID: 1215715032}
   - component: {fileID: 1215715031}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: Global Volume EsterEgg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14945,6 +14945,7 @@ MonoBehaviour:
   fullHeart: {fileID: 21300000, guid: 755d4044f65f9a042926d639825be7ac, type: 3}
   emptyHeart: {fileID: 21300000, guid: aa764aeb56d5fd6429580fd74037b1ea, type: 3}
   winUI: {fileID: 934328496}
+  gameOverUI: {fileID: 0}
   pauseUI: {fileID: 4244846606541010137}
   flashImage: {fileID: 1993913744}
   flashDuration: 0.3
@@ -24658,7 +24659,6 @@ MonoBehaviour:
   timerText: {fileID: 49452757}
   player: {fileID: 1061800239820271350}
   audioSource: {fileID: 1869227632714936677}
-  uIController: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

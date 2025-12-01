@@ -15448,7 +15448,7 @@ GameObject:
   - component: {fileID: 832575519}
   - component: {fileID: 832575518}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: Global Volume Fase1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15469,8 +15469,8 @@ MonoBehaviour:
   m_IsGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
+  weight: 0.953933
+  sharedProfile: {fileID: 11400000, guid: 5e100695fc510804dbfe2d68e65d608b, type: 2}
 --- !u!4 &832575519
 Transform:
   m_ObjectHideFlags: 0
@@ -42056,6 +42056,10 @@ PrefabInstance:
     - target: {fileID: 1068768201809581250, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068768201809581250, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1160798050235920165, guid: e6d2f1abef1e8b345b6bf031ed57971d, type: 3}
       propertyPath: m_AnchorMax.y
