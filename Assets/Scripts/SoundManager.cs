@@ -171,7 +171,6 @@ public class SoundManager : MonoBehaviour
             SetSFXVolume(defaultVolume);
         }
 
-        // Resetar estados de mute
         isMusicMuted = false;
         isSFXMuted = false;
     }

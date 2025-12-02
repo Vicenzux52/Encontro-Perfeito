@@ -451,12 +451,12 @@ public class RoomManager : MonoBehaviour
             dialoguePanel.SetActive(false);
             Time.timeScale = 0f;
         }
-        else if (targetObject == Radio)
+        /*else if (targetObject == Radio)
         {
             dialoguePanel.SetActive(false);
             StartCoroutine(PlayRadioRoutine());
         }
-        /*else if (targetObject == Calendar)
+        else if (targetObject == Calendar)
         {
             calendarPanel.SetActive(true);
             Time.timeScale = 0f;
