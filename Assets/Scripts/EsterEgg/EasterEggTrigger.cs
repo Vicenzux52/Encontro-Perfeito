@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class EasterEggTrigger : MonoBehaviour
 {
-    [Header("Probabilidade (0 a 1)")]
-    [Range(0f, 1f)]
-    public float esterEggChance = 0.1f;
+    //[Header("Probabilidade (0 a 1)")]
+    //[Range(0f, 1f)]
+    //public float esterEggChance = 0.1f;
 
     private bool triggered = false;
     private UIController uIController;
@@ -25,14 +25,14 @@ public class EasterEggTrigger : MonoBehaviour
             triggered = true;
             float r = Random.value;
 
-            if (r <= esterEggChance)
-            {
+            //if (r <= esterEggChance)
+            //{
                 DeathSaver.lastDeathPosition = collision.transform.position;
                 DeathSaver.hasSavedPosition = true;
                 DeathSaver.returnScene = SceneManager.GetActiveScene().name;
                 SceneManager.LoadScene("EsterEgg");
-            }
-            else
+            //}
+            /*else
             {
                 PhotoAlbumManager.isGameOverDeath = true;
                 
@@ -45,7 +45,7 @@ public class EasterEggTrigger : MonoBehaviour
                     Debug.LogError("UIController não encontrado!");
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
-            }
+            }*/
         }
     }
 }
