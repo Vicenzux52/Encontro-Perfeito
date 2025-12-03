@@ -71,6 +71,7 @@ public class HeartsUI : MonoBehaviour
         if (DeathSaver.estereggConcluido)
         {
             SceneManager.LoadScene(DeathSaver.returnScene);
+            Time.timeScale = 1;
         }
         else if (DeathSaver.estereggNaoConcluido)
         {
