@@ -4,81 +4,87 @@ public class PlayerWalking : MonoBehaviour
 {
     private Rigidbody rb;
     public float moveSpeed, maxSpeed, drag;
-    private bool foward, backward, left, right;
-
-    //public float minX = -10f;
-    //public float minZ = -10f;
-
-    //public float maxX = 10f;
-    //public float maxZ = 10f;
+    private Vector3 movementInput;
+    private bool isMoving;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     void Update()
     {
-        Movement();
+        GetMovementInput();
+        RotateTowardsCamera();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isMoving)
+        {
+            Vector3 moveDirection = GetMovementDirectionRelativeToPlayer();
+            rb.AddForce(moveDirection * moveSpeed);
+        }
+
         LimitVelocity();
         HandleDrag();
+        isMoving = false;
+    }
 
-        if (foward)
-        {
-            rb.AddForce(moveSpeed * Vector3.forward * Time.deltaTime);
-            foward = false;
-        }
+    void RotateTowardsCamera()
+    {
+        Vector3 cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0;
 
-        if (backward)
+        if (cameraForward != Vector3.zero)
         {
-            rb.AddForce(moveSpeed * Vector3.back * Time.deltaTime);
-            backward = false;
-        }
-
-        if (right)
-        {
-            rb.AddForce(moveSpeed * Vector3.right * Time.deltaTime);
-            right = false;
-        }
-
-        if (left)
-        {
-            rb.AddForce(moveSpeed * Vector3.left * Time.deltaTime);
-            left = false;
+            Quaternion lookRotation = Quaternion.LookRotation(cameraForward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 10f * Time.deltaTime);
         }
     }
 
-    //public void LateUpdate()
-    //{
-    //    Vector3 clampedPosition = transform.position;
-    //    clampedPosition.x = Mathf.Clamp(clampedPosition.x, minX, maxX);
-    //    clampedPosition.z = Mathf.Clamp(clampedPosition.z, minZ, maxZ);
-    //    transform.position = clampedPosition;
-    //}
-
-    void Movement()
+    void GetMovementInput()
     {
+        movementInput = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W))
         {
-            foward = true;
+            movementInput.z += 1;
+            isMoving = true;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            backward = true;
+            movementInput.z -= 1;
+            isMoving = true;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            left = true;
+            movementInput.x -= 1;
+            isMoving = true;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            right = true;
+            movementInput.x += 1;
+            isMoving = true;
         }
 
+        if (movementInput.magnitude > 1)
+        {
+            movementInput.Normalize();
+        }
+    }
+
+    Vector3 GetMovementDirectionRelativeToPlayer()
+    {
+        Vector3 forwardRelative = transform.forward * movementInput.z;
+        Vector3 rightRelative = transform.right * movementInput.x;
+
+        return (forwardRelative + rightRelative).normalized;
     }
 
     void LimitVelocity()
@@ -96,5 +102,6 @@ public class PlayerWalking : MonoBehaviour
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z) / (1 + drag / 100) + new Vector3(0, rb.linearVelocity.y, 0);
     }
+
 
 }
