@@ -6,18 +6,25 @@ public class PlayerWalking : MonoBehaviour
     public float moveSpeed, maxSpeed, drag;
     private Vector3 movementInput;
     private bool isMoving;
+    public GameObject walkVfx;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        walkVfx.SetActive(false);
     }
 
     void Update()
     {
         GetMovementInput();
         RotateTowardsCamera();
+
+        if (isMoving == false) 
+        {
+            walkVfx.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -26,6 +33,7 @@ public class PlayerWalking : MonoBehaviour
         {
             Vector3 moveDirection = GetMovementDirectionRelativeToPlayer();
             rb.AddForce(moveDirection * moveSpeed);
+            walkVfx.SetActive(true);
         }
 
         LimitVelocity();
