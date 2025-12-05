@@ -67,10 +67,10 @@ public class Player : MonoBehaviour
     public AudioSource collectibleSound;
 
     [Header("VFX")]
-    public Transform walkVFX;
+    public GameObject walkVFX;
     public Transform walkVFXPosition;
     public float timeVFX;
-    float timerVFX;
+    //float timerVFX;
 
     private UIController uIController;
 
@@ -109,6 +109,8 @@ public class Player : MonoBehaviour
         }
         
         cameraHolder = Camera.main.transform.parent.gameObject;
+
+        walkVFX.SetActive(false);
     }
 
     void Update()
@@ -122,7 +124,16 @@ public class Player : MonoBehaviour
             SideDash();
             Delay();
             Jump();
-            VFXInstance();
+
+
+            if (isJumping == false && isSliding == false)
+            {
+                walkVFX.SetActive(true);
+            }
+            else 
+            {
+                walkVFX.SetActive(false);
+            }
         }
     }
 
@@ -379,16 +390,12 @@ public class Player : MonoBehaviour
         isHit = false;
     }
 
-    void VFXInstance() 
-    {
-        timerVFX += Time.deltaTime;
-        if(timerVFX >= timeVFX && (isJumping == false || isSliding == false)) 
-        {
-            Transform walkVFx = Instantiate(walkVFX, walkVFXPosition.position, Quaternion.identity);
-            timerVFX = 0f;
-            Destroy(walkVFx.gameObject, 1f);
-        }
-    }
+    //void VFXInstance(Transform vfx, Transform position) 
+    //{
+    //    Transform vfxInstance = Instantiate(vfx, position.position, Quaternion.identity);
+    //    //timerVFX = 0f;
+    //    Destroy(vfxInstance.gameObject, 1f);
+    //}
 
     void SaveDeathInfo()
     {

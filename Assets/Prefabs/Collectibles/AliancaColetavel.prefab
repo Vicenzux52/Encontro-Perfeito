@@ -136,3 +136,4 @@ MonoBehaviour:
   PaqueraMText: {fileID: 0}
   audioSource: {fileID: 0}
   mensageNotification: {fileID: 8300000, guid: 6f6d66e78385c8247a6ce8d630c8114f, type: 3}
+  heartVfx: {fileID: 5262539065399121313, guid: 952d7e0490bc31f49b27d691737a54f6, type: 3}

@@ -28,6 +28,9 @@ public class CheckColletible : MonoBehaviour
     private bool addedToProgress = false;
     private bool playerInsideTrigger = false;
 
+    [Header("VFX")]
+    public Transform heartVfx;
+
     void Start()
     {
         carregarEscolhaPaqueras = FindFirstObjectByType<CarregarEscolhaPaqueras>();
@@ -71,6 +74,7 @@ public class CheckColletible : MonoBehaviour
         {
             playerInsideTrigger = true;
             Collect();
+            VFXInstance(heartVfx, this.transform);
         }
     }
 
@@ -82,6 +86,12 @@ public class CheckColletible : MonoBehaviour
         }
     }
 
+
+    void VFXInstance(Transform vfx, Transform position)
+    {
+        Transform vfxInstance = Instantiate(vfx, position.position, Quaternion.identity);
+        Destroy(vfxInstance.gameObject, 1f);
+    }
 
     IEnumerator ShowTextPaquera()
     {

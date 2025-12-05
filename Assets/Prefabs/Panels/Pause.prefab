@@ -572,7 +572,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6641497430074643903}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: SaveMusicSlider
+        m_MethodName: ToggleMusicMute
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -993,7 +993,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6641497430074643903}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: MutedSFX
+        m_MethodName: ToggleSFXMute
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1336,8 +1336,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: a85765e15a841a042bbbb958a98ef0e1, type: 2}
-  MusicSlide: {fileID: 1287830668753863483}
-  SFXSlide: {fileID: 3671914250300853226}
+  musicSlider: {fileID: 1287830668753863483}
+  sfxSlider: {fileID: 3671914250300853226}
+  musicVolumeParameter: MusicVolume
+  sfxVolumeParameter: SFXVolume
 --- !u!1 &6714597714247917441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,8 +1565,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6641497430074643903}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: SetSFXSlider
-        m_Mode: 1
+        m_MethodName: SetSFXVolume
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2199,8 +2201,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6641497430074643903}
         m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: SetMusicSlider
-        m_Mode: 1
+        m_MethodName: SetMusicVolume
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
