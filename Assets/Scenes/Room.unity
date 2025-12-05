@@ -2290,6 +2290,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f3aaa809df5ea3c48828e7454d41c0c9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e6b2c5056492b54498217d87779313a6, type: 2}
     - target: {fileID: 919132149155446097, guid: f3aaa809df5ea3c48828e7454d41c0c9, type: 3}
       propertyPath: m_Name
       value: Album
@@ -3053,6 +3057,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 75b5d651478ea6e4e8e5726142df960f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e6b2c5056492b54498217d87779313a6, type: 2}
     - target: {fileID: 919132149155446097, guid: 75b5d651478ea6e4e8e5726142df960f, type: 3}
       propertyPath: m_Name
       value: Porta
@@ -10824,7 +10832,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 918378a9889835243986784b13e550ab, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 75f90f3b2f33d6145a2d885859f1bdb9, type: 2}
+      objectReference: {fileID: 2100000, guid: 9aef0c174809689499b4eed7014e4636, type: 2}
     - target: {fileID: 919132149155446097, guid: 918378a9889835243986784b13e550ab, type: 3}
       propertyPath: m_Name
       value: GuardaRoupa
