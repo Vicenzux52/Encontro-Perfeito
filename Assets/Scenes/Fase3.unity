@@ -15427,6 +15427,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2008994766755302568, guid: 31a3efbd48ee0e8469998a281f0a11f1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ec749243a43c563449e623b8be3f0756, type: 2}
     - target: {fileID: 2438834254278813746, guid: 31a3efbd48ee0e8469998a281f0a11f1, type: 3}
       propertyPath: index
       value: 2
@@ -20985,6 +20989,10 @@ PrefabInstance:
       propertyPath: collectibleSilhouetteImage
       value: 
       objectReference: {fileID: -1180262517, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+    - target: {fileID: 2753941716807350758, guid: d7441d4994fe9e547b2c32659a1ca4a7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ec749243a43c563449e623b8be3f0756, type: 2}
     - target: {fileID: 3926254567849820809, guid: d7441d4994fe9e547b2c32659a1ca4a7, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -28587,6 +28595,10 @@ PrefabInstance:
       propertyPath: collectibleSilhouetteImage
       value: 
       objectReference: {fileID: -1652281029, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
+    - target: {fileID: 5758148041062011039, guid: 4747aec694f1a4b4eb5dcea8359e0b5a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d70a60ff7e55039478a8c84c72b885ec, type: 2}
     - target: {fileID: 6118686905685209418, guid: 4747aec694f1a4b4eb5dcea8359e0b5a, type: 3}
       propertyPath: m_Name
       value: ChocolateBox

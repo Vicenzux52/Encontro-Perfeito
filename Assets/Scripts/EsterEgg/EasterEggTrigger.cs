@@ -27,10 +27,15 @@ public class EasterEggTrigger : MonoBehaviour
 
             //if (r <= esterEggChance)
             //{
-                DeathSaver.lastDeathPosition = collision.transform.position;
-                DeathSaver.hasSavedPosition = true;
-                DeathSaver.returnScene = SceneManager.GetActiveScene().name;
-                SceneManager.LoadScene("EsterEgg");
+
+            Vector3 pos = collision.transform.position;
+            pos.x = 0f;
+
+            DeathSaver.lastDeathPosition = pos;
+            DeathSaver.hasSavedPosition = true;
+            DeathSaver.returnScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene("EsterEgg");
+
             //}
             /*else
             {

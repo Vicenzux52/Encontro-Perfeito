@@ -1091,7 +1091,8 @@ PrefabInstance:
       value: Gatu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -6378612584863545878, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
@@ -4064,8 +4065,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -843.3, y: 441.9}
-  m_SizeDelta: {x: 65, y: 65}
+  m_AnchoredPosition: {x: -837.01086, y: 446}
+  m_SizeDelta: {x: 77.5783, y: 74.4713}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1791299032
 MonoBehaviour:
@@ -4143,7 +4144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 543c9395b25788047b2c6cbae6e7719f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4452014228c196e429128c2d582fdfba, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
