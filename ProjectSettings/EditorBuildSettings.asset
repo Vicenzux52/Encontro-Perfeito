@@ -23,10 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fase2.unity
     guid: 97a99a0fc9d6e16498fba99ca601c384
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Fase3.unity
     guid: b61fbc419a291054ebe6075344c08bf4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/VideoPortal.unity
     guid: 6104bdf9d5abef84b8d7e4c10a53bab3
   - enabled: 1

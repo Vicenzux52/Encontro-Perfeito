@@ -1091,7 +1091,8 @@ PrefabInstance:
       value: Gatu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -6378612584863545878, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 655d750c6c2f4304dab5c7f57852ed9f, type: 3}
