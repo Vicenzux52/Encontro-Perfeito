@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  instructions: {fileID: 2612514360042029075}
+  instructions: {fileID: 4529034707708070645}
 --- !u!1 &1292901075438623005
 GameObject:
   m_ObjectHideFlags: 0

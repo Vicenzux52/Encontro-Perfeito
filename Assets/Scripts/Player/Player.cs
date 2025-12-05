@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     private Renderer rend;
     public float hitDuration = 3f;
     private bool isHit = false;
-        
+
     int upgrade;
     //Outros
     int cameraState = 0;
@@ -74,7 +74,10 @@ public class Player : MonoBehaviour
 
     private UIController uIController;
 
-    
+    // Variáveis para controle de swipe
+    private Vector2 swipeStartPosition;
+    private bool isSwiping = false;
+    private const float swipeDistance = 100f;
 
     void Start()
     {
@@ -107,7 +110,7 @@ public class Player : MonoBehaviour
                 originalMaterial = rend.material;
             }
         }
-        
+
         cameraHolder = Camera.main.transform.parent.gameObject;
 
         walkVFX.SetActive(false);
@@ -117,6 +120,9 @@ public class Player : MonoBehaviour
     {
         if (canMove)
         {
+            // Processar inputs de touch (mobile)
+            ProcessTouchInputs();
+
             GetInputs();
             CheckCameraState();
             Slide();
@@ -125,14 +131,82 @@ public class Player : MonoBehaviour
             Delay();
             Jump();
 
-
             if (isJumping == false && isSliding == false)
             {
                 walkVFX.SetActive(true);
             }
-            else 
+            else
             {
                 walkVFX.SetActive(false);
+            }
+        }
+    }
+
+    void ProcessTouchInputs()
+    {
+        // Processar apenas se não houver 2 toques simultâneos
+        if (Input.touchCount != 2 && Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    swipeStartPosition = touch.position;
+                    isSwiping = true;
+                    break;
+
+                case TouchPhase.Ended:
+                    if (isSwiping)
+                    {
+                        Vector2 swipeDelta = touch.position - swipeStartPosition;
+                        float swipeMagnitude = swipeDelta.magnitude;
+
+                        if (swipeMagnitude > swipeDistance)
+                        {
+                            // Determinar direção do swipe
+                            if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
+                            {
+                                // Swipe horizontal
+                                if (swipeDelta.x > 0 && route < routeQuantity)
+                                {
+                                    // Swipe para direita
+                                    returnOperation = -1;
+                                    route++;
+                                    DashSound();
+                                }
+                                else if (swipeDelta.x < 0 && route > -routeQuantity)
+                                {
+                                    // Swipe para esquerda
+                                    returnOperation = 1;
+                                    route--;
+                                    DashSound();
+                                }
+                            }
+                            else
+                            {
+                                // Swipe vertical
+                                if (swipeDelta.y > 0 && !isSliding && !isJumping)
+                                {
+                                    // Swipe para cima (pular)
+                                    initialYJump = transform.position.y;
+                                    isJumping = true;
+                                    DashSound();
+                                }
+                                else if (swipeDelta.y < 0 && !isSliding && !isJumping)
+                                {
+                                    // Swipe para baixo (deslizar)
+                                    isSliding = true;
+                                }
+                            }
+                        }
+                        isSwiping = false;
+                    }
+                    break;
+
+                case TouchPhase.Canceled:
+                    isSwiping = false;
+                    break;
             }
         }
     }
@@ -144,6 +218,7 @@ public class Player : MonoBehaviour
 
     void GetInputs()
     {
+        // Inputs originais do PC (mantidos intactos)
         bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
         bool rightInputs = (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity;
         bool jumpInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
@@ -201,7 +276,7 @@ public class Player : MonoBehaviour
         frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed > limitSpeed * cameraMultiplier) frontSpeed = limitSpeed * cameraMultiplier;
-        if (isDelayed) transform.position += Vector3.forward * frontSpeed * speedDelay  * Time.deltaTime;
+        if (isDelayed) transform.position += Vector3.forward * frontSpeed * speedDelay * Time.deltaTime;
         else transform.position += Vector3.forward * frontSpeed * Time.deltaTime;
     }
 
@@ -211,11 +286,11 @@ public class Player : MonoBehaviour
         {
             route = Mathf.Clamp(route, -routeQuantity, routeQuantity);
             if (isDelayed)
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
-            transform.position.y, transform.position.z), lateralSpeed * speedDelay * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+                transform.position.y, transform.position.z), lateralSpeed * speedDelay * Time.deltaTime);
             else
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
-            transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(route * routeDistance,
+                transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
         }
         else
         {
@@ -225,7 +300,7 @@ public class Player : MonoBehaviour
             //adicionar frontdash e delay pra não poder spammar
         }
     }
-    
+
     public void ReturnDash()
     {
         route += returnOperation;
@@ -292,7 +367,7 @@ public class Player : MonoBehaviour
             cameraMultiplier = 1;
         }
     }
-    
+
     void SetUpgrade()
     {
         switch (upgrade)
@@ -315,11 +390,11 @@ public class Player : MonoBehaviour
 
         }
     }
-    
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Obstacle"))
-        {                
+        {
             ContactPoint contact = collision.contacts[0];
             Vector3 normal = contact.normal;
             if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding || cameraState == 1) //bateu de frente, pulando ou deslizando

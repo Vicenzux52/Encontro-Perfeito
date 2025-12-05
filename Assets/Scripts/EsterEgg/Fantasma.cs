@@ -36,20 +36,20 @@ public class Fantasma : MonoBehaviour
     float delayCounter = 0;
 
     [Header("Hit")]
-    public int maxCollisions = 3; 
+    public int maxCollisions = 3;
     public int maxHearts = 3;
     public int currentHearts;
     private bool recentlyHit = false;
     public float hitCooldown = 0.2f;
 
-    [Header ("Game Start Time")]
+    [Header("Game Start Time")]
     public float startTime = 3f;
     public TextMeshProUGUI timerText;
     private float endTime;
     private bool gameStarted = false;
     public GameObject player;
     Vector3 initialPosition;
-        
+
     //Outros
     int cameraState = 0;
     Rigidbody rb;
@@ -58,6 +58,11 @@ public class Fantasma : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource audioSource;
+
+    // Variáveis para controle de swipe
+    private Vector2 swipeStartPosition;
+    private bool isSwiping = false;
+    private const float swipeDistance = 100f;
 
     void Start()
     {
@@ -74,7 +79,7 @@ public class Fantasma : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
-        
+
         cameraHolder = Camera.main.transform.parent.gameObject;
 
         initialPosition = player.transform.position;
@@ -87,6 +92,9 @@ public class Fantasma : MonoBehaviour
     {
         if (canMove)
         {
+            // Processar inputs de touch (mobile)
+            ProcessTouchInputs();
+
             GetInputs();
             CheckCameraState();
             FrontalMovement();
@@ -94,10 +102,72 @@ public class Fantasma : MonoBehaviour
             Jump();
         }
     }
-    
+
     void FixedUpdate()
     {
         if (!isJumping) rb.AddForce(-orientation.up * gravity, ForceMode.Acceleration);
+    }
+
+    void ProcessTouchInputs()
+    {
+        // Processar apenas se não houver 2 toques simultâneos
+        if (Input.touchCount != 2 && Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    swipeStartPosition = touch.position;
+                    isSwiping = true;
+                    break;
+
+                case TouchPhase.Ended:
+                    if (isSwiping)
+                    {
+                        Vector2 swipeDelta = touch.position - swipeStartPosition;
+                        float swipeMagnitude = swipeDelta.magnitude;
+
+                        if (swipeMagnitude > swipeDistance)
+                        {
+                            // Determinar direção do swipe
+                            if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
+                            {
+                                // Swipe horizontal
+                                if (swipeDelta.x > 0 && route < routeQuantity)
+                                {
+                                    // Swipe para direita
+                                    route++;
+                                    DashSound();
+                                }
+                                else if (swipeDelta.x < 0 && route > -routeQuantity)
+                                {
+                                    // Swipe para esquerda
+                                    route--;
+                                    DashSound();
+                                }
+                            }
+                            else
+                            {
+                                // Swipe vertical
+                                if (swipeDelta.y > 0 && !isJumping)
+                                {
+                                    // Swipe para cima (pular)
+                                    initialYJump = transform.position.y;
+                                    isJumping = true;
+                                    DashSound();
+                                }
+                            }
+                        }
+                        isSwiping = false;
+                    }
+                    break;
+
+                case TouchPhase.Canceled:
+                    isSwiping = false;
+                    break;
+            }
+        }
     }
 
     void GetInputs()
@@ -129,7 +199,6 @@ public class Fantasma : MonoBehaviour
 
     void DashSound()
     {
-
         audioSource.PlayOneShot(audioSource.clip);
     }
 
@@ -139,7 +208,7 @@ public class Fantasma : MonoBehaviour
         frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed < 0) frontSpeed += acceleration * Time.deltaTime;
         if (frontSpeed > limitSpeed) frontSpeed = limitSpeed;
-        if (isDelayed) frontSpeed =  limitSpeed * lateralSpeedDelay;
+        if (isDelayed) frontSpeed = limitSpeed * lateralSpeedDelay;
         transform.position += Vector3.forward * frontSpeed * Time.deltaTime;
     }
 
@@ -179,18 +248,18 @@ public class Fantasma : MonoBehaviour
     {
         cameraState = cameraHolder.GetComponent<CameraHolder>().cameraState;
     }
-    
+
     void OnCollisionEnter(Collision collision)
-{
-    if (collision.gameObject.CompareTag("Obstacle"))
     {
-        if (!recentlyHit)
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
-            TakeDamage(1);
-            StartCoroutine(HitCooldown());
+            if (!recentlyHit)
+            {
+                TakeDamage(1);
+                StartCoroutine(HitCooldown());
+            }
         }
     }
-}
 
     IEnumerator HitCooldown()
     {
