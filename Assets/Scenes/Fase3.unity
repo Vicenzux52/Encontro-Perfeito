@@ -13674,6 +13674,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4359170499519903749, guid: b9eee93bb24ad3849a13a1a97f5e3eb0, type: 3}
+      propertyPath: iImg
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4359170499519903749, guid: b9eee93bb24ad3849a13a1a97f5e3eb0, type: 3}
       propertyPath: panel
       value: 
       objectReference: {fileID: 1335848334}
@@ -20974,6 +20978,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1493575482}
     - target: {fileID: 2237776646900848414, guid: d7441d4994fe9e547b2c32659a1ca4a7, type: 3}
+      propertyPath: photoIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237776646900848414, guid: d7441d4994fe9e547b2c32659a1ca4a7, type: 3}
       propertyPath: collectibleImage
       value: 
       objectReference: {fileID: 1385265207, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
@@ -22997,6 +23005,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4359170499519903749, guid: b9eee93bb24ad3849a13a1a97f5e3eb0, type: 3}
       propertyPath: iP
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4359170499519903749, guid: b9eee93bb24ad3849a13a1a97f5e3eb0, type: 3}
+      propertyPath: iImg
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4359170499519903749, guid: b9eee93bb24ad3849a13a1a97f5e3eb0, type: 3}
@@ -28051,7 +28063,7 @@ PrefabInstance:
       objectReference: {fileID: 2020097973}
     - target: {fileID: 3439768075566312453, guid: 4747aec694f1a4b4eb5dcea8359e0b5a, type: 3}
       propertyPath: photoIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3439768075566312453, guid: 4747aec694f1a4b4eb5dcea8359e0b5a, type: 3}
       propertyPath: collectibleImage

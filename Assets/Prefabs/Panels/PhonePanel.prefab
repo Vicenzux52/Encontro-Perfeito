@@ -330,6 +330,8 @@ MonoBehaviour:
   - "Acho que o seu gato n\xE3o vai gostar da concorrencia, M"
   photos:
   - {fileID: 21300000, guid: 7a0cd85e213ac5a4aa48ecfca46d5b44, type: 3}
+  - {fileID: 21300000, guid: 547043aa7069a5444a29cdbe74703e1b, type: 3}
+  - {fileID: 21300000, guid: 9f58b1e7c27249a4597fe044004333ea, type: 3}
   msg: {fileID: 6989656767957238955}
   msgP: {fileID: 7960460454805064142}
   photo: {fileID: 3819501388204313983}
