@@ -44,6 +44,7 @@ public class RoomManager : MonoBehaviour
 
     [Header("Chibi Reference")]
     public Transform player;
+    public Animator animatorPlayer;
 
     [Header("Movement")]
     public float moveSpeed = 5f;
@@ -367,9 +368,10 @@ public class RoomManager : MonoBehaviour
     {
         if (!moving)
         {
+            animatorPlayer.SetBool("Walk", false);
             return;
         }
-
+        animatorPlayer.SetBool("Walk", true);
         Vector3 direction = targetPosition - playerRb.position;
         direction.y = 0;
         float distance = direction.magnitude;
@@ -382,6 +384,7 @@ public class RoomManager : MonoBehaviour
         else
         {
             moving = false;
+            animatorPlayer.SetBool("Walk", false);
 
             if (returning)
             {
