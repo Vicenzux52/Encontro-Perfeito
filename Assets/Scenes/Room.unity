@@ -4032,6 +4032,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 997065610}
+    - target: {fileID: 1580249820753727988, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1932753903765785706, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4052,6 +4056,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 997065610}
+    - target: {fileID: 4715401767076434615, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5024596291116736052, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5e513bf52860278479ca3d9a05f21c5e, type: 3}
     - target: {fileID: 5818229891220222435, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4076,6 +4088,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 997065610}
+    - target: {fileID: 6392386567154821687, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7536763622367263107, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4168,6 +4184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 8436189741718227048, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b4e76b6c759106c4da8d03d08180491d, type: 3}
     - target: {fileID: 8697250272137401770, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
