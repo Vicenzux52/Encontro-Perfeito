@@ -159,10 +159,11 @@ MonoBehaviour:
   index: 2
   collectibleImage: {fileID: 322842044, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: 1334273225, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
-  photoIndex: 0
+  photoIndex: 1
   paqueraText: {fileID: 0}
   paqueraTextDuration: 2
   PaqueraFText: {fileID: 0}
   PaqueraMText: {fileID: 0}
   audioSource: {fileID: 0}
   mensageNotification: {fileID: 0}
+  heartVfx: {fileID: 5262539065399121313, guid: 952d7e0490bc31f49b27d691737a54f6, type: 3}

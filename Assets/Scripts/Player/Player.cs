@@ -102,14 +102,14 @@ public class Player : MonoBehaviour
         upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
 
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            if (transform.GetChild(i).gameObject.CompareTag("PlayerModel"))
-            {
-                rend = transform.GetChild(i).GetComponent<Renderer>();
-                originalMaterial = rend.material;
-            }
-        }
+        //for (int i = 0; i < transform.childCount; i++)
+        //{
+        //    if (transform.GetChild(i).gameObject.CompareTag("PlayerModel"))
+        //    {
+        //        rend = transform.GetChild(i).GetComponent<Renderer>();
+        //        originalMaterial = rend.material;
+        //    }
+        //}
 
         cameraHolder = Camera.main.transform.parent.gameObject;
 
@@ -411,10 +411,10 @@ public class Player : MonoBehaviour
 
             if (isJumping) down *= 2;
 
-            if (!isHit)
-            {
-                StartCoroutine(FlashMaterial());
-            }
+            //if (!isHit)
+            //{
+            //    StartCoroutine(FlashMaterial());
+            //}
 
             Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
@@ -456,14 +456,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator FlashMaterial()
-    {
-        isHit = true;
-        rend.material = hitMaterial;
-        yield return new WaitForSeconds(hitDuration);
-        rend.material = originalMaterial;
-        isHit = false;
-    }
+    //private System.Collections.IEnumerator FlashMaterial()
+    //{
+    //    isHit = true;
+    //    rend.material = hitMaterial;
+    //    yield return new WaitForSeconds(hitDuration);
+    //    rend.material = originalMaterial;
+    //    isHit = false;
+    //}
 
     //void VFXInstance(Transform vfx, Transform position) 
     //{
