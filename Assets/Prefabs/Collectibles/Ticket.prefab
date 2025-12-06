@@ -167,7 +167,7 @@ MonoBehaviour:
   index: 0
   collectibleImage: {fileID: -966922364, guid: 37046ede80aa2044d83bc69e9fb595df, type: 3}
   collectibleSilhouetteImage: {fileID: -1372378291, guid: bf226ed3aa4a6d9489bea9201f55508b, type: 3}
-  photoIndex: 0
+  photoIndex: 1
   paqueraText: {fileID: 0}
   paqueraTextDuration: 2
   PaqueraFText: {fileID: 0}

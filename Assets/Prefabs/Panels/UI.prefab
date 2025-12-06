@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  instructions: {fileID: 4529034707708070645}
+  instructions: {fileID: 2612514360042029075}
 --- !u!1 &1292901075438623005
 GameObject:
   m_ObjectHideFlags: 0
@@ -4691,10 +4691,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6758559560756156536}
-    - target: {fileID: 1765715964177221008, guid: 0411cf0a19a61634cb0b2271b708dd9f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartButton
-      objectReference: {fileID: 0}
     - target: {fileID: 2353239138602438128, guid: 0411cf0a19a61634cb0b2271b708dd9f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
