@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 2253842728667703356}
   - component: {fileID: 3955376718135753452}
   - component: {fileID: 587370285219995417}
-  - component: {fileID: 3659605608669763134}
   - component: {fileID: 3304616009961273874}
+  - component: {fileID: 3659605608669763134}
   m_Layer: 0
   m_Name: Popcorn
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,27 +102,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 1
---- !u!65 &3659605608669763134
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8176654849748111808}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.38567138, y: 0.4939946, z: 0.38567138}
-  m_Center: {x: 0.0014589523, y: -0.068105645, z: -0.0004772917}
 --- !u!114 &3304616009961273874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,3 +126,24 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   mensageNotification: {fileID: 0}
   heartVfx: {fileID: 5262539065399121313, guid: 952d7e0490bc31f49b27d691737a54f6, type: 3}
+--- !u!65 &3659605608669763134
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8176654849748111808}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.38567138, y: 0.4939946, z: 0.38567138}
+  m_Center: {x: 0.0014589523, y: -0.068105645, z: -0.0004772917}
