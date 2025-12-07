@@ -13,9 +13,16 @@ public class WinArea : MonoBehaviour
     private GameObject player;
     private GameObject targetPaquera;
 
+    public Animator paqueraFAnim;
+    public Animator paqueraMAnim;
+
     void Start()
     {
         uiController = FindFirstObjectByType<UIController>();
+        paqueraFAnim.SetBool("Wave", false);
+        paqueraMAnim.SetBool("Wave", false);
+        paqueraFAnim.SetBool("Idle", true);
+        paqueraMAnim.SetBool("Idle", true);
     }
 
     void OnTriggerEnter(Collider other)
@@ -47,6 +54,12 @@ public class WinArea : MonoBehaviour
     {
         while (Vector3.Distance(player.transform.position, targetPaquera.transform.position) > stopDistance)
         {
+            paqueraFAnim.SetBool("Idle", false);
+            paqueraMAnim.SetBool("Idle", false);
+            paqueraFAnim.SetBool("Wave", true);
+            paqueraMAnim.SetBool("Wave", true);
+            Debug.Log("Wave" + paqueraFAnim.GetBool("Wave"));
+
             Vector3 direction = (targetPaquera.transform.position - player.transform.position).normalized;
             player.transform.position += direction * moveSpeed * Time.deltaTime;
 
