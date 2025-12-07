@@ -28,6 +28,18 @@ public class PhotoAlbumManager : MonoBehaviour
     public Image gameOverEsterEggSprite;
     public Image gameOverEsterEggMask;
 
+    public static bool bunny = false;
+    public Image bunnySprite;
+    public Image bunnyMask;
+
+    public static bool tortoise = false;
+    public Image tortoiseSprite;
+    public Image tortoiseMask;
+
+    public static bool cat = false;
+    public Image catSprite;
+    public Image catMask;
+
     void Start()
     {
         UpdatePhotos();
@@ -66,6 +78,36 @@ public class PhotoAlbumManager : MonoBehaviour
         {
             gameOverEsterEggMask.enabled = true;
             gameOverEsterEggSprite.enabled = false;
+        }
+        if (bunny)
+        {
+            bunnySprite.enabled = true;
+            bunnyMask.enabled = false;
+        }
+        else
+        {
+            bunnyMask.enabled = true;
+            bunnySprite.enabled = false;
+        }
+        if (cat)
+        {
+            catSprite.enabled = true;
+            catMask.enabled = false;
+        }
+        else
+        {
+            catMask.enabled = true;
+            catSprite.enabled = false;
+        }
+        if (tortoise)
+        {
+            tortoiseSprite.enabled = true;
+            tortoiseMask.enabled = false;
+        }
+        else
+        {
+            tortoiseMask.enabled = true;
+            tortoiseSprite.enabled = false;
         }
     }
 
