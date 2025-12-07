@@ -2779,7 +2779,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -8212364346494471900, guid: a85765e15a841a042bbbb958a98ef0e1, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 210f98c17b28cbb4e8a0da1ae1430a4f, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 210f98c17b28cbb4e8a0da1ae1430a4f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -3356,8 +3356,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.76854545, y: 1.1033227, z: 0.5702272}
-  m_Center: {x: -0.011855193, y: -0.15705441, z: 0.0015655326}
+  m_Size: {x: 0.76854545, y: 0.7507039, z: 0.51268995}
+  m_Center: {x: -0.011855193, y: 0.019255733, z: -0.027202947}
 --- !u!1001 &1795579552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4180,18 +4180,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7856885650065973565, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7894389507512111966, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911677683748368113, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8436189741718227048, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b4e76b6c759106c4da8d03d08180491d, type: 3}
+    - target: {fileID: 8459834282476863446, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8697250272137401770, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 997065610}
+    - target: {fileID: 9020036769245369289, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135694837356043101, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4345104436391178636, guid: 0d0b5db3b8bd18d4ebe30b2ceca00b95, type: 3}
     m_RemovedGameObjects: []
