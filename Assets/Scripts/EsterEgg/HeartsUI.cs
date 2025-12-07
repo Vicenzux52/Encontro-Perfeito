@@ -11,7 +11,7 @@ public class HeartsUI : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
     public GameObject winUI;
-    public GameObject gameOverUI;
+    //public GameObject gameOverUI;
     public GameObject pauseUI;
 
     [Header("Photo Flash")]

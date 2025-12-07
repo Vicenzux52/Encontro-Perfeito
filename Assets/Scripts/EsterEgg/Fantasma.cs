@@ -64,6 +64,8 @@ public class Fantasma : MonoBehaviour
     private bool isSwiping = false;
     private const float swipeDistance = 100f;
 
+    public GameObject panelGameOver;
+
     void Start()
     {
         currentHearts = maxHearts;
@@ -282,7 +284,9 @@ public class Fantasma : MonoBehaviour
         if (currentHearts <= 0)
         {
             DeathSaver.estereggNaoConcluido = true;
-            SceneManager.LoadScene("Room");
+            Time.timeScale = 0;
+            panelGameOver.SetActive(true);
+            PhotoAlbumManager.isGameOverDeath = true;
         }
     }
 
