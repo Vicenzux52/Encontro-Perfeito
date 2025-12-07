@@ -8,12 +8,19 @@ public class PlayerWalking : MonoBehaviour
     private bool isMoving;
     public GameObject walkVfx;
 
+    public FixedJoystick mobileJoystick;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         walkVfx.SetActive(false);
+
+        if (mobileJoystick == null)
+        {
+            mobileJoystick = FindObjectOfType<FixedJoystick>();
+        }
     }
 
     void Update()
@@ -21,7 +28,7 @@ public class PlayerWalking : MonoBehaviour
         GetMovementInput();
         RotateTowardsCamera();
 
-        if (isMoving == false) 
+        if (isMoving == false)
         {
             walkVfx.SetActive(false);
         }
@@ -43,6 +50,8 @@ public class PlayerWalking : MonoBehaviour
 
     void RotateTowardsCamera()
     {
+        if (Camera.main == null) return;
+
         Vector3 cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0;
 
@@ -57,28 +66,47 @@ public class PlayerWalking : MonoBehaviour
     {
         movementInput = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W))
+        bool hasJoystickInput = false;
+
+        if (mobileJoystick != null && mobileJoystick.gameObject.activeInHierarchy)
         {
-            movementInput.z += 1;
-            isMoving = true;
+            float horizontal = mobileJoystick.Horizontal;
+            float vertical = mobileJoystick.Vertical;
+
+            if (Mathf.Abs(horizontal) > 0.1f || Mathf.Abs(vertical) > 0.1f)
+            {
+                movementInput.x = horizontal;
+                movementInput.z = vertical;
+                hasJoystickInput = true;
+                isMoving = true;
+            }
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (!hasJoystickInput)
         {
-            movementInput.z -= 1;
-            isMoving = true;
-        }
+            if (Input.GetKey(KeyCode.W))
+            {
+                movementInput.z += 1;
+                isMoving = true;
+            }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            movementInput.x -= 1;
-            isMoving = true;
-        }
+            if (Input.GetKey(KeyCode.S))
+            {
+                movementInput.z -= 1;
+                isMoving = true;
+            }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            movementInput.x += 1;
-            isMoving = true;
+            if (Input.GetKey(KeyCode.A))
+            {
+                movementInput.x -= 1;
+                isMoving = true;
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                movementInput.x += 1;
+                isMoving = true;
+            }
         }
 
         if (movementInput.magnitude > 1)
@@ -110,6 +138,4 @@ public class PlayerWalking : MonoBehaviour
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z) / (1 + drag / 100) + new Vector3(0, rb.linearVelocity.y, 0);
     }
-
-
 }
