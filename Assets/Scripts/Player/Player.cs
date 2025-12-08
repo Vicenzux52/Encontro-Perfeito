@@ -232,6 +232,8 @@ public class Player : MonoBehaviour
         if (jumpInputs)
         {
             initialYJump = transform.position.y;
+            anim.SetBool("Run", false);
+            anim.SetBool("Jump", true);
             isJumping = true;
             DashSound();
         }
@@ -243,6 +245,8 @@ public class Player : MonoBehaviour
 
         if (slideInputs)
         {
+            anim.SetBool("Run", false);
+            anim.SetBool("Sliding", true);
             isSliding = true;
         }
 
@@ -298,8 +302,7 @@ public class Player : MonoBehaviour
     {
         if (isJumping)
         {
-            anim.SetBool("Jump", true);
-            anim.SetBool("Run", false);
+            
             transform.position = new Vector3(transform.position.x, initialYJump + JumpHeight * Mathf.Pow(Mathf.Sin(timeX / jumpDuration), 1f / 2f),
             transform.position.z);
             timeX += down * Time.deltaTime;
@@ -318,8 +321,7 @@ public class Player : MonoBehaviour
     {
         if (isSliding)
         {
-            anim.SetBool("Sliding", true);
-            anim.SetBool("Run", false);
+
             slideTimer += up * Time.deltaTime;
 
             if (normalCollider != null && slideCollider != null)
