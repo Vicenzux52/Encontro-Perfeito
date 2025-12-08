@@ -48,10 +48,9 @@ public class Player : MonoBehaviour
     float slideTimer = 0f;
     float up = 1;
 
-    [Header("Collider Adjustments")]
-    [SerializeField] float slideColliderHeight = 0.5f;
-    private float originalColliderHeight;
-    private Vector3 originalColliderCenter;
+    [Header("Colliders")]
+    [SerializeField] Collider normalCollider;
+    [SerializeField] Collider slideCollider;
 
     int upgrade;
     int cameraState = 0;
@@ -76,7 +75,6 @@ public class Player : MonoBehaviour
 
     [Header("Animations")]
     public Animator anim;
-    public Collider collider;
 
     void Start()
     {
@@ -105,13 +103,10 @@ public class Player : MonoBehaviour
 
         walkVFX.SetActive(false);
 
-        collider = GetComponent<Collider>();
-
-        CapsuleCollider capsuleCollider = collider as CapsuleCollider;
-        if (capsuleCollider != null)
+        if (normalCollider != null && slideCollider != null)
         {
-            originalColliderHeight = capsuleCollider.height;
-            originalColliderCenter = capsuleCollider.center;
+            normalCollider.enabled = true;
+            slideCollider.enabled = false;
         }
 
         anim.SetBool("Run", true);
@@ -325,21 +320,12 @@ public class Player : MonoBehaviour
         {
             anim.SetBool("Sliding", true);
             anim.SetBool("Run", false);
-            //targetRotation = Quaternion.Euler(-slideAngle, 0, 0);
             slideTimer += up * Time.deltaTime;
 
-            CapsuleCollider capsuleCollider = collider as CapsuleCollider;
-            if (capsuleCollider != null)
+            if (normalCollider != null && slideCollider != null)
             {
-                // Calcular quanto o centro foi deslocado para baixo
-                float heightDifference = originalColliderHeight - slideColliderHeight;
-                float centerOffset = heightDifference * 0.035f;
-
-                capsuleCollider.height = slideColliderHeight;
-                capsuleCollider.center = new Vector3(originalColliderCenter.x, slideColliderHeight * 0.5f, originalColliderCenter.z);
-
-                // Levantar o GameObject para compensar a redução do collider
-                transform.position = new Vector3(transform.position.x, transform.position.y + centerOffset, transform.position.z);
+                normalCollider.enabled = false;
+                slideCollider.enabled = true;
             }
 
             if (slideTimer > slideTime)
@@ -351,23 +337,11 @@ public class Player : MonoBehaviour
                 anim.SetBool("Run", true);
             }
         }
-        if (!isSliding)
+
+        if (!isSliding && normalCollider != null && slideCollider != null)
         {
-            //targetRotation = Quaternion.Euler(0, 0, 0);
-
-            CapsuleCollider capsuleCollider = collider as CapsuleCollider;
-            if (capsuleCollider != null)
-            {
-                // Calcular quanto o centro foi deslocado
-                float heightDifference = originalColliderHeight - capsuleCollider.height;
-                float centerOffset = heightDifference * 0.035f;
-
-                // Baixar o GameObject para voltar à posição original
-                transform.position = new Vector3(transform.position.x, transform.position.y - centerOffset,transform.position.z);
-
-                capsuleCollider.height = originalColliderHeight;
-                capsuleCollider.center = originalColliderCenter;
-            }
+            normalCollider.enabled = true;
+            slideCollider.enabled = false;
         }
     }
 
@@ -415,7 +389,6 @@ public class Player : MonoBehaviour
             case 3:
                 limitSpeed *= 1.2f;
                 break;
-
         }
     }
 
@@ -439,6 +412,7 @@ public class Player : MonoBehaviour
             Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Delayer"))
