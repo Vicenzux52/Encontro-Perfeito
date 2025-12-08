@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     public float speedDelay = 0.5f;
     public bool isDelayed = false;
     public float delayTime = 1;
-    float delayCounter = 0; //deve tirar
+    float delayCounter = 0;
 
     [Header("Slide")]
     [SerializeField] float slideAngle = 75f;
@@ -45,18 +45,15 @@ public class Player : MonoBehaviour
     [SerializeField] float slideTime = 1f;
     Quaternion targetRotation;
     bool isSliding = false;
-    float slideTimer = 0f; //deve tirar
+    float slideTimer = 0f;
     float up = 1;
 
-    [Header("Hit")]
-    public Material hitMaterial;
-    private Material originalMaterial;
-    private Renderer rend;
-    public float hitDuration = 3f;
-    private bool isHit = false;
+    [Header("Collider Adjustments")]
+    [SerializeField] float slideColliderHeight = 0.5f;
+    private float originalColliderHeight;
+    private Vector3 originalColliderCenter;
 
     int upgrade;
-    //Outros
     int cameraState = 0;
     Rigidbody rb;
     GameObject cameraHolder;
@@ -70,14 +67,16 @@ public class Player : MonoBehaviour
     public GameObject walkVFX;
     public Transform walkVFXPosition;
     public float timeVFX;
-    //float timerVFX;
 
     private UIController uIController;
 
-    // Variáveis para controle de swipe
     private Vector2 swipeStartPosition;
     private bool isSwiping = false;
     private const float swipeDistance = 100f;
+
+    [Header("Animations")]
+    public Animator anim;
+    public Collider collider;
 
     void Start()
     {
@@ -102,25 +101,29 @@ public class Player : MonoBehaviour
         upgrade = PlayerPrefs.GetInt("UpgradeID", -1);
         SetUpgrade();
 
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    if (transform.GetChild(i).gameObject.CompareTag("PlayerModel"))
-        //    {
-        //        rend = transform.GetChild(i).GetComponent<Renderer>();
-        //        originalMaterial = rend.material;
-        //    }
-        //}
-
         cameraHolder = Camera.main.transform.parent.gameObject;
 
         walkVFX.SetActive(false);
+
+        collider = GetComponent<Collider>();
+
+        CapsuleCollider capsuleCollider = collider as CapsuleCollider;
+        if (capsuleCollider != null)
+        {
+            originalColliderHeight = capsuleCollider.height;
+            originalColliderCenter = capsuleCollider.center;
+        }
+
+        anim.SetBool("Run", true);
+        anim.SetBool("Walk", false);
+        anim.SetBool("Jump", false);
+        anim.SetBool("Sliding", false);
     }
 
     void Update()
     {
         if (canMove)
         {
-            // Processar inputs de touch (mobile)
             ProcessTouchInputs();
 
             GetInputs();
@@ -144,7 +147,6 @@ public class Player : MonoBehaviour
 
     void ProcessTouchInputs()
     {
-        // Processar apenas se não houver 2 toques simultâneos
         if (Input.touchCount != 2 && Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -164,20 +166,16 @@ public class Player : MonoBehaviour
 
                         if (swipeMagnitude > swipeDistance)
                         {
-                            // Determinar direção do swipe
                             if (Mathf.Abs(swipeDelta.x) > Mathf.Abs(swipeDelta.y))
                             {
-                                // Swipe horizontal
                                 if (swipeDelta.x > 0 && route < routeQuantity)
                                 {
-                                    // Swipe para direita
                                     returnOperation = -1;
                                     route++;
                                     DashSound();
                                 }
                                 else if (swipeDelta.x < 0 && route > -routeQuantity)
                                 {
-                                    // Swipe para esquerda
                                     returnOperation = 1;
                                     route--;
                                     DashSound();
@@ -185,17 +183,14 @@ public class Player : MonoBehaviour
                             }
                             else
                             {
-                                // Swipe vertical
                                 if (swipeDelta.y > 0 && !isSliding && !isJumping)
                                 {
-                                    // Swipe para cima (pular)
                                     initialYJump = transform.position.y;
                                     isJumping = true;
                                     DashSound();
                                 }
                                 else if (swipeDelta.y < 0 && !isSliding && !isJumping)
                                 {
-                                    // Swipe para baixo (deslizar)
                                     isSliding = true;
                                 }
                             }
@@ -218,10 +213,9 @@ public class Player : MonoBehaviour
 
     void GetInputs()
     {
-        // Inputs originais do PC (mantidos intactos)
         bool leftInputs = (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && route > -routeQuantity;
         bool rightInputs = (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && route < routeQuantity;
-        bool jumpInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping; //Decidir se o pulo cancela o slide ou só pula mesmo
+        bool jumpInputs = (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !isSliding && !isJumping;
         bool upInputs = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow)) && !isSliding && !isJumping;
         bool slideInputs = (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isSliding && !isJumping;
         bool downInputs = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && isJumping;
@@ -297,7 +291,6 @@ public class Player : MonoBehaviour
             if (route == -1 && !cameraHolder.GetComponent<CameraHolder>().onTransition) frontSpeed = -backDash;
             route = 0;
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, transform.position.y, transform.position.z), lateralSpeed * Time.deltaTime);
-            //adicionar frontdash e delay pra não poder spammar
         }
     }
 
@@ -310,6 +303,8 @@ public class Player : MonoBehaviour
     {
         if (isJumping)
         {
+            anim.SetBool("Jump", true);
+            anim.SetBool("Run", false);
             transform.position = new Vector3(transform.position.x, initialYJump + JumpHeight * Mathf.Pow(Mathf.Sin(timeX / jumpDuration), 1f / 2f),
             transform.position.z);
             timeX += down * Time.deltaTime;
@@ -318,6 +313,8 @@ public class Player : MonoBehaviour
                 down = 1;
                 isJumping = false;
                 timeX = 0;
+                anim.SetBool("Jump", false);
+                anim.SetBool("Run", true);
             }
         }
     }
@@ -326,20 +323,52 @@ public class Player : MonoBehaviour
     {
         if (isSliding)
         {
-            targetRotation = Quaternion.Euler(-slideAngle, 0, 0);
+            anim.SetBool("Sliding", true);
+            anim.SetBool("Run", false);
+            //targetRotation = Quaternion.Euler(-slideAngle, 0, 0);
             slideTimer += up * Time.deltaTime;
+
+            CapsuleCollider capsuleCollider = collider as CapsuleCollider;
+            if (capsuleCollider != null)
+            {
+                // Calcular quanto o centro foi deslocado para baixo
+                float heightDifference = originalColliderHeight - slideColliderHeight;
+                float centerOffset = heightDifference * 0.035f;
+
+                capsuleCollider.height = slideColliderHeight;
+                capsuleCollider.center = new Vector3(originalColliderCenter.x, slideColliderHeight * 0.5f, originalColliderCenter.z);
+
+                // Levantar o GameObject para compensar a redução do collider
+                transform.position = new Vector3(transform.position.x, transform.position.y + centerOffset, transform.position.z);
+            }
+
             if (slideTimer > slideTime)
             {
                 slideTimer = 0f;
                 up = 1f;
                 isSliding = false;
+                anim.SetBool("Sliding", false);
+                anim.SetBool("Run", true);
             }
         }
         if (!isSliding)
         {
-            targetRotation = Quaternion.Euler(0, 0, 0);
+            //targetRotation = Quaternion.Euler(0, 0, 0);
+
+            CapsuleCollider capsuleCollider = collider as CapsuleCollider;
+            if (capsuleCollider != null)
+            {
+                // Calcular quanto o centro foi deslocado
+                float heightDifference = originalColliderHeight - capsuleCollider.height;
+                float centerOffset = heightDifference * 0.035f;
+
+                // Baixar o GameObject para voltar à posição original
+                transform.position = new Vector3(transform.position.x, transform.position.y - centerOffset,transform.position.z);
+
+                capsuleCollider.height = originalColliderHeight;
+                capsuleCollider.center = originalColliderCenter;
+            }
         }
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, slideRotationSpeed * Time.deltaTime);
     }
 
     void Delay()
@@ -372,19 +401,18 @@ public class Player : MonoBehaviour
     {
         switch (upgrade)
         {
-            case 0:                         //Tamagochi
+            case 0:
                 JumpHeight *= 2;
                 limitSpeed *= 0.75f;
                 break;
 
-            case 1:                         //Relogio
+            case 1:
                 lateralSpeed -= 5;
                 break;
 
-            case 2:                         //Presilha
-                //Você fica mais bonitinha
+            case 2:
                 break;
-            case 3:                         //cinto
+            case 3:
                 limitSpeed *= 1.2f;
                 break;
 
@@ -397,50 +425,19 @@ public class Player : MonoBehaviour
         {
             ContactPoint contact = collision.contacts[0];
             Vector3 normal = contact.normal;
-            if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding || cameraState == 1) //bateu de frente, pulando ou deslizando
+            if (isJumping || Vector3.Dot(transform.forward, -normal) > 0.7f || isSliding || cameraState == 1)
             {
                 frontSpeed = -limitSpeed * knockbackMultiplier;
             }
-            else if (Vector3.Dot(transform.forward, -normal) < 0.3f) //bateu de lado voltar pro return dash
+            else if (Vector3.Dot(transform.forward, -normal) < 0.3f)
             {
                 ReturnDash();
-                /* if (transform.position.x < collision.transform.position.x) route--;
-                else route++;
-                isDelayed = true; */
             }
 
             if (isJumping) down *= 2;
 
-            //if (!isHit)
-            //{
-            //    StartCoroutine(FlashMaterial());
-            //}
-
             Debug.Log("Colidi com o: " + collision.gameObject.name + "(" + collision.transform.parent.name + ")");
         }
-
-        /*if (collision.gameObject.CompareTag("Death"))
-        {                
-            PhotoAlbumManager.isGameOverDeath = true;
-            
-            if (uIController != null)
-            {
-                uIController.GameOverDeath();
-            }
-            else
-            {
-                Debug.LogError("UIController é null! Tentando encontrar novamente...");
-                uIController = FindObjectOfType<UIController>();
-                if (uIController != null)
-                {
-                    uIController.GameOverDeath();
-                }
-                else
-                {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                }
-            }
-        }*/
     }
     void OnTriggerEnter(Collider other)
     {
@@ -455,22 +452,6 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-
-    //private System.Collections.IEnumerator FlashMaterial()
-    //{
-    //    isHit = true;
-    //    rend.material = hitMaterial;
-    //    yield return new WaitForSeconds(hitDuration);
-    //    rend.material = originalMaterial;
-    //    isHit = false;
-    //}
-
-    //void VFXInstance(Transform vfx, Transform position) 
-    //{
-    //    Transform vfxInstance = Instantiate(vfx, position.position, Quaternion.identity);
-    //    //timerVFX = 0f;
-    //    Destroy(vfxInstance.gameObject, 1f);
-    //}
 
     void SaveDeathInfo()
     {

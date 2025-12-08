@@ -135,6 +135,8 @@ MonoBehaviour:
   walkVFX: {fileID: 6089003115069201879}
   walkVFXPosition: {fileID: 3311160487309213979}
   timeVFX: 2
+  anim: {fileID: 6537954311643753127}
+  collider: {fileID: 6342180127589059709}
 --- !u!114 &3395108804472191768
 MonoBehaviour:
   m_ObjectHideFlags: 0
